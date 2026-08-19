@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CompTIA A+ Practice Exams</title>
+  <meta name="description" content="Free CompTIA A+ practice exams covering Core 1 (220-1101) and Core 2 (220-1102), with instant grading and full answer explanations." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-aplus">
+
+<!-- ════════════════════════════════ SITE NAVIGATION ════════════════════════════════ -->
+<nav class="site-nav">
+  <a class="nav-brand" href="index.html">
+    <span class="brand-badge">REF</span>
+    <span class="brand-text">C-FAMILY REF</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-item tab-c" href="index.html">C</a>
+    <a class="nav-item tab-cpp" href="cpp.html">C++</a>
+    <a class="nav-item tab-cs" href="csharp.html">C#</a>
+    <a class="nav-item tab-compare" href="compare.html">Rosetta Stone</a>
+    <span class="nav-divider"></span>
+    <a class="nav-item tab-aplus active" href="aplus.html">A+</a>
+    <a class="nav-item tab-security" href="security.html">Security+</a>
+    <a class="nav-item tab-network" href="network.html">Network+</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════ HERO ════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-badge">Practice Exams</div>
+  <h1>CompTIA A+ Practice Exams</h1>
+  <p>Free practice questions for the CompTIA A+ Core 1 (220-1101) and Core 2 (220-1102) exams. Take a timed-style practice run, get instant grading, and review full explanations for every question.</p>
+</header>
+
+<div class="wrapper">
+  <div class="quiz-app" id="certApp" data-cert="aplus">
+    <p class="quiz-error">Loading practice exams...</p>
+  </div>
+</div>
+
+<footer>
+  <p>CompTIA A+ Practice Exams &nbsp;|&nbsp; Core 1 (220-1101) &amp; Core 2 (220-1102) &nbsp;|&nbsp; Also see <a href="security.html">Security+</a> and <a href="network.html">Network+</a></p>
+</footer>
+
+<script src="cert-data.js"></script>
+<script src="quiz.js"></script>
+
+</body>
+</html>

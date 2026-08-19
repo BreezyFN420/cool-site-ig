@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C Cheat Sheet — Baby to NASA Level</title>
+  <meta name="description" content="A comprehensive C programming cheat sheet going from absolute beginner basics to advanced NASA-level concepts, with human, casual commentary." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ════════════════════════════════ SITE NAVIGATION ════════════════════════════════ -->
+<nav class="site-nav">
+  <a class="nav-brand" href="index.html">
+    <span class="brand-badge">REF</span>
+    <span class="brand-text">C-FAMILY REF</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-item tab-c active" href="index.html">C</a>
+    <a class="nav-item tab-cpp" href="cpp.html">C++</a>
+    <a class="nav-item tab-cs" href="csharp.html">C#</a>
+    <a class="nav-item tab-compare" href="compare.html">Rosetta Stone</a>
+    <span class="nav-divider"></span>
+    <a class="nav-item tab-aplus" href="aplus.html">A+</a>
+    <a class="nav-item tab-security" href="security.html">Security+</a>
+    <a class="nav-item tab-network" href="network.html">Network+</a>
+  </div>
+  <div class="nav-search-container">
+    <input type="text" id="globalSearchInput" class="nav-search-input" placeholder="Search C syntax, pointers, keywords... (Press /)" aria-label="Search cheatsheet" autocomplete="off" />
+    <span class="search-shortcut-hint">/</span>
+  </div>
+</nav>
+
+<!--
+  ==========================================================================
+   EDIT STUFF HERE — this is the only part of the file you should need
+  to touch if you just wanna rename a category or change the header text.
+  everything below this script (all the <div> soup) is just the actual
+  page content and it pulls its words FROM this list automatically.
+  ==========================================================================
+-->
+<script>
+  const CONFIG = {
+
+    // the big text at the very top of the page
+    heroBadge:    "The Ultimate Reference",
+    heroTitle:    "C Programming Cheat Sheet",
+    heroSubtitle: "From \"wtf is a variable\" to \"I work at NASA now.\" Every concept explained like you're human, not a textbook.",
+
+    // the 6 little pill buttons under the header (order matches the sections below)
+    pills: [
+      "Baby Basics",
+      "Getting Somewhere",
+      "Actually Cooking",
+      "Deep Shit",
+      "Black Magic",
+      "NASA Rules"
+    ],
+
+    // the 6 main categories on the page. change "title" to rename a category,
+    // "desc" is the little gray subtitle under it, "tag" is the badge on the right
+    sections: [
+      { title: "Baby Basics",                  desc: "You literally just installed a compiler. Congrats.",                          tag: "Beginner" },
+      { title: "Getting Somewhere",             desc: "Loops, functions, arrays — now you're actually doing stuff.",                 tag: "Intermediate" },
+      { title: "Actually Cooking",              desc: "Pointers, structs, memory — the real C experience begins.",                   tag: "Intermediate+" },
+      { title: "Deep Shit",                     desc: "Preprocessor, bitwise ops, function pointers — welcome to the deep end.",      tag: "Advanced" },
+      { title: "Black Magic",                   desc: "Memory models, undefined behavior, volatile, inline assembly. Here we go.",    tag: "Expert" },
+      { title: "NASA Rules & Production-Grade C", desc: "The Power of 10. Safety-critical. This code runs on spacecraft.",            tag: "NASA Level" }
+    ]
+  };
+</script>
+
+<!-- ════════════════════════════════ HERO ════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-badge" id="heroBadge">The Ultimate Reference</div>
+  <h1 id="heroTitle">C Programming Cheat Sheet</h1>
+  <p id="heroSubtitle">From "wtf is a variable" to "I work at NASA now." Every concept explained like you're human, not a textbook.</p>
+  <div class="level-pills">
+    <a class="pill pill-1" href="#s1" id="pill1">Baby Basics</a>
+    <a class="pill pill-2" href="#s2" id="pill2">Getting Somewhere</a>
+    <a class="pill pill-3" href="#s3" id="pill3">Actually Cooking</a>
+    <a class="pill pill-4" href="#s4" id="pill4">Deep Shit</a>
+    <a class="pill pill-5" href="#s5" id="pill5">Black Magic</a>
+    <a class="pill pill-6" href="#s6" id="pill6">NASA Rules</a>
+  </div>
+</header>
+
+<div class="wrapper">
+
+  <div class="search-results-bar" id="searchResultsBar">
+    <span id="searchResultsCount">Found 0 matching cards</span>
+    <button type="button" class="search-clear-btn" id="searchClearBtn">Clear Search</button>
+  </div>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 1 — BABY BASICS
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s1" id="s1">
+  <div class="section-num">1</div>
+  <div>
+    <div class="section-title" id="sec1Title">Baby Basics</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec1Desc">You literally just installed a compiler. Congrats.</div>
+  </div>
+  <div class="section-label" id="sec1Label">Beginner</div>
+</div>
+<div class="grid">
+
+  <!-- Hello World -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Hello World — Your First Program</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// every C file needs this. stdio.h = standard input/output.</span>
+<span class="cm">// without it you literally can't print shit to the screen</span>
+<span class="pp">#include</span> <span class="st">&lt;stdio.h&gt;</span>
+
+<span class="cm">// int main() is THE entry point. program starts here, period.</span>
+<span class="cm">// return 0 means "hey OS, everything went fine, chill"</span>
+<span class="ty">int</span> <span class="fn">main</span>() {
+    <span class="cm">// printf = "print formatted". \n is a newline (enter key basically)</span>
+    <span class="fn">printf</span>(<span class="st">"Hello, World!\n"</span>);
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</pre>
+      <div class="callout tip">Compile it: <code>gcc hello.c -o hello</code> then run: <code>./hello</code> — that's literally it.</div>
+    </div>
+  </div>
+
+  <!-- Data Types -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Data Types — What Kind of Crap You're Storing</span></div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Type</th><th>Size</th><th>What it holds</th></tr>
+          <tr><td>int</td><td>4 bytes</td><td class="desc">Whole numbers. No decimals, don't even try.</td></tr>
+          <tr><td>float</td><td>4 bytes</td><td class="desc">Decimals. ~7 digits of precision. Gets sketchy fast.</td></tr>
+          <tr><td>double</td><td>8 bytes</td><td class="desc">Better decimals. Use this over float unless you hate memory.</td></tr>
+          <tr><td>char</td><td>1 byte</td><td class="desc">Single character. Like 'A' or '$'. Yes it's tiny.</td></tr>
+          <tr><td>long</td><td>8 bytes</td><td class="desc">Big-ass integers. When int just isn't enough.</td></tr>
+          <tr><td>short</td><td>2 bytes</td><td class="desc">Tiny int. You'll rarely use this but it exists.</td></tr>
+          <tr><td>unsigned int</td><td>4 bytes</td><td class="desc">Only positive ints. Double the max value tho.</td></tr>
+          <tr><td>void</td><td>0</td><td class="desc">Nothing. "This function returns nothing, shut up."</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variables -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Variables — Boxes That Hold Your Stuff</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// format: type name = value;</span>
+<span class="cm">// think of it like labeling a box before you put shit in it</span>
+<span class="ty">int</span> <span class="va">age</span> = <span class="nm">17</span>;
+<span class="ty">float</span> <span class="va">gpa</span> = <span class="nm">3.7</span>;
+<span class="ty">char</span> <span class="va">grade</span> = <span class="st">'A'</span>;      <span class="cm">// single quotes for char, don't mess this up</span>
+<span class="ty">double</span> <span class="va">bigNum</span> = <span class="nm">9999999.99</span>;
+
+<span class="cm">// you can declare without assigning (it'll have garbage value lol)</span>
+<span class="ty">int</span> <span class="va">x</span>;        <span class="cm">// x = some random bullshit number. be careful.</span>
+<span class="va">x</span> = <span class="nm">42</span>;       <span class="cm">// now x is 42. finally.</span>
+
+<span class="cm">// const = you CAN'T change it later. compiler will yell at you.</span>
+<span class="kw">const</span> <span class="ty">float</span> <span class="va">PI</span> = <span class="nm">3.14159</span>;</pre>
+    </div>
+  </div>
+
+  <!-- printf / scanf -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">printf & scanf — Talking To / Hearing From the User</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// format specifiers: how you shove variables into strings</span>
+<span class="ty">int</span> <span class="va">score</span> = <span class="nm">100</span>;
+<span class="ty">float</span> <span class="va">temp</span> = <span class="nm">98.6</span>;
+<span class="ty">char</span> <span class="va">letter</span> = <span class="st">'B'</span>;
+
+<span class="fn">printf</span>(<span class="st">"Score: %d\n"</span>, <span class="va">score</span>);     <span class="cm">// %d = integer</span>
+<span class="fn">printf</span>(<span class="st">"Temp: %.1f\n"</span>, <span class="va">temp</span>);     <span class="cm">// %.1f = float, 1 decimal place</span>
+<span class="fn">printf</span>(<span class="st">"Grade: %c\n"</span>, <span class="va">letter</span>);    <span class="cm">// %c = char</span>
+<span class="fn">printf</span>(<span class="st">"Name: %s\n"</span>, <span class="st">"Chad"</span>);     <span class="cm">// %s = string</span>
+
+<span class="cm">// scanf reads user input. THE & IS NOT OPTIONAL.</span>
+<span class="cm">// & means "address of". forget it = segfault = your program dies</span>
+<span class="ty">int</span> <span class="va">num</span>;
+<span class="fn">scanf</span>(<span class="st">"%d"</span>, <span class="op">&amp;</span><span class="va">num</span>);   <span class="cm">// reads an int the user types</span></pre>
+      <div class="callout warn">Always put <code>&amp;</code> before your variable in scanf or it WILL crash. No exceptions.</div>
+    </div>
+  </div>
+
+  <!-- Operators -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Operators — Math & Logic Stuff</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// arithmetic — basic ass math</span>
+<span class="ty">int</span> <span class="va">a</span> = <span class="nm">10</span>, <span class="va">b</span> = <span class="nm">3</span>;
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">a</span> <span class="op">+</span> <span class="va">b</span>);   <span class="cm">// 13</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">a</span> <span class="op">-</span> <span class="va">b</span>);   <span class="cm">// 7</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">a</span> <span class="op">*</span> <span class="va">b</span>);   <span class="cm">// 30</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">a</span> <span class="op">/</span> <span class="va">b</span>);   <span class="cm">// 3 — INT DIVISION. no decimal. R.I.P. the .33</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">a</span> <span class="op">%</span> <span class="va">b</span>);   <span class="cm">// 1 — modulo = remainder. super useful btw</span>
+
+<span class="cm">// shorthand — because typing is exhausting</span>
+<span class="va">a</span><span class="op">++</span>;           <span class="cm">// a = a + 1  (same as a += 1)</span>
+<span class="va">a</span><span class="op">--</span>;           <span class="cm">// a = a - 1</span>
+<span class="va">a</span> <span class="op">+=</span> <span class="nm">5</span>;        <span class="cm">// a = a + 5</span>
+<span class="va">a</span> <span class="op">*=</span> <span class="nm">2</span>;        <span class="cm">// a = a * 2</span>
+
+<span class="cm">// comparison — returns 1 (true) or 0 (false)</span>
+<span class="va">a</span> <span class="op">==</span> <span class="va">b</span>   <span class="cm">// equal? (NOT = which is assignment, don't mix these up)</span>
+<span class="va">a</span> <span class="op">!=</span> <span class="va">b</span>   <span class="cm">// not equal?</span>
+<span class="va">a</span> <span class="op">&gt;</span> <span class="va">b</span>    <span class="cm">// greater than?</span>
+<span class="va">a</span> <span class="op">&lt;=</span> <span class="va">b</span>   <span class="cm">// less than or equal?</span>
+
+<span class="cm">// logical — combining conditions</span>
+<span class="va">a</span> <span class="op">&gt;</span> <span class="nm">0</span> <span class="op">&amp;&amp;</span> <span class="va">b</span> <span class="op">&gt;</span> <span class="nm">0</span>   <span class="cm">// AND — both must be true</span>
+<span class="va">a</span> <span class="op">&gt;</span> <span class="nm">0</span> <span class="op">||</span> <span class="va">b</span> <span class="op">&gt;</span> <span class="nm">0</span>   <span class="cm">// OR — at least one must be true</span>
+<span class="op">!</span>(<span class="va">a</span> <span class="op">&gt;</span> <span class="nm">0</span>)          <span class="cm">// NOT — flips it</span></pre>
+    </div>
+  </div>
+
+  <!-- If/Else -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">If / Else — Making Decisions Like a Normal Person</span></div>
+    <div class="card-body">
+      <pre><span class="ty">int</span> <span class="va">grade</span> = <span class="nm">75</span>;
+
+<span class="cm">// if the condition in () is true, run the {} block</span>
+<span class="kw">if</span> (<span class="va">grade</span> <span class="op">&gt;=</span> <span class="nm">90</span>) {
+    <span class="fn">printf</span>(<span class="st">"You're a genius or you cheated\n"</span>);
+} <span class="kw">else if</span> (<span class="va">grade</span> <span class="op">&gt;=</span> <span class="nm">70</span>) {
+    <span class="fn">printf</span>(<span class="st">"Decent. Could be worse.\n"</span>);
+} <span class="kw">else if</span> (<span class="va">grade</span> <span class="op">&gt;=</span> <span class="nm">60</span>) {
+    <span class="fn">printf</span>(<span class="st">"Barely passing lmao\n"</span>);
+} <span class="kw">else</span> {
+    <span class="fn">printf</span>(<span class="st">"Bro... study more\n"</span>);
+}
+
+<span class="cm">// ternary operator — if/else on one line (flex move)</span>
+<span class="cm">// condition ? value_if_true : value_if_false</span>
+<span class="ty">int</span> <span class="va">max</span> = (<span class="va">grade</span> <span class="op">&gt;</span> <span class="nm">50</span>) <span class="op">?</span> <span class="va">grade</span> <span class="op">:</span> <span class="nm">50</span>;
+<span class="fn">printf</span>(<span class="st">"Max of grade/50: %d\n"</span>, <span class="va">max</span>);</pre>
+    </div>
+  </div>
+
+</div><!-- /grid -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 2 — GETTING SOMEWHERE
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s2" id="s2">
+  <div class="section-num">2</div>
+  <div>
+    <div class="section-title" id="sec2Title">Getting Somewhere</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec2Desc">Loops, functions, arrays — now you're actually doing stuff.</div>
+  </div>
+  <div class="section-label" id="sec2Label">Intermediate</div>
+</div>
+<div class="grid">
+
+  <!-- Loops -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Loops — Repeat Shit Without Copy-Pasting</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// FOR loop — when you know how many times to loop</span>
+<span class="cm">// for (start; keep going while; do this each time)</span>
+<span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="nm">0</span>; <span class="va">i</span> <span class="op">&lt;</span> <span class="nm">5</span>; <span class="va">i</span><span class="op">++</span>) {
+    <span class="fn">printf</span>(<span class="st">"Loop #%d\n"</span>, <span class="va">i</span>);  <span class="cm">// prints 0 1 2 3 4 (NOT 5, < not <=)</span>
+}
+
+<span class="cm">// WHILE loop — when you don't know how many times</span>
+<span class="ty">int</span> <span class="va">count</span> = <span class="nm">0</span>;
+<span class="kw">while</span> (<span class="va">count</span> <span class="op">&lt;</span> <span class="nm">3</span>) {
+    <span class="fn">printf</span>(<span class="st">"Still going: %d\n"</span>, <span class="va">count</span>);
+    <span class="va">count</span><span class="op">++</span>;   <span class="cm">// DON'T FORGET THIS. infinite loop = freeze = sadness</span>
+}
+
+<span class="cm">// DO-WHILE — runs at least once, THEN checks condition</span>
+<span class="kw">do</span> {
+    <span class="fn">printf</span>(<span class="st">"I ran at least once no matter what\n"</span>);
+    <span class="va">count</span><span class="op">++</span>;
+} <span class="kw">while</span> (<span class="va">count</span> <span class="op">&lt;</span> <span class="nm">1</span>);
+
+<span class="cm">// break = GTFO the loop immediately</span>
+<span class="cm">// continue = skip this iteration, keep looping</span>
+<span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="nm">0</span>; <span class="va">i</span> <span class="op">&lt;</span> <span class="nm">10</span>; <span class="va">i</span><span class="op">++</span>) {
+    <span class="kw">if</span> (<span class="va">i</span> <span class="op">==</span> <span class="nm">5</span>) <span class="kw">break</span>;      <span class="cm">// stops at 5</span>
+    <span class="kw">if</span> (<span class="va">i</span> <span class="op">%</span> <span class="nm">2</span> <span class="op">==</span> <span class="nm">0</span>) <span class="kw">continue</span>; <span class="cm">// skips even numbers</span>
+    <span class="fn">printf</span>(<span class="st">"%d "</span>, <span class="va">i</span>);         <span class="cm">// prints: 1 3 (evens skipped, stops at 5)</span>
+}</pre>
+    </div>
+  </div>
+
+  <!-- Switch -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Switch — Cleaner Than a Million If/Elses</span></div>
+    <div class="card-body">
+      <pre><span class="ty">int</span> <span class="va">day</span> = <span class="nm">3</span>;
+
+<span class="kw">switch</span> (<span class="va">day</span>) {    <span class="cm">// checks day against each case</span>
+    <span class="kw">case</span> <span class="nm">1</span>:
+        <span class="fn">printf</span>(<span class="st">"Monday. Ugh.\n"</span>);
+        <span class="kw">break</span>;  <span class="cm">// ALWAYS break or it falls through to next case</span>
+    <span class="kw">case</span> <span class="nm">2</span>:
+        <span class="fn">printf</span>(<span class="st">"Tuesday. Still rough.\n"</span>);
+        <span class="kw">break</span>;
+    <span class="kw">case</span> <span class="nm">3</span>:
+        <span class="fn">printf</span>(<span class="st">"Wednesday. Hump day lol.\n"</span>);
+        <span class="kw">break</span>;
+    <span class="kw">default</span>:           <span class="cm">// like the "else" — catches everything else</span>
+        <span class="fn">printf</span>(<span class="st">"Some other day idk\n"</span>);
+}
+
+<span class="cm">// fall-through trick — when two cases do the same thing</span>
+<span class="kw">switch</span> (<span class="va">day</span>) {
+    <span class="kw">case</span> <span class="nm">6</span>:   <span class="cm">// no break here, falls through to case 7</span>
+    <span class="kw">case</span> <span class="nm">7</span>:
+        <span class="fn">printf</span>(<span class="st">"WEEKEND BABY LET'S GO\n"</span>);
+        <span class="kw">break</span>;
+}</pre>
+      <div class="callout warn">Missing a <code>break</code> is one of the most classic C bugs ever. Don't be that person.</div>
+    </div>
+  </div>
+
+  <!-- Functions -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Functions — Reusable Chunks of Logic</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// define a function BEFORE main() or declare it as a prototype</span>
+<span class="cm">// returnType functionName(param1, param2) { ... }</span>
+
+<span class="cm">// this function takes two ints and returns their sum</span>
+<span class="ty">int</span> <span class="fn">add</span>(<span class="ty">int</span> <span class="va">a</span>, <span class="ty">int</span> <span class="va">b</span>) {
+    <span class="kw">return</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b</span>;   <span class="cm">// sends the value back to whoever called it</span>
+}
+
+<span class="cm">// void functions return nothing — just DO stuff</span>
+<span class="ty">void</span> <span class="fn">greet</span>(<span class="ty">char</span> <span class="va">name</span>[]) {
+    <span class="fn">printf</span>(<span class="st">"Hey %s, what's up!\n"</span>, <span class="va">name</span>);
+}
+
+<span class="cm">// function prototype — declare it up top so you can define it anywhere</span>
+<span class="ty">double</span> <span class="fn">power</span>(<span class="ty">double</span> <span class="va">base</span>, <span class="ty">int</span> <span class="va">exp</span>);  <span class="cm">// just the signature, no body</span>
+
+<span class="ty">int</span> <span class="fn">main</span>() {
+    <span class="ty">int</span> <span class="va">result</span> = <span class="fn">add</span>(<span class="nm">5</span>, <span class="nm">3</span>);  <span class="cm">// result = 8</span>
+    <span class="fn">greet</span>(<span class="st">"Alex"</span>);
+    <span class="fn">printf</span>(<span class="st">"2^10 = %.0f\n"</span>, <span class="fn">power</span>(<span class="nm">2.0</span>, <span class="nm">10</span>));
+    <span class="kw">return</span> <span class="nm">0</span>;
+}
+
+<span class="cm">// defined down here because we prototyped it above</span>
+<span class="ty">double</span> <span class="fn">power</span>(<span class="ty">double</span> <span class="va">base</span>, <span class="ty">int</span> <span class="va">exp</span>) {
+    <span class="ty">double</span> <span class="va">result</span> = <span class="nm">1.0</span>;
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="nm">0</span>; <span class="va">i</span> <span class="op">&lt;</span> <span class="va">exp</span>; <span class="va">i</span><span class="op">++</span>) <span class="va">result</span> <span class="op">*=</span> <span class="va">base</span>;
+    <span class="kw">return</span> <span class="va">result</span>;
+}</pre>
+    </div>
+  </div>
+
+  <!-- Arrays -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Arrays — Lists of the Same Type of Stuff</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// array = a fixed-size list. all same type. indexed from 0.</span>
+<span class="ty">int</span> <span class="va">scores</span>[<span class="nm">5</span>] = {<span class="nm">95</span>, <span class="nm">87</span>, <span class="nm">76</span>, <span class="nm">92</span>, <span class="nm">83</span>};
+
+<span class="cm">// access by index. first element = [0]. last = [4] NOT [5].</span>
+<span class="cm">// going out of bounds = undefined behavior = random chaos. BE CAREFUL.</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">scores</span>[<span class="nm">0</span>]);  <span class="cm">// 95</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">scores</span>[<span class="nm">4</span>]);  <span class="cm">// 83</span>
+
+<span class="cm">// loop through array — this is the standard move</span>
+<span class="ty">int</span> <span class="va">len</span> = <span class="nm">5</span>;
+<span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="nm">0</span>; <span class="va">i</span> <span class="op">&lt;</span> <span class="va">len</span>; <span class="va">i</span><span class="op">++</span>) {
+    <span class="fn">printf</span>(<span class="st">"Score %d: %d\n"</span>, <span class="va">i</span>, <span class="va">scores</span>[<span class="va">i</span>]);
+}
+
+<span class="cm">// 2D array — like a grid or table</span>
+<span class="ty">int</span> <span class="va">grid</span>[<span class="nm">3</span>][<span class="nm">3</span>] = {
+    {<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>},
+    {<span class="nm">4</span>, <span class="nm">5</span>, <span class="nm">6</span>},
+    {<span class="nm">7</span>, <span class="nm">8</span>, <span class="nm">9</span>}
+};
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">grid</span>[<span class="nm">1</span>][<span class="nm">2</span>]);  <span class="cm">// row 1, col 2 = 6</span>
+
+<span class="cm">// get array size at compile time (only works in same scope it's declared)</span>
+<span class="ty">int</span> <span class="va">size</span> = <span class="kw">sizeof</span>(<span class="va">scores</span>) <span class="op">/</span> <span class="kw">sizeof</span>(<span class="va">scores</span>[<span class="nm">0</span>]);  <span class="cm">// 20/4 = 5</span></pre>
+    </div>
+  </div>
+
+  <!-- Strings -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Strings — Just Arrays of Chars (It's Annoying, I Know)</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;string.h&gt;</span>  <span class="cm">// need this for string functions</span>
+
+<span class="cm">// strings are char arrays ending with '\0' (null terminator)</span>
+<span class="cm">// C literally does NOT have a String type. it's always this.</span>
+<span class="ty">char</span> <span class="va">name</span>[<span class="nm">20</span>] = <span class="st">"Alex"</span>;   <span class="cm">// stored as: A, l, e, x, \0 + garbage</span>
+<span class="ty">char</span> <span class="va">city</span>[] = <span class="st">"NYC"</span>;     <span class="cm">// compiler figures out the size (4 bytes: N,Y,C,\0)</span>
+
+<span class="cm">// useful string functions from string.h</span>
+<span class="fn">strlen</span>(<span class="va">name</span>);            <span class="cm">// length of string (NOT counting \0)</span>
+<span class="fn">strcpy</span>(<span class="va">name</span>, <span class="st">"Jordan"</span>);  <span class="cm">// copy "Jordan" into name. DON'T overflow the buffer!</span>
+<span class="fn">strcat</span>(<span class="va">name</span>, <span class="st">" Smith"</span>); <span class="cm">// append " Smith" to name. again, watch size.</span>
+<span class="fn">strcmp</span>(<span class="va">name</span>, <span class="st">"Alex"</span>);   <span class="cm">// compare. 0 = equal, neg = less, pos = greater</span>
+
+<span class="cm">// NEVER use == to compare strings. it compares addresses, not content.</span>
+<span class="cm">// that's one of those bugs that'll haunt you for hours lmao</span>
+<span class="kw">if</span> (<span class="fn">strcmp</span>(<span class="va">name</span>, <span class="st">"Alex"</span>) <span class="op">==</span> <span class="nm">0</span>) {
+    <span class="fn">printf</span>(<span class="st">"Same name!\n"</span>);
+}</pre>
+      <div class="callout danger">Don't use <code>==</code> on strings. Use <code>strcmp()</code>. Seriously. This trips up everyone.</div>
+    </div>
+  </div>
+
+  <!-- Scope -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Scope — Where Variables Actually Exist</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// global variables — accessible from ANY function in the file</span>
+<span class="cm">// generally avoid using these. it gets messy fast.</span>
+<span class="ty">int</span> <span class="va">globalCount</span> = <span class="nm">0</span>;
+
+<span class="ty">void</span> <span class="fn">increment</span>() {
+    <span class="va">globalCount</span><span class="op">++</span>;  <span class="cm">// can see globalCount because it's global</span>
+
+    <span class="cm">// local variable — ONLY lives inside this function</span>
+    <span class="ty">int</span> <span class="va">localVar</span> = <span class="nm">10</span>;
+}  <span class="cm">// localVar is GONE after this }. it doesn't exist anymore.</span>
+
+<span class="cm">// static local — keeps its value between function calls</span>
+<span class="ty">void</span> <span class="fn">counter</span>() {
+    <span class="kw">static</span> <span class="ty">int</span> <span class="va">count</span> = <span class="nm">0</span>;  <span class="cm">// initialized ONCE, persists between calls</span>
+    <span class="va">count</span><span class="op">++</span>;
+    <span class="fn">printf</span>(<span class="st">"Called %d times\n"</span>, <span class="va">count</span>);
+}</pre>
+    </div>
+  </div>
+
+</div><!-- /grid -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 3 — ACTUALLY COOKING
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s3" id="s3">
+  <div class="section-num">3</div>
+  <div>
+    <div class="section-title" id="sec3Title">Actually Cooking</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec3Desc">Pointers, structs, memory — the real C experience begins.</div>
+  </div>
+  <div class="section-label" id="sec3Label">Intermediate+</div>
+</div>
+<div class="grid">
+
+  <!-- Pointers -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Pointers — The Most Confusing Shit in C (It Clicks, I Promise)</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// every variable lives at some memory address. a pointer STORES that address.</span>
+<span class="cm">// think: pointer is a sticky note with someone's home address on it</span>
+
+<span class="ty">int</span> <span class="va">x</span> = <span class="nm">42</span>;
+<span class="ty">int</span> <span class="op">*</span><span class="va">p</span>;          <span class="cm">// p is a pointer to an int. the * means "pointer to"</span>
+<span class="va">p</span> = <span class="op">&amp;</span><span class="va">x</span>;          <span class="cm">// & means "give me the address of x". now p points to x.</span>
+
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">x</span>);    <span class="cm">// 42 — the actual value</span>
+<span class="fn">printf</span>(<span class="st">"%p\n"</span>, <span class="va">p</span>);    <span class="cm">// some address like 0x7fff... — memory location</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="op">*</span><span class="va">p</span>);   <span class="cm">// 42 — *p = "go to that address and get the value" = dereference</span>
+
+<span class="cm">// changing x THROUGH the pointer</span>
+<span class="op">*</span><span class="va">p</span> = <span class="nm">100</span>;   <span class="cm">// x is now 100. wild right? we changed x without touching x directly.</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">x</span>);  <span class="cm">// 100 ← yep, changed.</span>
+
+<span class="cm">// NULL pointer — pointer that points to nothing. safe default.</span>
+<span class="ty">int</span> <span class="op">*</span><span class="va">ptr</span> = <span class="kw">NULL</span>;
+<span class="kw">if</span> (<span class="va">ptr</span> <span class="op">!=</span> <span class="kw">NULL</span>) {   <span class="cm">// ALWAYS check before dereferencing or you segfault</span>
+    <span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="op">*</span><span class="va">ptr</span>);
+}</pre>
+      <div class="callout danger">Dereferencing a NULL or uninitialized pointer = segmentation fault = your program is dead. Check first.</div>
+    </div>
+  </div>
+
+  <!-- Pointer Arithmetic -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Pointer Arithmetic — Navigating Memory Like a GPS</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// arrays and pointers are SUPER related in C</span>
+<span class="cm">// the array name IS a pointer to the first element</span>
+<span class="ty">int</span> <span class="va">arr</span>[<span class="nm">5</span>] = {<span class="nm">10</span>, <span class="nm">20</span>, <span class="nm">30</span>, <span class="nm">40</span>, <span class="nm">50</span>};
+<span class="ty">int</span> <span class="op">*</span><span class="va">p</span> = <span class="va">arr</span>;   <span class="cm">// p points to arr[0]</span>
+
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="op">*</span><span class="va">p</span>);         <span class="cm">// 10 — arr[0]</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="op">*</span>(<span class="va">p</span><span class="op">+</span><span class="nm">1</span>));     <span class="cm">// 20 — arr[1]. p+1 moves forward by sizeof(int)</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="op">*</span>(<span class="va">p</span><span class="op">+</span><span class="nm">4</span>));     <span class="cm">// 50 — arr[4]</span>
+
+<span class="cm">// arr[i] and *(arr+i) are literally identical. C translates one to the other.</span>
+<span class="cm">// this is why arrays start at 0 — it's an OFFSET from the start address</span>
+
+<span class="va">p</span><span class="op">++</span>;   <span class="cm">// moves p forward by sizeof(int) bytes. now points to arr[1]</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="op">*</span><span class="va">p</span>);  <span class="cm">// 20</span>
+
+<span class="cm">// pointer to pointer — yes this is a thing and yes it's annoying</span>
+<span class="ty">int</span> <span class="op">**</span><span class="va">pp</span> = <span class="op">&amp;</span><span class="va">p</span>;   <span class="cm">// pp points to p which points to x. pointer inception.</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="op">**</span><span class="va">pp</span>);  <span class="cm">// dereference twice to get the actual value</span></pre>
+    </div>
+  </div>
+
+  <!-- Structs -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Structs — Grouping Related Data Together Like a Class (But Simpler)</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// struct = a custom data type made of other types</span>
+<span class="cm">// like if you want to store info about a person in one place</span>
+<span class="kw">struct</span> <span class="ty">Person</span> {
+    <span class="ty">char</span> <span class="va">name</span>[<span class="nm">50</span>];
+    <span class="ty">int</span>  <span class="va">age</span>;
+    <span class="ty">float</span> <span class="va">gpa</span>;
+};
+
+<span class="cm">// or use typedef so you don't have to type "struct" every time</span>
+<span class="kw">typedef</span> <span class="kw">struct</span> {
+    <span class="ty">char</span> <span class="va">name</span>[<span class="nm">50</span>];
+    <span class="ty">int</span>  <span class="va">age</span>;
+    <span class="ty">float</span> <span class="va">gpa</span>;
+} <span class="ty">Person</span>;
+
+<span class="ty">Person</span> <span class="va">p1</span>;                      <span class="cm">// now no need to write "struct Person"</span>
+<span class="fn">strcpy</span>(<span class="va">p1</span>.<span class="va">name</span>, <span class="st">"Maya"</span>);        <span class="cm">// dot notation to access fields</span>
+<span class="va">p1</span>.<span class="va">age</span> = <span class="nm">17</span>;
+<span class="va">p1</span>.<span class="va">gpa</span> = <span class="nm">3.9</span>;
+
+<span class="cm">// or initialize all at once</span>
+<span class="ty">Person</span> <span class="va">p2</span> = {<span class="st">"Jordan"</span>, <span class="nm">18</span>, <span class="nm">3.5</span>};
+
+<span class="cm">// struct pointer — use -> instead of dot when you have a pointer to a struct</span>
+<span class="ty">Person</span> <span class="op">*</span><span class="va">ptr</span> = <span class="op">&amp;</span><span class="va">p1</span>;
+<span class="fn">printf</span>(<span class="st">"%s is %d years old\n"</span>, <span class="va">ptr</span><span class="op">-&gt;</span><span class="va">name</span>, <span class="va">ptr</span><span class="op">-&gt;</span><span class="va">age</span>);
+<span class="cm">// ptr->name is the same as (*ptr).name. -> is just cleaner.</span></pre>
+    </div>
+  </div>
+
+  <!-- Dynamic Memory -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Dynamic Memory — Asking the OS for RAM at Runtime</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;stdlib.h&gt;</span>  <span class="cm">// need this for malloc, calloc, realloc, free</span>
+
+<span class="cm">// malloc — allocate N bytes of memory. returns a void pointer (cast it)</span>
+<span class="cm">// this is memory on the HEAP, not the stack. it persists until you free it.</span>
+<span class="ty">int</span> <span class="op">*</span><span class="va">arr</span> = (<span class="ty">int</span><span class="op">*</span>) <span class="fn">malloc</span>(<span class="nm">5</span> <span class="op">*</span> <span class="kw">sizeof</span>(<span class="ty">int</span>));  <span class="cm">// space for 5 ints</span>
+
+<span class="cm">// ALWAYS check if malloc returned NULL (means system is out of memory)</span>
+<span class="kw">if</span> (<span class="va">arr</span> <span class="op">==</span> <span class="kw">NULL</span>) {
+    <span class="fn">printf</span>(<span class="st">"malloc failed. system is cooked.\n"</span>);
+    <span class="kw">return</span> <span class="nm">1</span>;
+}
+
+<span class="cm">// use it like a normal array</span>
+<span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="nm">0</span>; <span class="va">i</span> <span class="op">&lt;</span> <span class="nm">5</span>; <span class="va">i</span><span class="op">++</span>) <span class="va">arr</span>[<span class="va">i</span>] = <span class="va">i</span> <span class="op">*</span> <span class="nm">10</span>;
+
+<span class="cm">// calloc — like malloc but ZEROES out the memory. safer.</span>
+<span class="ty">int</span> <span class="op">*</span><span class="va">arr2</span> = (<span class="ty">int</span><span class="op">*</span>) <span class="fn">calloc</span>(<span class="nm">5</span>, <span class="kw">sizeof</span>(<span class="ty">int</span>));  <span class="cm">// 5 ints, all set to 0</span>
+
+<span class="cm">// realloc — resize existing allocation (like array.push in JS but manual)</span>
+<span class="va">arr</span> = (<span class="ty">int</span><span class="op">*</span>) <span class="fn">realloc</span>(<span class="va">arr</span>, <span class="nm">10</span> <span class="op">*</span> <span class="kw">sizeof</span>(<span class="ty">int</span>));  <span class="cm">// now space for 10 ints</span>
+
+<span class="cm">// FREE IT when you're done. EVERY malloc needs a free.</span>
+<span class="cm">// not freeing = memory leak = program slowly eats your RAM. BAD.</span>
+<span class="fn">free</span>(<span class="va">arr</span>);
+<span class="fn">free</span>(<span class="va">arr2</span>);
+<span class="va">arr</span> = <span class="kw">NULL</span>;    <span class="cm">// set to NULL after freeing. prevents use-after-free bugs.</span></pre>
+      <div class="callout danger">Every <code>malloc</code>/<code>calloc</code>/<code>realloc</code> must have a matching <code>free()</code>. No exceptions. Memory leaks are silent killers.</div>
+    </div>
+  </div>
+
+  <!-- File I/O -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">File I/O — Reading & Writing Files Like a Pro</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;stdio.h&gt;</span>
+
+<span class="cm">// fopen opens a file. modes: "r"=read, "w"=write (creates/clears),</span>
+<span class="cm">// "a"=append, "rb"/"wb" = binary read/write</span>
+<span class="ty">FILE</span> <span class="op">*</span><span class="va">f</span> = <span class="fn">fopen</span>(<span class="st">"data.txt"</span>, <span class="st">"w"</span>);
+
+<span class="kw">if</span> (<span class="va">f</span> <span class="op">==</span> <span class="kw">NULL</span>) {   <span class="cm">// check this. file might not exist or no permission.</span>
+    <span class="fn">perror</span>(<span class="st">"Couldn't open file"</span>);  <span class="cm">// perror prints system error message</span>
+    <span class="kw">return</span> <span class="nm">1</span>;
+}
+
+<span class="fn">fprintf</span>(<span class="va">f</span>, <span class="st">"Hello File!\n"</span>);   <span class="cm">// printf but to a file</span>
+<span class="fn">fprintf</span>(<span class="va">f</span>, <span class="st">"Score: %d\n"</span>, <span class="nm">100</span>);
+<span class="fn">fclose</span>(<span class="va">f</span>);   <span class="cm">// ALWAYS close the file when done. flushes buffer.</span>
+
+<span class="cm">// reading from a file</span>
+<span class="va">f</span> = <span class="fn">fopen</span>(<span class="st">"data.txt"</span>, <span class="st">"r"</span>);
+<span class="ty">char</span> <span class="va">line</span>[<span class="nm">100</span>];
+<span class="kw">while</span> (<span class="fn">fgets</span>(<span class="va">line</span>, <span class="kw">sizeof</span>(<span class="va">line</span>), <span class="va">f</span>) <span class="op">!=</span> <span class="kw">NULL</span>) {  <span class="cm">// reads line by line</span>
+    <span class="fn">printf</span>(<span class="st">"%s"</span>, <span class="va">line</span>);   <span class="cm">// fgets includes the \n so don't add another</span>
+}
+<span class="fn">fclose</span>(<span class="va">f</span>);</pre>
+    </div>
+  </div>
+
+  <!-- Enums & Typedefs -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Enums & Typedef — Making Code Actually Readable</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// enum = named constants. way better than magic numbers like 0, 1, 2</span>
+<span class="cm">// instead of if (status == 2) you write if (status == RUNNING) — clear!</span>
+<span class="kw">typedef</span> <span class="kw">enum</span> {
+    <span class="va">IDLE</span>,     <span class="cm">// = 0 automatically</span>
+    <span class="va">RUNNING</span>,  <span class="cm">// = 1</span>
+    <span class="va">STOPPED</span>,  <span class="cm">// = 2</span>
+    <span class="va">ERROR</span>     <span class="cm">// = 3</span>
+} <span class="ty">Status</span>;
+
+<span class="ty">Status</span> <span class="va">s</span> = <span class="va">RUNNING</span>;
+
+<span class="kw">switch</span> (<span class="va">s</span>) {
+    <span class="kw">case</span> <span class="va">IDLE</span>:    <span class="fn">printf</span>(<span class="st">"Chillin'\n"</span>); <span class="kw">break</span>;
+    <span class="kw">case</span> <span class="va">RUNNING</span>: <span class="fn">printf</span>(<span class="st">"Go go go!\n"</span>); <span class="kw">break</span>;
+    <span class="kw">case</span> <span class="va">ERROR</span>:   <span class="fn">printf</span>(<span class="st">"Something broke lol\n"</span>); <span class="kw">break</span>;
+    <span class="kw">default</span>: <span class="kw">break</span>;
+}
+
+<span class="cm">// typedef — give any type a new name (usually used to simplify ugly types)</span>
+<span class="kw">typedef</span> <span class="ty">unsigned long long</span> <span class="ty">u64</span>;  <span class="cm">// now u64 instead of "unsigned long long"</span>
+<span class="ty">u64</span> <span class="va">bigNumber</span> = <span class="nm">1000000000000ULL</span>;</pre>
+    </div>
+  </div>
+
+</div><!-- /grid -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 4 — DEEP SHIT
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s4" id="s4">
+  <div class="section-num">4</div>
+  <div>
+    <div class="section-title" id="sec4Title">Deep Shit</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec4Desc">Preprocessor, bitwise ops, function pointers — welcome to the deep end.</div>
+  </div>
+  <div class="section-label" id="sec4Label">Advanced</div>
+</div>
+<div class="grid">
+
+  <!-- Preprocessor -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Preprocessor — Runs Before Your Code Even Compiles</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// preprocessor directives start with #. they run before compilation.</span>
+
+<span class="cm">// #define — text substitution. no type checking. no semicolon.</span>
+<span class="pp">#define</span> <span class="va">MAX_SIZE</span>   <span class="nm">100</span>
+<span class="pp">#define</span> <span class="va">PI</span>         <span class="nm">3.14159</span>
+<span class="pp">#define</span> <span class="fn">SQUARE</span>(x)  ((x) <span class="op">*</span> (x))  <span class="cm">// function-like macro. ALWAYS wrap in () or bugs happen</span>
+<span class="cm">// SQUARE(3+1) without parens would be 3+1*3+1=7 not 16. wrap it.</span>
+
+<span class="cm">// include guards — prevent the same header from being included twice</span>
+<span class="cm">// put this at the TOP of every .h file you write</span>
+<span class="pp">#ifndef</span> <span class="va">MY_HEADER_H</span>
+<span class="pp">#define</span> <span class="va">MY_HEADER_H</span>
+<span class="cm">// ... all your header content ...</span>
+<span class="pp">#endif</span>
+
+<span class="cm">// conditional compilation — include code only in certain builds</span>
+<span class="pp">#define</span> <span class="va">DEBUG</span> <span class="nm">1</span>
+
+<span class="pp">#ifdef</span> <span class="va">DEBUG</span>
+    <span class="fn">printf</span>(<span class="st">"[DEBUG] value = %d\n"</span>, <span class="va">someVar</span>);  <span class="cm">// only in debug builds</span>
+<span class="pp">#endif</span>
+
+<span class="cm">// predefined macros — free stuff the compiler gives you</span>
+<span class="fn">printf</span>(<span class="st">"Line %d in file %s\n"</span>, <span class="va">__LINE__</span>, <span class="va">__FILE__</span>);
+<span class="fn">printf</span>(<span class="st">"Compiled: %s %s\n"</span>, <span class="va">__DATE__</span>, <span class="va">__TIME__</span>);</pre>
+    </div>
+  </div>
+
+  <!-- Bitwise Ops -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Bitwise Ops — Operating Directly on the Bits</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// bits are the lowest level. 0s and 1s. this shit is FAST.</span>
+<span class="cm">// used in embedded systems, flags, compression, encryption, etc.</span>
+<span class="ty">unsigned int</span> <span class="va">a</span> = <span class="nm">0b1010</span>;  <span class="cm">// = 10 in decimal. 0b prefix = binary literal</span>
+<span class="ty">unsigned int</span> <span class="va">b</span> = <span class="nm">0b1100</span>;  <span class="cm">// = 12 in decimal</span>
+
+<span class="va">a</span> <span class="op">&amp;</span> <span class="va">b</span>    <span class="cm">// AND:  1010 & 1100 = 1000 (8).  bit on only if BOTH are 1</span>
+<span class="va">a</span> <span class="op">|</span> <span class="va">b</span>    <span class="cm">// OR:   1010 | 1100 = 1110 (14). bit on if EITHER is 1</span>
+<span class="va">a</span> <span class="op">^</span> <span class="va">b</span>    <span class="cm">// XOR:  1010 ^ 1100 = 0110 (6).  bit on if DIFFERENT</span>
+<span class="op">~</span><span class="va">a</span>       <span class="cm">// NOT:  flip every bit. ~1010 = ...11110101 (depends on int size)</span>
+<span class="va">a</span> <span class="op">&lt;&lt;</span> <span class="nm">2</span>   <span class="cm">// left shift:  1010 << 2 = 101000 (40). multiply by 2^n</span>
+<span class="va">a</span> <span class="op">&gt;&gt;</span> <span class="nm">1</span>   <span class="cm">// right shift: 1010 >> 1 = 0101  (5).  divide by 2^n</span>
+
+<span class="cm">// real use: bit flags — pack multiple true/false values into one int</span>
+<span class="pp">#define</span> <span class="va">FLAG_READ</span>    (<span class="nm">1</span> <span class="op">&lt;&lt;</span> <span class="nm">0</span>)   <span class="cm">// = 0001</span>
+<span class="pp">#define</span> <span class="va">FLAG_WRITE</span>   (<span class="nm">1</span> <span class="op">&lt;&lt;</span> <span class="nm">1</span>)   <span class="cm">// = 0010</span>
+<span class="pp">#define</span> <span class="va">FLAG_EXEC</span>    (<span class="nm">1</span> <span class="op">&lt;&lt;</span> <span class="nm">2</span>)   <span class="cm">// = 0100</span>
+
+<span class="ty">int</span> <span class="va">perms</span> = <span class="va">FLAG_READ</span> <span class="op">|</span> <span class="va">FLAG_WRITE</span>;      <span class="cm">// set read + write</span>
+<span class="kw">if</span> (<span class="va">perms</span> <span class="op">&amp;</span> <span class="va">FLAG_READ</span>) <span class="fn">printf</span>(<span class="st">"Can read\n"</span>);  <span class="cm">// check if read is set</span>
+<span class="va">perms</span> <span class="op">|=</span> <span class="va">FLAG_EXEC</span>;     <span class="cm">// set exec flag</span>
+<span class="va">perms</span> <span class="op">&amp;=</span> <span class="op">~</span><span class="va">FLAG_WRITE</span>;   <span class="cm">// clear write flag</span></pre>
+    </div>
+  </div>
+
+  <!-- Function Pointers -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Function Pointers — Treating Functions Like Variables (Big Brain Stuff)</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// functions have addresses too. you can store those addresses in pointers.</span>
+<span class="cm">// this enables callbacks, dispatch tables, plugin systems — powerful stuff.</span>
+
+<span class="ty">int</span> <span class="fn">add</span>(<span class="ty">int</span> <span class="va">a</span>, <span class="ty">int</span> <span class="va">b</span>) { <span class="kw">return</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b</span>; }
+<span class="ty">int</span> <span class="fn">mul</span>(<span class="ty">int</span> <span class="va">a</span>, <span class="ty">int</span> <span class="va">b</span>) { <span class="kw">return</span> <span class="va">a</span> <span class="op">*</span> <span class="va">b</span>; }
+
+<span class="cm">// syntax: returnType (*pointerName)(paramTypes)</span>
+<span class="ty">int</span> (<span class="op">*</span><span class="va">op</span>)(<span class="ty">int</span>, <span class="ty">int</span>);  <span class="cm">// op is a pointer to a function taking 2 ints, returning int</span>
+
+<span class="va">op</span> = <span class="va">add</span>;   <span class="cm">// point to add function</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">op</span>(<span class="nm">3</span>, <span class="nm">4</span>));  <span class="cm">// 7</span>
+
+<span class="va">op</span> = <span class="va">mul</span>;   <span class="cm">// now point to mul</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">op</span>(<span class="nm">3</span>, <span class="nm">4</span>));  <span class="cm">// 12</span>
+
+<span class="cm">// use typedef to make it readable (the raw syntax is ugly as sin)</span>
+<span class="kw">typedef</span> <span class="ty">int</span> (<span class="op">*</span><span class="ty">MathOp</span>)(<span class="ty">int</span>, <span class="ty">int</span>);
+<span class="ty">MathOp</span> <span class="va">ops</span>[] = {<span class="va">add</span>, <span class="va">mul</span>};   <span class="cm">// array of function pointers = dispatch table!</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">ops</span>[<span class="nm">0</span>](<span class="nm">5</span>, <span class="nm">6</span>));  <span class="cm">// 11</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">ops</span>[<span class="nm">1</span>](<span class="nm">5</span>, <span class="nm">6</span>));  <span class="cm">// 30</span>
+
+<span class="cm">// passing function as argument (callback pattern)</span>
+<span class="ty">void</span> <span class="fn">apply</span>(<span class="ty">int</span> <span class="op">*</span><span class="va">arr</span>, <span class="ty">int</span> <span class="va">n</span>, <span class="ty">int</span> (<span class="op">*</span><span class="va">fn</span>)(<span class="ty">int</span>)) {
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="nm">0</span>; <span class="va">i</span> <span class="op">&lt;</span> <span class="va">n</span>; <span class="va">i</span><span class="op">++</span>) <span class="va">arr</span>[<span class="va">i</span>] = <span class="fn">fn</span>(<span class="va">arr</span>[<span class="va">i</span>]);
+}</pre>
+    </div>
+  </div>
+
+  <!-- Recursion -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Recursion — A Function Calling Itself (Mind = Blown)</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// recursion = function calls itself. needs a BASE CASE or it loops forever.</span>
+<span class="cm">// each call uses stack space. deep recursion = stack overflow. be careful.</span>
+
+<span class="cm">// classic example: factorial. 5! = 5*4*3*2*1</span>
+<span class="ty">int</span> <span class="fn">factorial</span>(<span class="ty">int</span> <span class="va">n</span>) {
+    <span class="kw">if</span> (<span class="va">n</span> <span class="op">&lt;=</span> <span class="nm">1</span>) <span class="kw">return</span> <span class="nm">1</span>;          <span class="cm">// base case — stop here or we recurse forever</span>
+    <span class="kw">return</span> <span class="va">n</span> <span class="op">*</span> <span class="fn">factorial</span>(<span class="va">n</span> <span class="op">-</span> <span class="nm">1</span>); <span class="cm">// recursive case — calls itself with smaller n</span>
+}
+
+<span class="cm">// fibonacci — each number is sum of the two before it</span>
+<span class="ty">int</span> <span class="fn">fib</span>(<span class="ty">int</span> <span class="va">n</span>) {
+    <span class="kw">if</span> (<span class="va">n</span> <span class="op">&lt;=</span> <span class="nm">1</span>) <span class="kw">return</span> <span class="va">n</span>;
+    <span class="kw">return</span> <span class="fn">fib</span>(<span class="va">n</span><span class="op">-</span><span class="nm">1</span>) <span class="op">+</span> <span class="fn">fib</span>(<span class="va">n</span><span class="op">-</span><span class="nm">2</span>);
+    <span class="cm">// this is simple but SLOW for large n — exponential time complexity</span>
+    <span class="cm">// for serious use, use iteration or memoization instead</span>
+}
+
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="fn">factorial</span>(<span class="nm">5</span>));  <span class="cm">// 120</span>
+<span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="fn">fib</span>(<span class="nm">10</span>));       <span class="cm">// 55</span></pre>
+      <div class="callout warn">Every recursive function NEEDS a base case. No base case = infinite recursion = stack overflow = crash.</div>
+    </div>
+  </div>
+
+  <!-- Linked List -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Linked List — Structs Pointing to Other Structs. Chains of Data.</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// linked list = each node holds data AND a pointer to the next node</span>
+<span class="cm">// unlike arrays, size is dynamic. inserting/deleting is O(1) at the head.</span>
+<span class="kw">typedef</span> <span class="kw">struct</span> <span class="ty">Node</span> {
+    <span class="ty">int</span> <span class="va">data</span>;
+    <span class="kw">struct</span> <span class="ty">Node</span> <span class="op">*</span><span class="va">next</span>;   <span class="cm">// pointer to the next node in the chain</span>
+} <span class="ty">Node</span>;
+
+<span class="cm">// create a new node on the heap</span>
+<span class="ty">Node</span><span class="op">*</span> <span class="fn">newNode</span>(<span class="ty">int</span> <span class="va">val</span>) {
+    <span class="ty">Node</span><span class="op">*</span> <span class="va">n</span> = (<span class="ty">Node</span><span class="op">*</span>) <span class="fn">malloc</span>(<span class="kw">sizeof</span>(<span class="ty">Node</span>));
+    <span class="va">n</span><span class="op">-&gt;</span><span class="va">data</span> = <span class="va">val</span>;
+    <span class="va">n</span><span class="op">-&gt;</span><span class="va">next</span> = <span class="kw">NULL</span>;   <span class="cm">// tail of the list points to nothing</span>
+    <span class="kw">return</span> <span class="va">n</span>;
+}
+
+<span class="cm">// traverse the list and print every node</span>
+<span class="ty">void</span> <span class="fn">printList</span>(<span class="ty">Node</span><span class="op">*</span> <span class="va">head</span>) {
+    <span class="ty">Node</span><span class="op">*</span> <span class="va">cur</span> = <span class="va">head</span>;
+    <span class="kw">while</span> (<span class="va">cur</span> <span class="op">!=</span> <span class="kw">NULL</span>) {     <span class="cm">// keep going until we hit the end</span>
+        <span class="fn">printf</span>(<span class="st">"%d -> "</span>, <span class="va">cur</span><span class="op">-&gt;</span><span class="va">data</span>);
+        <span class="va">cur</span> = <span class="va">cur</span><span class="op">-&gt;</span><span class="va">next</span>;   <span class="cm">// move to next node</span>
+    }
+    <span class="fn">printf</span>(<span class="st">"NULL\n"</span>);
+}
+
+<span class="cm">// build a small list: 1 -> 2 -> 3 -> NULL</span>
+<span class="ty">Node</span><span class="op">*</span> <span class="va">head</span> = <span class="fn">newNode</span>(<span class="nm">1</span>);
+<span class="va">head</span><span class="op">-&gt;</span><span class="va">next</span> = <span class="fn">newNode</span>(<span class="nm">2</span>);
+<span class="va">head</span><span class="op">-&gt;</span><span class="va">next</span><span class="op">-&gt;</span><span class="va">next</span> = <span class="fn">newNode</span>(<span class="nm">3</span>);
+<span class="fn">printList</span>(<span class="va">head</span>);</pre>
+    </div>
+  </div>
+
+  <!-- Multi-file -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Multi-File Projects — Headers & Splitting Code Up</span></div>
+    <div class="card-body">
+      <pre><span class="cm">/* ── math_utils.h ─────────────────────────────── */</span>
+<span class="cm">// header file = declarations only. tells OTHER files what exists.</span>
+<span class="pp">#ifndef</span> <span class="va">MATH_UTILS_H</span>   <span class="cm">// include guard — prevents double-include</span>
+<span class="pp">#define</span> <span class="va">MATH_UTILS_H</span>
+<span class="ty">int</span> <span class="fn">add</span>(<span class="ty">int</span> <span class="va">a</span>, <span class="ty">int</span> <span class="va">b</span>);    <span class="cm">// function prototype (declaration)</span>
+<span class="ty">int</span> <span class="fn">subtract</span>(<span class="ty">int</span> <span class="va">a</span>, <span class="ty">int</span> <span class="va">b</span>);
+<span class="pp">#endif</span>
+
+<span class="cm">/* ── math_utils.c ─────────────────────────────── */</span>
+<span class="cm">// source file = actual implementations</span>
+<span class="pp">#include</span> <span class="st">"math_utils.h"</span>   <span class="cm">// "" for your own files, &lt;&gt; for system headers</span>
+<span class="ty">int</span> <span class="fn">add</span>(<span class="ty">int</span> <span class="va">a</span>, <span class="ty">int</span> <span class="va">b</span>)      { <span class="kw">return</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b</span>; }
+<span class="ty">int</span> <span class="fn">subtract</span>(<span class="ty">int</span> <span class="va">a</span>, <span class="ty">int</span> <span class="va">b</span>) { <span class="kw">return</span> <span class="va">a</span> <span class="op">-</span> <span class="va">b</span>; }
+
+<span class="cm">/* ── main.c ───────────────────────────────────── */</span>
+<span class="pp">#include</span> <span class="st">&lt;stdio.h&gt;</span>
+<span class="pp">#include</span> <span class="st">"math_utils.h"</span>
+<span class="ty">int</span> <span class="fn">main</span>() {
+    <span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="fn">add</span>(<span class="nm">3</span>, <span class="nm">4</span>));      <span class="cm">// 7</span>
+    <span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="fn">subtract</span>(<span class="nm">9</span>, <span class="nm">5</span>)); <span class="cm">// 4</span>
+    <span class="kw">return</span> <span class="nm">0</span>;
+}
+
+<span class="cm">// compile: gcc main.c math_utils.c -o myapp</span>
+<span class="cm">// or use a Makefile to automate all this</span></pre>
+    </div>
+  </div>
+
+</div><!-- /grid -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 5 — BLACK MAGIC
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s5" id="s5">
+  <div class="section-num">5</div>
+  <div>
+    <div class="section-title" id="sec5Title">Black Magic</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec5Desc">Memory models, undefined behavior, volatile, inline assembly. Here we go.</div>
+  </div>
+  <div class="section-label" id="sec5Label">Expert</div>
+</div>
+<div class="grid">
+
+  <!-- Memory Layout -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Memory Layout — How Your Program Actually Lives in RAM</span></div>
+    <div class="card-body">
+      <pre><span class="cm">/*
+  A C program's memory is divided into segments:
+
+  HIGH ADDRESS
+  ┌──────────────────────────────────────────┐
+  │  STACK  — local variables, function args │  ← grows downward
+  │           function call frames           │
+  │  (fast, limited, automatic cleanup)      │
+  ├──────────────────────────────────────────┤
+  │  ...free space in between...             │
+  ├──────────────────────────────────────────┤
+  │  HEAP   — malloc/calloc allocations      │  ← grows upward
+  │  (large, manual management, slow alloc)  │
+  ├──────────────────────────────────────────┤
+  │  BSS    — uninitialized global/static    │  (zeroed out at start)
+  ├──────────────────────────────────────────┤
+  │  DATA   — initialized global/static vars │
+  ├──────────────────────────────────────────┤
+  │  TEXT   — your actual compiled code      │  (read-only)
+  LOW ADDRESS
+  └──────────────────────────────────────────┘
+
+  Stack overflow = when the stack grows into the heap. RIP program.
+  Use heap (malloc) for large or dynamically-sized data.
+  Use stack for small, short-lived local variables.
+*/</span>
+<span class="ty">int</span> <span class="va">global</span> = <span class="nm">5</span>;        <span class="cm">// DATA segment</span>
+<span class="ty">int</span> <span class="va">uninit</span>;            <span class="cm">// BSS segment (gets zeroed)</span>
+<span class="ty">int</span> <span class="fn">main</span>() {
+    <span class="ty">int</span> <span class="va">local</span> = <span class="nm">10</span>;    <span class="cm">// STACK</span>
+    <span class="ty">int</span><span class="op">*</span> <span class="va">h</span> = <span class="fn">malloc</span>(<span class="nm">4</span>); <span class="cm">// HEAP (the pointer itself is on stack though!)</span>
+    <span class="fn">free</span>(<span class="va">h</span>);
+}</pre>
+    </div>
+  </div>
+
+  <!-- Undefined Behavior -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Undefined Behavior — The Universe's Rules Don't Apply Here</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// "Undefined Behavior" (UB) = C standard literally doesn't define what happens</span>
+<span class="cm">// it might work, crash, corrupt data, or make demons fly out of your nose</span>
+<span class="cm">// compilers can assume UB never happens and optimize AGGRESSIVELY around it</span>
+
+<span class="cm">// signed integer overflow (wraps in most cases but NOT guaranteed)</span>
+<span class="ty">int</span> <span class="va">x</span> = <span class="va">INT_MAX</span>;
+<span class="va">x</span> <span class="op">+</span> <span class="nm">1</span>;   <span class="cm">// UB. could be anything.</span>
+
+<span class="cm">// accessing array out of bounds</span>
+<span class="ty">int</span> <span class="va">arr</span>[<span class="nm">5</span>];
+<span class="va">arr</span>[<span class="nm">10</span>] = <span class="nm">42</span>;  <span class="cm">// writing to random memory. corrupts stuff silently.</span>
+
+<span class="cm">// dereferencing NULL or freed pointer</span>
+<span class="ty">int</span><span class="op">*</span> <span class="va">p</span> = <span class="kw">NULL</span>;
+<span class="op">*</span><span class="va">p</span> = <span class="nm">5</span>;   <span class="cm">// segfault. program dead.</span>
+
+<span class="cm">// use-after-free</span>
+<span class="fn">free</span>(<span class="va">p</span>);
+<span class="op">*</span><span class="va">p</span> = <span class="nm">5</span>;   <span class="cm">// UB. you freed it! memory belongs to OS now.</span>
+
+<span class="cm">// double-free</span>
+<span class="fn">free</span>(<span class="va">p</span>);
+<span class="fn">free</span>(<span class="va">p</span>);  <span class="cm">// UB. could corrupt malloc's internal structures.</span>
+
+<span class="cm">// data races (in multithreaded code)</span>
+
+<span class="cm">// USE TOOLS: -fsanitize=address,undefined when compiling to catch this stuff</span>
+<span class="cm">// gcc -fsanitize=address,undefined -g your_file.c -o out</span></pre>
+      <div class="callout danger">Undefined behavior is C's way of saying "your problem now." Use sanitizers (<code>-fsanitize=address,undefined</code>) to find UB before it finds you.</div>
+    </div>
+  </div>
+
+  <!-- volatile & restrict -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">volatile, restrict & inline — Telling the Compiler Extra Stuff</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// volatile — tells compiler "don't optimize this. it can change externally."</span>
+<span class="cm">// used for hardware registers, shared memory, signal handlers</span>
+<span class="kw">volatile</span> <span class="ty">int</span> <span class="va">sensorVal</span>;   <span class="cm">// compiler won't cache this in a register</span>
+<span class="kw">volatile</span> <span class="ty">int</span><span class="op">*</span> <span class="va">reg</span> = (<span class="ty">int</span><span class="op">*</span>)<span class="nm">0xDEADBEEF</span>;  <span class="cm">// memory-mapped hardware register</span>
+
+<span class="cm">// without volatile, the compiler might optimize this loop away thinking</span>
+<span class="cm">// the value never changes (because it doesn't change in THIS code)</span>
+<span class="kw">while</span> (<span class="va">sensorVal</span> <span class="op">==</span> <span class="nm">0</span>) {}   <span class="cm">// waits for hardware to set sensorVal != 0</span>
+
+<span class="cm">// restrict — pointer is the ONLY way to access this memory</span>
+<span class="cm">// enables compiler optimizations (no aliasing assumptions needed)</span>
+<span class="cm">// common in high-perf code like memcpy implementations</span>
+<span class="ty">void</span> <span class="fn">fastCopy</span>(<span class="ty">int</span> <span class="kw">restrict</span> <span class="op">*</span><span class="va">dst</span>, <span class="kw">const</span> <span class="ty">int</span> <span class="kw">restrict</span> <span class="op">*</span><span class="va">src</span>, <span class="ty">int</span> <span class="va">n</span>) {
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="nm">0</span>; <span class="va">i</span> <span class="op">&lt;</span> <span class="va">n</span>; <span class="va">i</span><span class="op">++</span>) <span class="va">dst</span>[<span class="va">i</span>] = <span class="va">src</span>[<span class="va">i</span>];
+}
+
+<span class="cm">// inline — suggests compiler paste the function body in place of the call</span>
+<span class="cm">// eliminates function call overhead. good for tiny hot functions.</span>
+<span class="kw">static</span> <span class="kw">inline</span> <span class="ty">int</span> <span class="fn">clamp</span>(<span class="ty">int</span> <span class="va">val</span>, <span class="ty">int</span> <span class="va">lo</span>, <span class="ty">int</span> <span class="va">hi</span>) {
+    <span class="kw">return</span> <span class="va">val</span> <span class="op">&lt;</span> <span class="va">lo</span> <span class="op">?</span> <span class="va">lo</span> <span class="op">:</span> (<span class="va">val</span> <span class="op">&gt;</span> <span class="va">hi</span> <span class="op">?</span> <span class="va">hi</span> <span class="op">:</span> <span class="va">val</span>);
+}</pre>
+    </div>
+  </div>
+
+  <!-- setjmp/longjmp -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">setjmp / longjmp — Poor Man's Exception Handling</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;setjmp.h&gt;</span>
+
+<span class="cm">// setjmp/longjmp = non-local goto. like try/catch but cursed.</span>
+<span class="cm">// setjmp saves the CPU state. longjmp teleports back to that state.</span>
+<span class="cm">// used in interpreters, error recovery, and deeply nested escape patterns.</span>
+
+<span class="ty">jmp_buf</span> <span class="va">env</span>;   <span class="cm">// stores the CPU state (registers, stack pointer, etc)</span>
+
+<span class="ty">void</span> <span class="fn">riskyFunction</span>() {
+    <span class="fn">printf</span>(<span class="st">"About to do something dumb...\n"</span>);
+    <span class="fn">longjmp</span>(<span class="va">env</span>, <span class="nm">1</span>);   <span class="cm">// teleport back to where setjmp was called, return value 1</span>
+    <span class="fn">printf</span>(<span class="st">"This line never executes\n"</span>);
+}
+
+<span class="ty">int</span> <span class="fn">main</span>() {
+    <span class="ty">int</span> <span class="va">val</span> = <span class="fn">setjmp</span>(<span class="va">env</span>);   <span class="cm">// returns 0 first time. after longjmp, returns whatever you passed.</span>
+
+    <span class="kw">if</span> (<span class="va">val</span> <span class="op">==</span> <span class="nm">0</span>) {
+        <span class="fn">printf</span>(<span class="st">"Normal execution\n"</span>);
+        <span class="fn">riskyFunction</span>();
+    } <span class="kw">else</span> {
+        <span class="fn">printf</span>(<span class="st">"Recovered! longjmp returned %d\n"</span>, <span class="va">val</span>);  <span class="cm">// prints this</span>
+    }
+    <span class="kw">return</span> <span class="nm">0</span>;
+}
+
+<span class="cm">// WARNING: destructors, VLAs, and local vars modified between setjmp/longjmp</span>
+<span class="cm">// can have undefined behavior. this is powerful but genuinely spooky to use.</span></pre>
+      <div class="callout warn">Use sparingly. <code>longjmp</code> skips destructors and cleanup code. If you do use it, make sure you know exactly what state you're jumping back to.</div>
+    </div>
+  </div>
+
+  <!-- Struct Hacks -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Advanced Struct Tricks — Bit Fields, Unions, Flexible Arrays</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// BIT FIELDS — pack multiple small values into one int</span>
+<span class="cm">// saves memory. used in protocols, hardware, OS kernels</span>
+<span class="kw">struct</span> <span class="ty">Flags</span> {
+    <span class="ty">unsigned int</span> <span class="va">isActive</span>  : <span class="nm">1</span>;   <span class="cm">// only uses 1 bit</span>
+    <span class="ty">unsigned int</span> <span class="va">isAdmin</span>   : <span class="nm">1</span>;   <span class="cm">// 1 bit</span>
+    <span class="ty">unsigned int</span> <span class="va">priority</span>  : <span class="nm">4</span>;   <span class="cm">// 4 bits (values 0-15)</span>
+    <span class="ty">unsigned int</span> <span class="va">padding</span>   : <span class="nm">2</span>;   <span class="cm">// explicit padding to byte-align</span>
+};  <span class="cm">// whole thing fits in 1 byte instead of 12!</span>
+
+<span class="cm">// UNION — multiple fields sharing the SAME memory</span>
+<span class="cm">// only ONE field is valid at a time. size = size of largest member</span>
+<span class="kw">union</span> <span class="ty">Data</span> {
+    <span class="ty">int</span>   <span class="va">i</span>;    <span class="cm">// 4 bytes</span>
+    <span class="ty">float</span> <span class="va">f</span>;    <span class="cm">// 4 bytes — same 4 bytes as i!</span>
+    <span class="ty">char</span>  <span class="va">c</span>[<span class="nm">4</span>]; <span class="cm">// 4 bytes — same 4 bytes! overlapping storage</span>
+};
+<span class="cm">// writing to .f and then reading .i = type punning. spooky but used in serialization</span>
+
+<span class="cm">// FLEXIBLE ARRAY MEMBER (C99+) — struct with variable-length tail</span>
+<span class="kw">typedef</span> <span class="kw">struct</span> {
+    <span class="ty">int</span>   <span class="va">count</span>;
+    <span class="ty">int</span>   <span class="va">data</span>[];  <span class="cm">// flexible array — size determined at allocation time</span>
+} <span class="ty">Buffer</span>;
+
+<span class="ty">Buffer</span><span class="op">*</span> <span class="fn">makeBuffer</span>(<span class="ty">int</span> <span class="va">n</span>) {
+    <span class="kw">return</span> <span class="fn">malloc</span>(<span class="kw">sizeof</span>(<span class="ty">Buffer</span>) <span class="op">+</span> <span class="va">n</span> <span class="op">*</span> <span class="kw">sizeof</span>(<span class="ty">int</span>));  <span class="cm">// allocate header + n ints</span>
+}</pre>
+    </div>
+  </div>
+
+  <!-- Generic Programming -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Generic Programming in C — void* and Macros to the Rescue</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// C has no templates. but void* lets you write type-agnostic functions.</span>
+<span class="cm">// qsort from stdlib.h uses this — it sorts ANYTHING</span>
+<span class="pp">#include</span> <span class="st">&lt;stdlib.h&gt;</span>
+
+<span class="cm">// comparison function: returns neg, 0, or pos (like strcmp)</span>
+<span class="ty">int</span> <span class="fn">compareInts</span>(<span class="kw">const</span> <span class="ty">void</span><span class="op">*</span> <span class="va">a</span>, <span class="kw">const</span> <span class="ty">void</span><span class="op">*</span> <span class="va">b</span>) {
+    <span class="kw">return</span> (<span class="op">*</span>(<span class="ty">int</span><span class="op">*</span>)<span class="va">a</span>) <span class="op">-</span> (<span class="op">*</span>(<span class="ty">int</span><span class="op">*</span>)<span class="va">b</span>);
+    <span class="cm">// cast void* to int*, then dereference. feels gross but it works.</span>
+}
+
+<span class="ty">int</span> <span class="va">arr</span>[] = {<span class="nm">5</span>, <span class="nm">2</span>, <span class="nm">8</span>, <span class="nm">1</span>, <span class="nm">9</span>};
+<span class="fn">qsort</span>(<span class="va">arr</span>, <span class="nm">5</span>, <span class="kw">sizeof</span>(<span class="ty">int</span>), <span class="va">compareInts</span>);  <span class="cm">// sorts ascending</span>
+<span class="cm">// now arr = {1, 2, 5, 8, 9}</span>
+
+<span class="cm">// X-Macro trick — generate repetitive code from a list</span>
+<span class="cm">// define the list once, use it in multiple contexts</span>
+<span class="pp">#define</span> <span class="va">COLORS</span>  \
+    <span class="fn">X</span>(<span class="va">RED</span>,   <span class="nm">0</span>) \
+    <span class="fn">X</span>(<span class="va">GREEN</span>, <span class="nm">1</span>) \
+    <span class="fn">X</span>(<span class="va">BLUE</span>,  <span class="nm">2</span>)
+
+<span class="cm">// generate the enum from the list</span>
+<span class="kw">typedef</span> <span class="kw">enum</span> {
+<span class="pp">#define</span> <span class="fn">X</span>(<span class="va">name</span>, <span class="va">val</span>) <span class="va">name</span> = <span class="va">val</span>,
+    <span class="va">COLORS</span>
+<span class="pp">#undef</span> <span class="fn">X</span>
+} <span class="ty">Color</span>;
+
+<span class="cm">// generate string table from the SAME list</span>
+<span class="kw">const</span> <span class="ty">char</span><span class="op">*</span> <span class="va">colorNames</span>[] = {
+<span class="pp">#define</span> <span class="fn">X</span>(<span class="va">name</span>, <span class="va">val</span>) [<span class="va">val</span>] = <span class="pp">#</span><span class="va">name</span>,
+    <span class="va">COLORS</span>
+<span class="pp">#undef</span> <span class="fn">X</span>
+};</pre>
+    </div>
+  </div>
+
+</div><!-- /grid -->
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 6 — NASA RULES
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s6" id="s6">
+  <div class="section-num">6</div>
+  <div>
+    <div class="section-title" id="sec6Title">NASA Rules & Production-Grade C</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec6Desc">The Power of 10. Safety-critical. This code runs on spacecraft.</div>
+  </div>
+  <div class="section-label" id="sec6Label">NASA Level</div>
+</div>
+
+<div class="grid wide">
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">The Power of 10 — NASA/JPL Rules for Safety-Critical C Code</span></div>
+    <div class="card-body">
+      <div class="callout info">
+        <strong>What is this?</strong> The "Power of 10" is a set of 10 strict coding rules developed by Gerard Holzmann at NASA/JPL for writing C code in safety-critical aerospace systems (rovers, satellites, spacecraft software). If your code runs on a rocket and it crashes, you can't push a hotfix.
+      </div>
+      <pre><span class="cm">/* ══════════════════════════════════════════════════════════════
+   RULE 1 — No complex flow constructs (goto, setjmp, longjmp)
+   Simple control flow = auditable code. goto is literally banned.
+   Every function should have a single, obvious execution path.
+   ══════════════════════════════════════════════════════════════ */</span>
+
+<span class="cm">// BANNED — don't even think about it</span>
+<span class="kw">goto</span> <span class="va">cleanup</span>;
+
+<span class="cm">// Use structured cleanup instead</span>
+<span class="ty">int</span> <span class="fn">process</span>(<span class="ty">int</span> <span class="va">n</span>) {
+    <span class="ty">int</span> <span class="op">*</span><span class="va">buf</span> = <span class="fn">malloc</span>(<span class="va">n</span> <span class="op">*</span> <span class="kw">sizeof</span>(<span class="ty">int</span>));
+    <span class="kw">if</span> (<span class="va">buf</span> <span class="op">==</span> <span class="kw">NULL</span>) <span class="kw">return</span> <span class="nm">-1</span>;   <span class="cm">// early return = structured, readable</span>
+    <span class="cm">// ... do stuff ...</span>
+    <span class="fn">free</span>(<span class="va">buf</span>);
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</pre>
+
+      <hr class="divider" style="margin: 0;" />
+
+      <pre><span class="cm">/* ══════════════════════════════════════════════════════════════
+   RULE 2 — All loops must have a fixed upper bound
+   An infinite loop is a potential system hang. Unacceptable.
+   If the verifier can't prove the loop terminates, it's banned.
+   ══════════════════════════════════════════════════════════════ */</span>
+
+<span class="pp">#define</span> <span class="va">MAX_ITER</span> <span class="nm">1000</span>   <span class="cm">// explicit upper bound. always.</span>
+
+<span class="cm">// BANNED — while(1) with no guaranteed exit</span>
+<span class="kw">while</span> (<span class="nm">1</span>) { <span class="cm">/* could run forever */</span> }
+
+<span class="cm">// Bounded loop with safety counter</span>
+<span class="ty">int</span> <span class="va">iter</span> = <span class="nm">0</span>;
+<span class="kw">while</span> (<span class="va">condition</span> <span class="op">&amp;&amp;</span> <span class="va">iter</span> <span class="op">&lt;</span> <span class="va">MAX_ITER</span>) {
+    <span class="cm">// ... do work ...</span>
+    <span class="va">iter</span><span class="op">++</span>;
+}
+<span class="cm">// even if condition never flips, we exit after MAX_ITER. guaranteed.</span>
+<span class="kw">if</span> (<span class="va">iter</span> <span class="op">&gt;=</span> <span class="va">MAX_ITER</span>) {
+    <span class="fn">logError</span>(<span class="st">"Max iterations exceeded — something is very wrong"</span>);
+}</pre>
+
+      <hr class="divider" style="margin: 0;" />
+
+      <pre><span class="cm">/* ══════════════════════════════════════════════════════════════
+   RULE 3 — No dynamic memory allocation after initialization
+   malloc at runtime = unpredictable timing, fragmentation, OOM.
+   In hard real-time systems, you allocate everything up front.
+   ══════════════════════════════════════════════════════════════ */</span>
+
+<span class="cm">// BANNED in flight software — malloc during mission</span>
+<span class="ty">void</span> <span class="fn">handle_event</span>() {
+    <span class="ty">int</span><span class="op">*</span> <span class="va">buf</span> = <span class="fn">malloc</span>(<span class="nm">100</span>);  <span class="cm">// NOPE. timing is nondeterministic.</span>
+}
+
+<span class="cm">// Pre-allocated static pool — allocate ONCE at startup</span>
+<span class="pp">#define</span> <span class="va">POOL_SIZE</span> <span class="nm">1024</span>
+<span class="kw">static</span> <span class="ty">uint8_t</span> <span class="va">memPool</span>[<span class="va">POOL_SIZE</span>];   <span class="cm">// fixed-size memory arena</span>
+<span class="kw">static</span> <span class="ty">size_t</span>  <span class="va">poolOffset</span> = <span class="nm">0</span>;
+
+<span class="ty">void</span><span class="op">*</span> <span class="fn">poolAlloc</span>(<span class="ty">size_t</span> <span class="va">size</span>) {
+    <span class="kw">if</span> (<span class="va">poolOffset</span> <span class="op">+</span> <span class="va">size</span> <span class="op">&gt;</span> <span class="va">POOL_SIZE</span>) <span class="kw">return</span> <span class="kw">NULL</span>;  <span class="cm">// out of pool</span>
+    <span class="ty">void</span><span class="op">*</span> <span class="va">ptr</span> = <span class="va">memPool</span> <span class="op">+</span> <span class="va">poolOffset</span>;
+    <span class="va">poolOffset</span> <span class="op">+=</span> <span class="va">size</span>;
+    <span class="kw">return</span> <span class="va">ptr</span>;
+}</pre>
+
+      <hr class="divider" style="margin: 0;" />
+
+      <pre><span class="cm">/* ══════════════════════════════════════════════════════════════
+   RULE 4 — No function longer than 60 lines (1 screen)
+   If you can't see the whole function at once, it's too complex.
+   Break it up. Each function = one well-defined task. Period.
+   ══════════════════════════════════════════════════════════════ */</span>
+
+<span class="cm">// A 300-line function with nested ifs 5 deep = instant reject at code review</span>
+
+<span class="cm">// Small, focused functions. each does ONE thing and does it well.</span>
+<span class="kw">static</span> <span class="ty">bool</span> <span class="fn">validateInput</span>(<span class="ty">int</span> <span class="va">val</span>) { <span class="kw">return</span> <span class="va">val</span> <span class="op">&gt;=</span> <span class="nm">0</span> <span class="op">&amp;&amp;</span> <span class="va">val</span> <span class="op">&lt;</span> <span class="nm">100</span>; }
+<span class="kw">static</span> <span class="ty">int</span>  <span class="fn">processVal</span>(<span class="ty">int</span> <span class="va">val</span>)     { <span class="kw">return</span> <span class="va">val</span> <span class="op">*</span> <span class="nm">2</span> <span class="op">+</span> <span class="nm">1</span>; }
+<span class="kw">static</span> <span class="ty">void</span> <span class="fn">outputResult</span>(<span class="ty">int</span> <span class="va">res</span>)  { <span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">res</span>); }
+
+<span class="ty">void</span> <span class="fn">doWork</span>(<span class="ty">int</span> <span class="va">input</span>) {
+    <span class="kw">if</span> (<span class="op">!</span><span class="fn">validateInput</span>(<span class="va">input</span>)) <span class="kw">return</span>;
+    <span class="ty">int</span> <span class="va">result</span> = <span class="fn">processVal</span>(<span class="va">input</span>);
+    <span class="fn">outputResult</span>(<span class="va">result</span>);
+}</pre>
+
+      <hr class="divider" style="margin: 0;" />
+
+      <pre><span class="cm">/* ══════════════════════════════════════════════════════════════
+   RULE 5 — Minimum 2 assertions per function
+   assert() checks invariants. if they fire = bug caught early.
+   Assertions are the "sanity checks that you thought were obvious."
+   ══════════════════════════════════════════════════════════════ */</span>
+
+<span class="pp">#include</span> <span class="st">&lt;assert.h&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;stdint.h&gt;</span>
+
+<span class="ty">int32_t</span> <span class="fn">divide</span>(<span class="ty">int32_t</span> <span class="va">num</span>, <span class="ty">int32_t</span> <span class="va">den</span>) {
+    <span class="fn">assert</span>(<span class="va">den</span> <span class="op">!=</span> <span class="nm">0</span>);          <span class="cm">// precondition: can't divide by zero</span>
+    <span class="fn">assert</span>(<span class="va">num</span> <span class="op">!=</span> <span class="va">INT32_MIN</span> <span class="op">||</span> <span class="va">den</span> <span class="op">!=</span> <span class="nm">-1</span>);  <span class="cm">// INT32_MIN / -1 overflows</span>
+    <span class="ty">int32_t</span> <span class="va">result</span> = <span class="va">num</span> <span class="op">/</span> <span class="va">den</span>;
+    <span class="cm">// postcondition: verify result is in expected range</span>
+    <span class="fn">assert</span>(<span class="va">result</span> <span class="op">*</span> <span class="va">den</span> <span class="op">==</span> <span class="va">num</span> <span class="op">||</span> <span class="nm">1</span>);  <span class="cm">// sanity check</span>
+    <span class="kw">return</span> <span class="va">result</span>;
+}
+
+<span class="cm">// for production flight software, use custom assert that logs and recovers:</span>
+<span class="pp">#define</span> <span class="fn">ASSERT</span>(<span class="va">cond</span>, <span class="va">msg</span>) \
+    <span class="kw">do</span> { <span class="kw">if</span> (<span class="op">!</span>(<span class="va">cond</span>)) { <span class="fn">log_critical</span>(<span class="va">msg</span>); <span class="fn">safe_shutdown</span>(); } } <span class="kw">while</span>(<span class="nm">0</span>)</pre>
+
+      <hr class="divider" style="margin: 0;" />
+
+      <pre><span class="cm">/* ══════════════════════════════════════════════════════════════
+   RULE 6 — Declare variables at smallest possible scope
+   Keep variables close to where they're used. Less surface area
+   for bugs. Easier to reason about. Easier to audit.
+   ══════════════════════════════════════════════════════════════ */</span>
+
+<span class="cm">// Old C89 style — all vars at top of function (don't do this)</span>
+<span class="ty">void</span> <span class="fn">old_style</span>() {
+    <span class="ty">int</span> <span class="va">i</span>, <span class="va">j</span>, <span class="va">sum</span>, <span class="va">count</span>, <span class="va">tmp</span>;  <span class="cm">// what are these even for? who knows anymore.</span>
+    <span class="cm">// ... 100 lines later ...</span>
+    <span class="va">sum</span> = <span class="nm">0</span>;
+}
+
+<span class="cm">// C99 style — declare where you need it</span>
+<span class="ty">void</span> <span class="fn">new_style</span>() {
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="nm">0</span>; <span class="va">i</span> <span class="op">&lt;</span> <span class="nm">10</span>; <span class="va">i</span><span class="op">++</span>) {  <span class="cm">// i only exists inside this for loop</span>
+        <span class="ty">int</span> <span class="va">doubled</span> = <span class="va">i</span> <span class="op">*</span> <span class="nm">2</span>;          <span class="cm">// doubled only exists here</span>
+        <span class="fn">printf</span>(<span class="st">"%d\n"</span>, <span class="va">doubled</span>);
+    }
+}</pre>
+
+      <hr class="divider" style="margin: 0;" />
+
+      <pre><span class="cm">/* ══════════════════════════════════════════════════════════════
+   RULE 7 — Check return values of ALL non-void functions
+   If a function can fail, assume it WILL fail eventually.
+   Ignoring return values = ignoring errors = mystery crashes later.
+   ══════════════════════════════════════════════════════════════ */</span>
+
+<span class="cm">// BANNED — ignoring return values</span>
+<span class="fn">fclose</span>(<span class="va">file</span>);           <span class="cm">// fclose can fail (flush error). you don't care?</span>
+<span class="fn">malloc</span>(<span class="nm">1000</span>);           <span class="cm">// allocated memory and threw the pointer away lol</span>
+<span class="fn">scanf</span>(<span class="st">"%d"</span>, <span class="op">&amp;</span><span class="va">x</span>);        <span class="cm">// what if scanf failed? x has garbage value.</span>
+
+<span class="cm">// Check everything. everything.</span>
+<span class="kw">if</span> (<span class="fn">fclose</span>(<span class="va">file</span>) <span class="op">!=</span> <span class="nm">0</span>) {
+    <span class="fn">perror</span>(<span class="st">"fclose failed"</span>);
+    <span class="cm">// handle appropriately</span>
+}
+
+<span class="ty">int</span><span class="op">*</span> <span class="va">buf</span> = <span class="fn">malloc</span>(<span class="nm">1000</span>);
+<span class="kw">if</span> (<span class="va">buf</span> <span class="op">==</span> <span class="kw">NULL</span>) { <span class="kw">return</span> <span class="va">ERR_NOMEM</span>; }
+
+<span class="ty">int</span> <span class="va">n</span> = <span class="fn">scanf</span>(<span class="st">"%d"</span>, <span class="op">&amp;</span><span class="va">x</span>);
+<span class="kw">if</span> (<span class="va">n</span> <span class="op">!=</span> <span class="nm">1</span>) { <span class="kw">return</span> <span class="va">ERR_BADINPUT</span>; }  <span class="cm">// scanf returns # items read</span>
+
+<span class="cm">// use GCC's __attribute__((warn_unused_result)) to enforce this in your APIs</span>
+<span class="kw">__attribute__</span>((<span class="va">warn_unused_result</span>))
+<span class="ty">int</span> <span class="fn">criticalOp</span>(<span class="ty">void</span>) { <span class="kw">return</span> <span class="nm">-1</span>; }  <span class="cm">// compiler warns if caller ignores return</span></pre>
+
+      <hr class="divider" style="margin: 0;" />
+
+      <pre><span class="cm">/* ══════════════════════════════════════════════════════════════
+   RULE 8 — Limit preprocessor use. No macros for functions.
+   Macros have no type checking, no scope, expand unexpectedly.
+   Use inline functions or const variables instead where possible.
+   ══════════════════════════════════════════════════════════════ */</span>
+
+<span class="cm">// Macro function — dangerous, no type check, double-evaluation</span>
+<span class="pp">#define</span> <span class="fn">MAX</span>(<span class="va">a</span>,<span class="va">b</span>)  ((<span class="va">a</span>) <span class="op">&gt;</span> (<span class="va">b</span>) <span class="op">?</span> (<span class="va">a</span>) <span class="op">:</span> (<span class="va">b</span>))
+<span class="fn">MAX</span>(<span class="va">x</span><span class="op">++</span>, <span class="va">y</span>)  <span class="cm">// x++ gets evaluated TWICE. classic macro footgun.</span>
+
+<span class="cm">// inline function — type-safe, debuggable, no double-eval</span>
+<span class="kw">static</span> <span class="kw">inline</span> <span class="ty">int</span> <span class="fn">max_int</span>(<span class="ty">int</span> <span class="va">a</span>, <span class="ty">int</span> <span class="va">b</span>) { <span class="kw">return</span> <span class="va">a</span> <span class="op">&gt;</span> <span class="va">b</span> <span class="op">?</span> <span class="va">a</span> <span class="op">:</span> <span class="va">b</span>; }
+
+<span class="cm">// const instead of #define for constants</span>
+<span class="kw">static</span> <span class="kw">const</span> <span class="ty">int</span> <span class="va">MAX_BUFFER</span> = <span class="nm">4096</span>;  <span class="cm">// has type, has scope, shows in debugger</span>
+<span class="pp">#define</span> <span class="va">MAX_BUFFER_BAD</span> <span class="nm">4096</span>           <span class="cm">// invisible in debugger, no type check</span></pre>
+
+      <hr class="divider" style="margin: 0;" />
+
+      <pre><span class="cm">/* ══════════════════════════════════════════════════════════════
+   RULE 9 — Limit pointer use. No function pointers. No >1 level of pointer dereferencing.
+   Pointers are error-prone. Deeply nested pointer chains = auditing nightmare.
+   ══════════════════════════════════════════════════════════════ */</span>
+
+<span class="cm">// too many levels of indirection</span>
+<span class="ty">int</span><span class="op">***</span> <span class="va">triplePtr</span>;   <span class="cm">// what the hell even is this. who hurt you.</span>
+
+<span class="cm">// function pointers in flight code (makes static analysis hard)</span>
+<span class="ty">void</span> (<span class="op">*</span><span class="va">handler</span>)(<span class="ty">int</span>);  <span class="cm">// banned — static analyzer can't trace this</span>
+
+<span class="cm">// max one level in regular code</span>
+<span class="ty">int</span><span class="op">*</span> <span class="va">ptr</span> = <span class="op">&amp;</span><span class="va">x</span>;   <span class="cm">// fine</span>
+<span class="ty">int</span><span class="op">**</span> <span class="va">pptr</span>;        <span class="cm">// only when absolutely necessary (e.g., passing pointer to pointer)</span>
+
+<span class="cm">// for struct members, a single level is fine</span>
+<span class="ty">Person</span><span class="op">*</span> <span class="va">p</span> = <span class="op">&amp;</span><span class="va">person</span>;
+<span class="va">p</span><span class="op">-&gt;</span><span class="va">age</span> = <span class="nm">17</span>;  <span class="cm">// one dereference. clear. auditable.</span></pre>
+
+      <hr class="divider" style="margin: 0;" />
+
+      <pre><span class="cm">/* ══════════════════════════════════════════════════════════════
+   RULE 10 — Compile with all warnings enabled. Zero warnings.
+   Warnings are the compiler saying "this looks sketchy."
+   In safety-critical code, warnings are ERRORS. All of them.
+   ══════════════════════════════════════════════════════════════ */</span>
+
+<span class="cm">// The full compile flags you should use for any serious C project:</span>
+<span class="cm">// gcc -std=c11                         — use C11 standard</span>
+<span class="cm">//     -Wall -Wextra -Wpedantic         — enable all the warnings</span>
+<span class="cm">//     -Werror                          — treat warnings as errors (zero tolerance)</span>
+<span class="cm">//     -Wshadow                         — warn about variable shadowing</span>
+<span class="cm">//     -Wconversion                     — warn about implicit type conversions</span>
+<span class="cm">//     -Wformat=2                       — extra format string checks</span>
+<span class="cm">//     -fstack-protector-strong         — detect stack smashing at runtime</span>
+<span class="cm">//     -D_FORTIFY_SOURCE=2              — harden string/memory operations</span>
+<span class="cm">//     -fsanitize=address,undefined     — catch memory bugs + UB during testing</span>
+<span class="cm">//     -fanalyzer                       — GCC's static analysis pass</span>
+<span class="cm">//</span>
+<span class="cm">// Short version: gcc -std=c11 -Wall -Wextra -Werror -Wpedantic -g file.c -o out</span>
+<span class="cm">//</span>
+<span class="cm">// Also run these tools regularly:</span>
+<span class="cm">// - valgrind ./out         — memory leak detection</span>
+<span class="cm">// - clang-tidy             — static analysis</span>
+<span class="cm">// - cppcheck               — another static analyzer (catches different stuff)</span>
+<span class="cm">// - splint                 — annotation-based analysis (used at JPL)</span></pre>
+
+      <div class="callout tip">
+        <strong>The real NASA mindset:</strong> Every time you write code, ask yourself — "if this ran for 10 years unattended on a spacecraft 500 million km away, would it still be correct?" That's the bar. Defensive programming, explicit error handling, and static analysis aren't optional. They're how software gets to Mars.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BONUS: Quick Reference Table -->
+<div class="section-header" style="border-color: var(--border2); margin-top: 56px;">
+  <div class="section-num" style="background: rgba(255,255,255,.05); color: var(--muted);"></div>
+  <div>
+    <div class="section-title">Quick Reference — Format Specifiers & Escape Sequences</div>
+  </div>
+</div>
+<div class="grid">
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">printf / scanf Format Specifiers</span></div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Specifier</th><th>Type</th><th>Example</th></tr>
+          <tr><td>%d / %i</td><td class="desc">int (signed decimal)</td><td class="desc">printf("%d", 42) → "42"</td></tr>
+          <tr><td>%u</td><td class="desc">unsigned int</td><td class="desc">printf("%u", 42u)</td></tr>
+          <tr><td>%ld</td><td class="desc">long int</td><td class="desc">printf("%ld", 1234567L)</td></tr>
+          <tr><td>%lld</td><td class="desc">long long int</td><td class="desc">printf("%lld", big)</td></tr>
+          <tr><td>%f</td><td class="desc">float/double</td><td class="desc">printf("%.2f", 3.14) → "3.14"</td></tr>
+          <tr><td>%e</td><td class="desc">scientific notation</td><td class="desc">printf("%e", 12345.0) → "1.23e+04"</td></tr>
+          <tr><td>%c</td><td class="desc">char</td><td class="desc">printf("%c", 'A') → "A"</td></tr>
+          <tr><td>%s</td><td class="desc">string (char*)</td><td class="desc">printf("%s", "yo")</td></tr>
+          <tr><td>%p</td><td class="desc">pointer address</td><td class="desc">printf("%p", ptr)</td></tr>
+          <tr><td>%x / %X</td><td class="desc">hex (lower/upper)</td><td class="desc">printf("%x", 255) → "ff"</td></tr>
+          <tr><td>%o</td><td class="desc">octal</td><td class="desc">printf("%o", 8) → "10"</td></tr>
+          <tr><td>%zu</td><td class="desc">size_t</td><td class="desc">printf("%zu", sizeof(x))</td></tr>
+          <tr><td>%%</td><td class="desc">literal %</td><td class="desc">printf("100%%")</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Escape Sequences & Common Headers</span></div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Escape</th><th>Meaning</th></tr>
+          <tr><td>\n</td><td class="desc">Newline (enter key)</td></tr>
+          <tr><td>\t</td><td class="desc">Tab</td></tr>
+          <tr><td>\r</td><td class="desc">Carriage return</td></tr>
+          <tr><td>\\</td><td class="desc">Literal backslash</td></tr>
+          <tr><td>\"</td><td class="desc">Literal double quote inside string</td></tr>
+          <tr><td>\'</td><td class="desc">Literal single quote</td></tr>
+          <tr><td>\0</td><td class="desc">Null character (string terminator)</td></tr>
+          <tr><td>\a</td><td class="desc">Bell (plays beep sound lol)</td></tr>
+        </table>
+      </div>
+      <hr class="divider" />
+      <div class="tbl-wrap" style="padding-top:12px;">
+        <table>
+          <tr><th>Header</th><th>What it gives you</th></tr>
+          <tr><td>&lt;stdio.h&gt;</td><td class="desc">printf, scanf, FILE, fopen, fclose</td></tr>
+          <tr><td>&lt;stdlib.h&gt;</td><td class="desc">malloc, free, rand, exit, atoi</td></tr>
+          <tr><td>&lt;string.h&gt;</td><td class="desc">strlen, strcpy, strcmp, memcpy</td></tr>
+          <tr><td>&lt;math.h&gt;</td><td class="desc">sqrt, pow, sin, cos, fabs</td></tr>
+          <tr><td>&lt;stdbool.h&gt;</td><td class="desc">bool, true, false (C99+)</td></tr>
+          <tr><td>&lt;stdint.h&gt;</td><td class="desc">int8_t, uint32_t, int64_t etc.</td></tr>
+          <tr><td>&lt;limits.h&gt;</td><td class="desc">INT_MAX, INT_MIN, CHAR_MAX</td></tr>
+          <tr><td>&lt;assert.h&gt;</td><td class="desc">assert()</td></tr>
+          <tr><td>&lt;errno.h&gt;</td><td class="desc">errno, EINVAL, ENOMEM etc.</td></tr>
+          <tr><td>&lt;time.h&gt;</td><td class="desc">time(), clock(), struct tm</td></tr>
+          <tr><td>&lt;pthread.h&gt;</td><td class="desc">threads, mutexes (POSIX)</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<footer>
+  <p>C Cheat Sheet — Baby to NASA &nbsp;|&nbsp; Made with <span></span> and zero undefined behavior &nbsp;|&nbsp; Compile with <code style="color: var(--accent2); background: var(--bg3); padding: 2px 6px; border-radius: 4px;">-Wall -Wextra -Werror</code></p>
+</footer>
+
+<!--
+  ==========================================================================
+  boring plumbing code — takes the CONFIG stuff from the top of the page
+  and stuffs it into the right spots. you don't need to touch this part,
+  it just works. only scroll up and edit the CONFIG block if you wanna
+  rename something.
+  ==========================================================================
+-->
+<script>
+  document.getElementById("heroBadge").textContent    = CONFIG.heroBadge;
+  document.getElementById("heroTitle").textContent    = CONFIG.heroTitle;
+  document.getElementById("heroSubtitle").textContent = CONFIG.heroSubtitle;
+
+  CONFIG.pills.forEach(function (text, i) {
+    document.getElementById("pill" + (i + 1)).textContent = text;
+  });
+
+  CONFIG.sections.forEach(function (sec, i) {
+    const n = i + 1; // section numbers start at 1, arrays start at 0. classic.
+    document.getElementById("sec" + n + "Title").textContent = sec.title;
+    document.getElementById("sec" + n + "Desc").textContent  = sec.desc;
+    document.getElementById("sec" + n + "Label").textContent = sec.tag;
+  });
+</script>
+<script src="site.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C++ Cheat Sheet — Baby to NASA Level</title>
+  <meta name="description" content="A comprehensive Modern C++ cheat sheet from absolute beginner basics to advanced NASA & game engine level concepts, with witty, human, crystal-clear explanations." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-cpp">
+
+<!-- ════════════════════════════════ SITE NAVIGATION ════════════════════════════════ -->
+<nav class="site-nav">
+  <a class="nav-brand" href="index.html">
+    <span class="brand-badge">REF</span>
+    <span class="brand-text">C-FAMILY REF</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-item tab-c" href="index.html">C</a>
+    <a class="nav-item tab-cpp active" href="cpp.html">C++</a>
+    <a class="nav-item tab-cs" href="csharp.html">C#</a>
+    <a class="nav-item tab-compare" href="compare.html">Rosetta Stone</a>
+    <span class="nav-divider"></span>
+    <a class="nav-item tab-aplus" href="aplus.html">A+</a>
+    <a class="nav-item tab-security" href="security.html">Security+</a>
+    <a class="nav-item tab-network" href="network.html">Network+</a>
+  </div>
+  <div class="nav-search-container">
+    <input type="text" id="globalSearchInput" class="nav-search-input" placeholder="Search C++ templates, RAII, STL... (Press /)" aria-label="Search cheatsheet" autocomplete="off" />
+    <span class="search-shortcut-hint">/</span>
+  </div>
+</nav>
+
+<script>
+  const CONFIG = {
+    heroBadge:    "Modern C++ Reference",
+    heroTitle:    "C++ Programming Cheat Sheet",
+    heroSubtitle: "From \"what does std::cout mean\" to \"I write lock-free telemetry engines for spacecraft.\" Modern C++ (C++11 through C++23) explained like you're a human.",
+    pills: [
+      "Baby Basics",
+      "Getting Somewhere",
+      "Actually Cooking",
+      "Deep Shit",
+      "Black Magic",
+      "NASA & Game-Engine Rules"
+    ],
+    sections: [
+      { title: "Modern C++ Basics",                  desc: "iostream, auto, references, and ranges. Forget malloc and printf for a minute.", tag: "Beginner" },
+      { title: "OOP & Core Abstractions",            desc: "Classes, constructors, inheritance, and virtual dispatch done right.",          tag: "Intermediate" },
+      { title: "Resource Management & RAII",         desc: "Smart pointers, move semantics, and Rule of 0/3/5. Never leak memory again.",   tag: "Intermediate+" },
+      { title: "Modern STL & Algorithms",            desc: "Vectors, hash maps, modern lambdas, ranges, and std::optional.",                tag: "Advanced" },
+      { title: "Templates & Metaprogramming",        desc: "Templates, fold expressions, C++20 concepts, and compile-time evaluation.",    tag: "Expert" },
+      { title: "NASA Rules & Game-Engine Grade C++", desc: "Lock-free atomics, jthreads, cache-line alignment, and JPL safety standards.",  tag: "NASA Level" }
+    ]
+  };
+</script>
+
+<!-- ════════════════════════════════ HERO ════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-badge" id="heroBadge">Modern C++ Reference</div>
+  <h1 id="heroTitle">C++ Programming Cheat Sheet</h1>
+  <p id="heroSubtitle">From "what does std::cout mean" to "I write lock-free telemetry engines for spacecraft." Modern C++ explained like you're human.</p>
+  <div class="level-pills">
+    <a class="pill pill-1" href="#s1" id="pill1">Baby Basics</a>
+    <a class="pill pill-2" href="#s2" id="pill2">Getting Somewhere</a>
+    <a class="pill pill-3" href="#s3" id="pill3">Actually Cooking</a>
+    <a class="pill pill-4" href="#s4" id="pill4">Deep Shit</a>
+    <a class="pill pill-5" href="#s5" id="pill5">Black Magic</a>
+    <a class="pill pill-6" href="#s6" id="pill6">NASA Rules</a>
+  </div>
+</header>
+
+<div class="wrapper">
+
+  <div class="search-results-bar" id="searchResultsBar">
+    <span id="searchResultsCount">Found 0 matching cards</span>
+    <button type="button" class="search-clear-btn" id="searchClearBtn">Clear Search</button>
+  </div>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 1 — MODERN C++ BASICS
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s1" id="s1">
+  <div class="section-num">1</div>
+  <div>
+    <div class="section-title" id="sec1Title">Modern C++ Basics</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec1Desc">iostream, auto, references, and ranges. Forget malloc and printf for a minute.</div>
+  </div>
+  <div class="section-label" id="sec1Label">Beginner</div>
+</div>
+
+<div class="grid">
+
+  <!-- Hello Modern C++ -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Hello Modern C++ — Streams & Namespaces</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// <iostream> gives you streams for input and output</span>
+<span class="pp">#include</span> <span class="st">&lt;iostream&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;string&gt;</span>
+
+<span class="ty">int</span> <span class="fn">main</span>() {
+    <span class="cm">// std::cout is console out. << is the stream insertion operator.</span>
+    <span class="cm">// Prefer '\n' over std::endl because endl forces a flush every time (slow!)</span>
+    <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="st">"Hello, Modern C++!\n"</span>;
+
+    <span class="ty">std</span>::<span class="ty">string</span> <span class="va">name</span>;
+    <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="st">"Enter your callsign: "</span>;
+    <span class="ty">std</span>::<span class="ty">cin</span> &gt;&gt; <span class="va">name</span>; <span class="cm">// reads single word</span>
+
+    <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="st">"Welcome aboard, "</span> &lt;&lt; <span class="va">name</span> &lt;&lt; <span class="st">"!\n"</span>;
+    <span class="kw">return</span> <span class="nm">0</span>;
+}</pre>
+      <div class="callout tip">Compile with modern standard: <code>g++ -std=c++20 main.cpp -o main</code>. Always compile with at least C++17 or C++20 enabled!</div>
+    </div>
+  </div>
+
+  <!-- Auto & Type Deduction -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">auto Keyword — Let the Compiler Figure It Out</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// auto deduces the exact type at COMPILE TIME (zero runtime cost)</span>
+<span class="kw">auto</span> <span class="va">speed</span> = <span class="nm">299792458</span>;          <span class="cm">// deduced as int</span>
+<span class="kw">auto</span> <span class="va">pi</span> = <span class="nm">3.1415926535</span>;          <span class="cm">// deduced as double</span>
+<span class="kw">auto</span> <span class="va">flag</span> = <span class="kw">true</span>;                <span class="cm">// deduced as bool</span>
+<span class="kw">auto</span> <span class="va">msg</span> = <span class="st">"Don't Panic"</span>;        <span class="cm">// deduced as const char*</span>
+
+<span class="cm">// auto drops references & const by default! Use auto& or const auto& if you want them</span>
+<span class="ty">int</span> <span class="va">val</span> = <span class="nm">100</span>;
+<span class="kw">auto</span>&amp; <span class="va">ref</span> = <span class="va">val</span>;                 <span class="cm">// ref is int& (modifying ref modifies val)</span>
+<span class="kw">const</span> <span class="kw">auto</span>&amp; <span class="va">cref</span> = <span class="va">val</span>;          <span class="cm">// cref is const int& (read-only reference)</span>
+
+<span class="cm">// decltype(expr) inspects the declared type of an expression</span>
+<span class="kw">decltype</span>(<span class="va">val</span>) <span class="va">anotherVal</span> = <span class="nm">50</span>;   <span class="cm">// anotherVal is int</span></pre>
+      <div class="callout info"><code>auto</code> makes complex iterator types readable. Instead of writing <code>std::vector&lt;std::pair&lt;std::string, int&gt;&gt;::const_iterator</code>, just write <code>auto it</code>.</div>
+    </div>
+  </div>
+
+  <!-- References vs Pointers -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">References (&) vs Pointers (*) — Safe Aliases</span></div>
+    <div class="card-body">
+      <pre><span class="ty">int</span> <span class="va">x</span> = <span class="nm">42</span>;
+
+<span class="cm">// 1. A Reference is an alias (another name for the same variable).</span>
+<span class="cm">// MUST be initialized, CANNOT be null, CANNOT be reseated to another var.</span>
+<span class="ty">int</span>&amp; <span class="va">ref</span> = <span class="va">x</span>;
+<span class="va">ref</span> = <span class="nm">99</span>; <span class="cm">// x is now 99!</span>
+
+<span class="cm">// 2. Pass-by-Reference in functions prevents slow deep copies</span>
+<span class="kw">void</span> <span class="fn">boostEnergy</span>(<span class="ty">int</span>&amp; <span class="va">n</span>) {
+    <span class="va">n</span> += <span class="nm">50</span>; <span class="cm">// modifies caller's variable directly</span>
+}
+
+<span class="cm">// 3. Const Reference: Fast (no copy) AND safe (cannot mutate)</span>
+<span class="kw">void</span> <span class="fn">printBigData</span>(<span class="kw">const</span> <span class="ty">std</span>::<span class="ty">string</span>&amp; <span class="va">text</span>) {
+    <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="va">text</span> &lt;&lt; <span class="st">"\n"</span>;
+    <span class="cm">// text += "!"; // ERROR: cannot modify const reference</span>
+}</pre>
+      <div class="callout tip">Default rule of thumb: Pass primitives (<code>int</code>, <code>float</code>, <code>bool</code>) by value. Pass objects/strings/structs by <code>const T&</code>.</div>
+    </div>
+  </div>
+
+  <!-- std::string -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">std::string — Real Strings That Don't Suck</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;string&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;iostream&gt;</span>
+
+<span class="ty">std</span>::<span class="ty">string</span> <span class="va">s1</span> = <span class="st">"Apollo"</span>;
+<span class="ty">std</span>::<span class="ty">string</span> <span class="va">s2</span> = <span class="st">"11"</span>;
+
+<span class="cm">// Concatenation with + just works!</span>
+<span class="ty">std</span>::<span class="ty">string</span> <span class="va">mission</span> = <span class="va">s1</span> + <span class="st">" "</span> + <span class="va">s2</span>; <span class="cm">// "Apollo 11"</span>
+
+<span class="cm">// Useful methods</span>
+<span class="kw">auto</span> <span class="va">len</span> = <span class="va">mission</span>.<span class="fn">length</span>();           <span class="cm">// or .size() -> 9</span>
+<span class="kw">bool</span> <span class="va">empty</span> = <span class="va">mission</span>.<span class="fn">empty</span>();          <span class="cm">// false</span>
+<span class="ty">std</span>::<span class="ty">string</span> <span class="va">sub</span> = <span class="va">mission</span>.<span class="fn">substr</span>(<span class="nm">0</span>, <span class="nm">6</span>);<span class="cm">// "Apollo" (start, length)</span>
+<span class="va">mission</span>.<span class="fn">append</span>(<span class="st">" - Moon Landing"</span>);
+
+<span class="cm">// Need C-style char* for an old C library? Use .c_str()</span>
+<span class="kw">const</span> <span class="ty">char</span>* <span class="va">cStr</span> = <span class="va">mission</span>.<span class="fn">c_str</span>();</pre>
+      <div class="callout tip">In C++, <code>std::string</code> manages its own heap memory automatically and grows dynamically. No manual <code>malloc</code> or <code>strcpy</code> bugs.</div>
+    </div>
+  </div>
+
+  <!-- Range-Based For Loops -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Range-Based For Loops — Clean Iteration</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;vector&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;iostream&gt;</span>
+
+<span class="ty">std</span>::<span class="ty">vector</span>&lt;<span class="ty">int</span>&gt; <span class="va">coords</span> = {<span class="nm">10</span>, <span class="nm">20</span>, <span class="nm">30</span>, <span class="nm">40</span>, <span class="nm">50</span>};
+
+<span class="cm">// Read-only (no copy, high performance)</span>
+<span class="kw">for</span> (<span class="kw">const</span> <span class="kw">auto</span>&amp; <span class="va">c</span> : <span class="va">coords</span>) {
+    <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="va">c</span> &lt;&lt; <span class="st">" "</span>;
+}
+
+<span class="cm">// Mutate in place (by non-const reference)</span>
+<span class="kw">for</span> (<span class="kw">auto</span>&amp; <span class="va">c</span> : <span class="va">coords</span>) {
+    <span class="va">c</span> *= <span class="nm">2</span>; <span class="cm">// doubles each element in vector</span>
+}
+
+<span class="cm">// C++20 Structured Binding in range loop!</span>
+<span class="kw">struct</span> <span class="ty">Point</span> { <span class="ty">int</span> <span class="va">x</span>, <span class="va">y</span>; };
+<span class="ty">std</span>::<span class="ty">vector</span>&lt;<span class="ty">Point</span>&gt; <span class="va">pts</span> = {{<span class="nm">1</span>,<span class="nm">2</span>}, {<span class="nm">3</span>,<span class="nm">4</span>}};
+<span class="kw">for</span> (<span class="kw">const</span> <span class="kw">auto</span>&amp; [<span class="va">px</span>, <span class="va">py</span>] : <span class="va">pts</span>) {
+    <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="st">"X:"</span> &lt;&lt; <span class="va">px</span> &lt;&lt; <span class="st">" Y:"</span> &lt;&lt; <span class="va">py</span> &lt;&lt; <span class="st">"\n"</span>;
+}</pre>
+    </div>
+  </div>
+
+  <!-- constexpr & Type Aliasing -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">constexpr & Type Aliasing — Compile-Time Power</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// 1. constexpr evaluated entirely at COMPILE TIME! Zero CPU work at runtime.</span>
+<span class="kw">constexpr</span> <span class="ty">int</span> <span class="fn">square</span>(<span class="ty">int</span> <span class="va">n</span>) {
+    <span class="kw">return</span> <span class="va">n</span> * <span class="va">n</span>;
+}
+<span class="kw">constexpr</span> <span class="ty">int</span> <span class="va">TABLE_SIZE</span> = <span class="fn">square</span>(<span class="nm">16</span>); <span class="cm">// computed by compiler as 256!</span>
+
+<span class="cm">// 2. consteval (C++20) FORCES compile-time evaluation (errors if called at runtime)</span>
+<span class="kw">consteval</span> <span class="ty">int</span> <span class="fn">mustBeConst</span>(<span class="ty">int</span> <span class="va">v</span>) { <span class="kw">return</span> <span class="va">v</span> * <span class="nm">10</span>; }
+
+<span class="cm">// 3. 'using' is modern C++ typedef (cleaner, works with templates)</span>
+<span class="kw">using</span> <span class="ty">TelemetryID</span> = <span class="ty">uint64_t</span>;
+<span class="kw">using</span> <span class="ty">StringList</span> = <span class="ty">std</span>::<span class="ty">vector</span>&lt;<span class="ty">std</span>::<span class="ty">string</span>&gt;;</pre>
+      <div class="callout tip">Prefer <code>constexpr</code> over preprocessor macros like <code>#define TABLE_SIZE 256</code>. <code>constexpr</code> is type-safe and scoped!</div>
+    </div>
+  </div>
+
+</div><!-- /grid s1 -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 2 — OOP & CORE ABSTRACTIONS
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s2" id="s2">
+  <div class="section-num">2</div>
+  <div>
+    <div class="section-title" id="sec2Title">OOP & Core Abstractions</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec2Desc">Classes, constructors, inheritance, and virtual dispatch done right.</div>
+  </div>
+  <div class="section-label" id="sec2Label">Intermediate</div>
+</div>
+
+<div class="grid">
+
+  <!-- Classes vs Structs -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Classes vs Structs — The Only Difference</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// In C++, class and struct are identical EXCEPT FOR DEFAULT VISIBILITY:</span>
+<span class="cm">// - 'struct' members default to PUBLIC</span>
+<span class="cm">// - 'class' members default to PRIVATE</span>
+
+<span class="kw">struct</span> <span class="ty">Vector2D</span> {
+    <span class="ty">float</span> <span class="va">x</span>{<span class="nm">0.0f</span>}; <span class="cm">// public by default! (in-class initializer)</span>
+    <span class="ty">float</span> <span class="va">y</span>{<span class="nm">0.0f</span>};
+};
+
+<span class="kw">class</span> <span class="ty">BankAccount</span> {
+<span class="kw">private</span>:
+    <span class="ty">double</span> <span class="va">balance</span>{<span class="nm">0.0</span>}; <span class="cm">// hidden from outside</span>
+
+<span class="kw">public</span>:
+    <span class="kw">void</span> <span class="fn">deposit</span>(<span class="ty">double</span> <span class="va">amount</span>) {
+        <span class="kw">if</span> (<span class="va">amount</span> &gt; <span class="nm">0</span>) <span class="va">balance</span> += <span class="va">amount</span>;
+    }
+    <span class="ty">double</span> <span class="fn">getBalance</span>() <span class="kw">const</span> { <span class="kw">return</span> <span class="va">balance</span>; }
+};</pre>
+      <div class="callout info">C++ idiom: Use <code>struct</code> for plain passive data bags (POD). Use <code>class</code> when enforcing invariants and encapsulation.</div>
+    </div>
+  </div>
+
+  <!-- Constructors & Initializer Lists -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Constructors & Member Initializer Lists</span></div>
+    <div class="card-body">
+      <pre><span class="kw">class</span> <span class="ty">Spaceship</span> {
+<span class="kw">private</span>:
+    <span class="ty">std</span>::<span class="ty">string</span> <span class="va">callsign</span>;
+    <span class="ty">int</span> <span class="va">crewCount</span>;
+    <span class="kw">const</span> <span class="ty">int</span> <span class="va">launchYear</span>; <span class="cm">// const members MUST use initializer lists!</span>
+
+<span class="kw">public</span>:
+    <span class="cm">// 1. Parameterized Constructor with Initializer List (ALWAYS prefer this)</span>
+    <span class="ty">Spaceship</span>(<span class="ty">std</span>::<span class="ty">string</span> <span class="va">name</span>, <span class="ty">int</span> <span class="va">crew</span>, <span class="ty">int</span> <span class="va">year</span>)
+        : <span class="va">callsign</span>(<span class="ty">std</span>::<span class="fn">move</span>(<span class="va">name</span>)), <span class="va">crewCount</span>(<span class="va">crew</span>), <span class="va">launchYear</span>(<span class="va">year</span>) {
+        <span class="cm">// Body runs AFTER members are already constructed!</span>
+    }
+
+    <span class="cm">// 2. Default Constructor explicitly defaulted</span>
+    <span class="ty">Spaceship</span>() = <span class="kw">default</span>;
+
+    <span class="cm">// 3. Prevent implicit unwanted conversions using explicit</span>
+    <span class="kw">explicit</span> <span class="ty">Spaceship</span>(<span class="ty">int</span> <span class="va">crew</span>) : <span class="va">callsign</span>(<span class="st">"Drone"</span>), <span class="va">crewCount</span>(<span class="va">crew</span>), <span class="va">launchYear</span>(<span class="nm">2026</span>) {}
+};</pre>
+      <div class="callout tip">Always mark single-argument constructors as <code>explicit</code> so the compiler doesn't accidentally cast an integer into your entire class!</div>
+    </div>
+  </div>
+
+  <!-- const Methods & this -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">const Methods & The 'this' Pointer</span></div>
+    <div class="card-body">
+      <pre><span class="kw">class</span> <span class="ty">TelemetrySensor</span> {
+<span class="kw">private</span>:
+    <span class="ty">double</span> <span class="va">reading</span>{<span class="nm">0.0</span>};
+    <span class="kw">mutable</span> <span class="ty">int</span> <span class="va">accessCount</span>{<span class="nm">0</span>}; <span class="cm">// mutable CAN be modified in const methods</span>
+
+<span class="kw">public</span>:
+    <span class="cm">// Method marked const PROMISES not to mutate member variables</span>
+    <span class="ty">double</span> <span class="fn">getReading</span>() <span class="kw">const</span> {
+        <span class="va">accessCount</span>++; <span class="cm">// legal because accessCount is mutable</span>
+        <span class="kw">return</span> <span class="va">reading</span>;
+    }
+
+    <span class="cm">// Method chaining using *this</span>
+    <span class="ty">TelemetrySensor</span>&amp; <span class="fn">setReading</span>(<span class="ty">double</span> <span class="va">r</span>) {
+        <span class="kw">this</span>-&gt;<span class="va">reading</span> = <span class="va">r</span>;
+        <span class="kw">return</span> *<span class="kw">this</span>; <span class="cm">// return reference to current instance</span>
+    }
+};
+
+<span class="cm">// Usage: sensor.setReading(98.6).setReading(101.2);</span></pre>
+    </div>
+  </div>
+
+  <!-- Inheritance & Access -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Inheritance & Access Specifiers</span></div>
+    <div class="card-body">
+      <pre><span class="kw">class</span> <span class="ty">Vehicle</span> {
+<span class="kw">protected</span>:
+    <span class="ty">float</span> <span class="va">speed</span>{<span class="nm">0.0f</span>}; <span class="cm">// derived classes can access this, public cannot</span>
+
+<span class="kw">public</span>:
+    <span class="kw">void</span> <span class="fn">accelerate</span>(<span class="ty">float</span> <span class="va">amount</span>) { <span class="va">speed</span> += <span class="va">amount</span>; }
+};
+
+<span class="cm">// 'public Vehicle' means Vehicle's public members stay public in Rocket</span>
+<span class="kw">class</span> <span class="ty">Rocket</span> : <span class="kw">public</span> <span class="ty">Vehicle</span> {
+<span class="kw">private</span>:
+    <span class="ty">float</span> <span class="va">fuelLevel</span>{<span class="nm">100.0f</span>};
+
+<span class="kw">public</span>:
+    <span class="kw">void</span> <span class="fn">igniteStage1</span>() {
+        <span class="va">speed</span> += <span class="nm">1500.0f</span>; <span class="cm">// access protected base member</span>
+        <span class="va">fuelLevel</span> -= <span class="nm">40.0f</span>;
+    }
+};</pre>
+      <div class="callout warn">Almost always use <code>public</code> inheritance. <code>private</code> or <code>protected</code> inheritance is rare and changes all base methods to hidden.</div>
+    </div>
+  </div>
+
+  <!-- Virtual Functions & Polymorphism -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Virtual Functions & Dynamic Polymorphism</span></div>
+    <div class="card-body">
+      <pre><span class="kw">class</span> <span class="ty">Astronaut</span> {
+<span class="kw">public</span>:
+    <span class="cm">// ALWAYS make base class destructors virtual! (prevents memory leaks)</span>
+    <span class="kw">virtual</span> ~<span class="ty">Astronaut</span>() = <span class="kw">default</span>;
+
+    <span class="cm">// virtual enables runtime dynamic dispatch (vtables)</span>
+    <span class="kw">virtual</span> <span class="kw">void</span> <span class="fn">performDuty</span>() {
+        <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="st">"Monitoring life support systems.\n"</span>;
+    }
+};
+
+<span class="kw">class</span> <span class="ty">Commander</span> : <span class="kw">public</span> <span class="ty">Astronaut</span> {
+<span class="kw">public</span>:
+    <span class="cm">// 'override' makes the compiler verify this matches a base virtual function!</span>
+    <span class="kw">void</span> <span class="fn">performDuty</span>() <span class="kw">override</span> {
+        <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="st">"Authorizing orbital insertion burn.\n"</span>;
+    }
+};
+
+<span class="cm">// Calling through base pointer invokes Commander::performDuty at runtime!</span>
+<span class="ty">Astronaut</span>* <span class="va">astro</span> = <span class="kw">new</span> <span class="ty">Commander</span>();
+<span class="va">astro</span>-&gt;<span class="fn">performDuty</span>(); <span class="cm">// outputs Commander message!</span>
+<span class="kw">delete</span> <span class="va">astro</span>;</pre>
+    </div>
+  </div>
+
+  <!-- Abstract Classes & Interfaces -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Abstract Classes & Pure Virtual (= 0)</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// Pure virtual method '= 0' makes class Abstract (cannot be instantiated)</span>
+<span class="kw">class</span> <span class="ty">ILogger</span> {
+<span class="kw">public</span>:
+    <span class="kw">virtual</span> ~<span class="ty">ILogger</span>() = <span class="kw">default</span>;
+    <span class="kw">virtual</span> <span class="kw">void</span> <span class="fn">log</span>(<span class="kw">const</span> <span class="ty">std</span>::<span class="ty">string</span>&amp; <span class="va">msg</span>) = <span class="nm">0</span>; <span class="cm">// pure virtual</span>
+};
+
+<span class="kw">class</span> <span class="ty">ConsoleLogger</span> : <span class="kw">public</span> <span class="ty">ILogger</span> {
+<span class="kw">public</span>:
+    <span class="kw">void</span> <span class="fn">log</span>(<span class="kw">const</span> <span class="ty">std</span>::<span class="ty">string</span>&amp; <span class="va">msg</span>) <span class="kw">override</span> {
+        <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="st">"[LOG] "</span> &lt;&lt; <span class="va">msg</span> &lt;&lt; <span class="st">"\n"</span>;
+    }
+};
+
+<span class="cm">// 'final' on class prevents further inheritance</span>
+<span class="kw">class</span> <span class="ty">LockedLogger</span> <span class="kw">final</span> : <span class="kw">public</span> <span class="ty">ConsoleLogger</span> {};</pre>
+      <div class="callout tip">C++ doesn't have an <code>interface</code> keyword like Java/C#. An abstract class with only pure virtual functions and a virtual destructor IS an interface.</div>
+    </div>
+  </div>
+
+</div><!-- /grid s2 -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 3 — RESOURCE MANAGEMENT & RAII
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s3" id="s3">
+  <div class="section-num">3</div>
+  <div>
+    <div class="section-title" id="sec3Title">Resource Management & RAII</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec3Desc">Smart pointers, move semantics, and Rule of 0/3/5. Never leak memory again.</div>
+  </div>
+  <div class="section-label" id="sec3Label">Intermediate+</div>
+</div>
+
+<div class="grid">
+
+  <!-- RAII -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">RAII — Resource Acquisition Is Initialization</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// RAII Rule: Bind the lifetime of a resource (heap memory, file, socket, mutex)</span>
+<span class="cm">// to the lifetime of a stack object! Destructor frees it AUTOMATICALLY when it leaves scope.</span>
+
+<span class="kw">class</span> <span class="ty">FileHandler</span> {
+<span class="kw">private</span>:
+    <span class="ty">FILE</span>* <span class="va">file</span>;
+<span class="kw">public</span>:
+    <span class="ty">FileHandler</span>(<span class="kw">const</span> <span class="ty">char</span>* <span class="va">filename</span>, <span class="kw">const</span> <span class="ty">char</span>* <span class="va">mode</span>) {
+        <span class="va">file</span> = <span class="fn">fopen</span>(<span class="va">filename</span>, <span class="va">mode</span>);
+    }
+    ~<span class="ty">FileHandler</span>() {
+        <span class="kw">if</span> (<span class="va">file</span>) <span class="fn">fclose</span>(<span class="va">file</span>); <span class="cm">// guaranteed to run even on exceptions!</span>
+    }
+};
+
+<span class="kw">void</span> <span class="fn">work</span>() {
+    <span class="ty">FileHandler</span> <span class="va">fh</span>(<span class="st">"telemetry.log"</span>, <span class="st">"w"</span>);
+    <span class="cm">// Do stuff... if error or return happens, fclose is still called!</span>
+}</pre>
+    </div>
+  </div>
+
+  <!-- unique_ptr -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">std::unique_ptr — Exclusive Ownership Smart Pointer</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;memory&gt;</span>
+
+<span class="kw">struct</span> <span class="ty">SensorData</span> { <span class="ty">int</span> <span class="va">pressure</span>; };
+
+<span class="kw">void</span> <span class="fn">processData</span>() {
+    <span class="cm">// 1. Always create with std::make_unique (exception-safe & fast)</span>
+    <span class="kw">auto</span> <span class="va">sensor</span> = <span class="ty">std</span>::<span class="fn">make_unique</span>&lt;<span class="ty">SensorData</span>&gt;();
+    <span class="va">sensor</span>-&gt;<span class="va">pressure</span> = <span class="nm">1013</span>;
+
+    <span class="cm">// 2. unique_ptr CANNOT BE COPIED! (exclusive single owner)</span>
+    <span class="cm">// auto copy = sensor; // COMPILER ERROR!</span>
+
+    <span class="cm">// 3. Ownership CAN be transferred with std::move</span>
+    <span class="ty">std</span>::<span class="ty">unique_ptr</span>&lt;<span class="ty">SensorData</span>&gt; <span class="va">newOwner</span> = <span class="ty">std</span>::<span class="fn">move</span>(<span class="va">sensor</span>);
+    <span class="cm">// sensor is now nullptr; newOwner owns the memory</span>
+} <span class="cm">// memory is automatically deleted here. Zero runtime overhead vs raw pointer!</span></pre>
+      <div class="callout tip">Rule: <code>std::unique_ptr</code> should be your default choice 95% of the time for dynamically allocated heap objects.</div>
+    </div>
+  </div>
+
+  <!-- shared_ptr & weak_ptr -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">std::shared_ptr & std::weak_ptr — Shared Ownership</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;memory&gt;</span>
+
+<span class="kw">struct</span> <span class="ty">Node</span> {
+    <span class="ty">int</span> <span class="va">value</span>;
+    <span class="ty">std</span>::<span class="ty">shared_ptr</span>&lt;<span class="ty">Node</span>&gt; <span class="va">next</span>;
+    <span class="cm">// weak_ptr does NOT increment ref count (breaks circular leak cycles!)</span>
+    <span class="ty">std</span>::<span class="ty">weak_ptr</span>&lt;<span class="ty">Node</span>&gt; <span class="va">prev</span>;
+};
+
+<span class="kw">void</span> <span class="fn">example</span>() {
+    <span class="cm">// std::make_shared allocates object + control block in 1 single memory chunk</span>
+    <span class="kw">auto</span> <span class="va">p1</span> = <span class="ty">std</span>::<span class="fn">make_shared</span>&lt;<span class="ty">Node</span>&gt;(); <span class="cm">// use_count = 1</span>
+    {
+        <span class="kw">auto</span> <span class="va">p2</span> = <span class="va">p1</span>; <span class="cm">// copy increases use_count to 2</span>
+        <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="va">p1</span>.<span class="fn">use_count</span>(); <span class="cm">// 2</span>
+    } <span class="cm">// p2 goes out of scope -> use_count drops to 1</span>
+
+    <span class="cm">// To use weak_ptr, must lock() it to get a temporary shared_ptr</span>
+    <span class="ty">std</span>::<span class="ty">weak_ptr</span>&lt;<span class="ty">Node</span>&gt; <span class="va">w</span> = <span class="va">p1</span>;
+    <span class="kw">if</span> (<span class="kw">auto</span> <span class="va">locked</span> = <span class="va">w</span>.<span class="fn">lock</span>()) {
+        <span class="va">locked</span>-&gt;<span class="va">value</span> = <span class="nm">42</span>;
+    }
+} <span class="cm">// p1 leaves scope -> count hits 0 -> memory safely freed</span></pre>
+    </div>
+  </div>
+
+  <!-- Move Semantics -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Move Semantics & Rvalues (std::move, T&&)</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;vector&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;string&gt;</span>
+
+<span class="cm">// Lvalue: Has a name/address (e.g. variable x).</span>
+<span class="cm">// Rvalue: Temporary value with no persistent name (e.g. "hi" + " world", 42).</span>
+<span class="cm">// T&& is an Rvalue Reference: binds to temporary objects ready to be stolen!</span>
+
+<span class="kw">class</span> <span class="ty">Buffer</span> {
+    <span class="ty">int</span>* <span class="va">data</span>;
+    <span class="ty">size_t</span> <span class="va">size</span>;
+<span class="kw">public</span>:
+    <span class="cm">// Move Constructor: Steals pointer instead of copying huge array!</span>
+    <span class="ty">Buffer</span>(<span class="ty">Buffer</span>&amp;&amp; <span class="va">other</span>) <span class="kw">noexcept</span>
+        : <span class="va">data</span>(<span class="va">other</span>.<span class="va">data</span>), <span class="va">size</span>(<span class="va">other</span>.<span class="va">size</span>) {
+        <span class="va">other</span>.<span class="va">data</span> = <span class="kw">nullptr</span>; <span class="cm">// zero out other so its destructor won't free it</span>
+        <span class="va">other</span>.<span class="va">size</span> = <span class="nm">0</span>;
+    }
+};
+
+<span class="ty">std</span>::<span class="ty">vector</span>&lt;<span class="ty">std</span>::<span class="ty">string</span>&gt; <span class="va">v</span>;
+<span class="ty">std</span>::<span class="ty">string</span> <span class="va">huge</span> = <span class="st">"Gigabytes of telemetry data..."</span>;
+<span class="va">v</span>.<span class="fn">push_back</span>(<span class="ty">std</span>::<span class="fn">move</span>(<span class="va">huge</span>)); <span class="cm">// std::move casts huge to rvalue -> fast move!</span></pre>
+    </div>
+  </div>
+
+  <!-- Rule of 0 / 3 / 5 -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">The Rule of 0, 3, and 5</span></div>
+    <div class="card-body">
+      <pre><span class="cm">/*
+ RULE OF ZERO: If your class uses standard types (string, vector, unique_ptr),
+ write ZERO special member functions. Compiler generates safe defaults!
+
+ RULE OF THREE (C++98): If you write any of:
+ 1. Destructor
+ 2. Copy Constructor
+ 3. Copy Assignment Operator
+ ...you almost certainly must write all 3.
+
+ RULE OF FIVE (Modern C++11+): When managing raw resources, write all 5:
+*/</span>
+<span class="kw">class</span> <span class="ty">ResourceHolder</span> {
+<span class="kw">public</span>:
+    ~<span class="ty">ResourceHolder</span>();                                  <span class="cm">// 1. Destructor</span>
+    <span class="ty">ResourceHolder</span>(<span class="kw">const</span> <span class="ty">ResourceHolder</span>&amp;);              <span class="cm">// 2. Copy Ctor</span>
+    <span class="ty">ResourceHolder</span>&amp; <span class="kw">operator</span>=(<span class="kw">const</span> <span class="ty">ResourceHolder</span>&amp;);  <span class="cm">// 3. Copy Assign</span>
+    <span class="ty">ResourceHolder</span>(<span class="ty">ResourceHolder</span>&amp;&amp;) <span class="kw">noexcept</span>;          <span class="cm">// 4. Move Ctor</span>
+    <span class="ty">ResourceHolder</span>&amp; <span class="kw">operator</span>=(<span class="ty">ResourceHolder</span>&amp;&amp;) <span class="kw">noexcept</span>; <span class="cm">// 5. Move Assign</span>
+};</pre>
+      <div class="callout tip">Aim for the <strong>Rule of Zero</strong>. Use smart pointers and standard containers so you don't have to manually write copy/move logic.</div>
+    </div>
+  </div>
+
+  <!-- Operator Overloading -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Operator Overloading & Spaceship (<=>)</span></div>
+    <div class="card-body">
+      <pre><span class="kw">struct</span> <span class="ty">Vec2</span> {
+    <span class="ty">float</span> <span class="va">x</span>, <span class="va">y</span>;
+
+    <span class="cm">// Overload +</span>
+    <span class="ty">Vec2</span> <span class="kw">operator</span>+(<span class="kw">const</span> <span class="ty">Vec2</span>&amp; <span class="va">rhs</span>) <span class="kw">const</span> {
+        <span class="kw">return</span> {<span class="va">x</span> + <span class="va">rhs</span>.<span class="va">x</span>, <span class="va">y</span> + <span class="va">rhs</span>.<span class="va">y</span>};
+    }
+
+    <span class="cm">// C++20 Three-way comparison operator (Spaceship operator <=>)</span>
+    <span class="cm">// Generates <, <=, ==, !=, >=, > AUTOMATICALLY!</span>
+    <span class="kw">auto</span> <span class="kw">operator</span>&lt;=&gt;(<span class="kw">const</span> <span class="ty">Vec2</span>&amp;) <span class="kw">const</span> = <span class="kw">default</span>;
+};
+
+<span class="cm">// Stream output operator overload (std::cout << vec)</span>
+<span class="ty">std</span>::<span class="ty">ostream</span>&amp; <span class="kw">operator</span>&lt;&lt;(<span class="ty">std</span>::<span class="ty">ostream</span>&amp; <span class="va">os</span>, <span class="kw">const</span> <span class="ty">Vec2</span>&amp; <span class="va">v</span>) {
+    <span class="kw">return</span> <span class="va">os</span> &lt;&lt; <span class="st">"("</span> &lt;&lt; <span class="va">v</span>.<span class="va">x</span> &lt;&lt; <span class="st">", "</span> &lt;&lt; <span class="va">v</span>.<span class="va">y</span> &lt;&lt; <span class="st">")"</span>;
+}</pre>
+    </div>
+  </div>
+
+</div><!-- /grid s3 -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 4 — MODERN STL & ALGORITHMS
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s4" id="s4">
+  <div class="section-num">4</div>
+  <div>
+    <div class="section-title" id="sec4Title">Modern STL & Algorithms</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec4Desc">Vectors, hash maps, modern lambdas, ranges, and std::optional.</div>
+  </div>
+  <div class="section-label" id="sec4Label">Advanced</div>
+</div>
+
+<div class="grid">
+
+  <!-- std::vector -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">std::vector — Dynamic Contiguous Array</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;vector&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;iostream&gt;</span>
+
+<span class="ty">std</span>::<span class="ty">vector</span>&lt;<span class="ty">int</span>&gt; <span class="va">nums</span> = {<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>};
+
+<span class="cm">// reserve() pre-allocates memory capacity to avoid re-allocations</span>
+<span class="va">nums</span>.<span class="fn">reserve</span>(<span class="nm">1000</span>);
+
+<span class="va">nums</span>.<span class="fn">push_back</span>(<span class="nm">4</span>);               <span class="cm">// appends element</span>
+<span class="va">nums</span>.<span class="fn">emplace_back</span>(<span class="nm">5</span>);            <span class="cm">// constructs element in-place (faster for objects)</span>
+
+<span class="va">nums</span>[<span class="nm">0</span>] = <span class="nm">10</span>;                    <span class="cm">// unchecked indexing (blazing fast)</span>
+<span class="va">nums</span>.<span class="fn">at</span>(<span class="nm">1</span>);                      <span class="cm">// bounds-checked indexing (throws std::out_of_range)</span>
+
+<span class="kw">auto</span> <span class="va">first</span> = <span class="va">nums</span>.<span class="fn">front</span>();       <span class="cm">// 10</span>
+<span class="kw">auto</span> <span class="va">last</span>  = <span class="va">nums</span>.<span class="fn">back</span>();        <span class="cm">// 5</span>
+<span class="va">nums</span>.<span class="fn">pop_back</span>();                 <span class="cm">// removes last element</span>
+<span class="va">nums</span>.<span class="fn">clear</span>();                    <span class="cm">// size becomes 0 (capacity preserved)</span></pre>
+      <div class="callout tip">Always call <code>.reserve(N)</code> on vectors if you know roughly how many items you will add! It prevents repeated heap reallocations.</div>
+    </div>
+  </div>
+
+  <!-- Map and Set -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">std::unordered_map & std::map</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;unordered_map&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;map&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;string&gt;</span>
+
+<span class="cm">// 1. std::unordered_map = Hash Table (O(1) average lookup, unordered)</span>
+<span class="ty">std</span>::<span class="ty">unordered_map</span>&lt;<span class="ty">std</span>::<span class="ty">string</span>, <span class="ty">int</span>&gt; <span class="va">thrust</span>;
+<span class="va">thrust</span>[<span class="st">"Merlin"</span>] = <span class="nm">845</span>;
+<span class="va">thrust</span>[<span class="st">"Raptor"</span>] = <span class="nm">2200</span>;
+
+<span class="cm">// Check if key exists (C++20 .contains())</span>
+<span class="kw">if</span> (<span class="va">thrust</span>.<span class="fn">contains</span>(<span class="st">"Raptor"</span>)) {
+    <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="va">thrust</span>[<span class="st">"Raptor"</span>] &lt;&lt; <span class="st">" kN\n"</span>;
+}
+
+<span class="cm">// 2. std::map = Red-Black Tree (O(log N) lookup, ALWAYS sorted by key)</span>
+<span class="ty">std</span>::<span class="ty">map</span>&lt;<span class="ty">int</span>, <span class="ty">std</span>::<span class="ty">string</span>&gt; <span class="va">countdown</span>;
+<span class="va">countdown</span>[<span class="nm">3</span>] = <span class="st">"Ignition"</span>;
+<span class="va">countdown</span>[<span class="nm">1</span>] = <span class="st">"Liftoff"</span>;</pre>
+    </div>
+  </div>
+
+  <!-- Modern Lambdas -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Modern Lambdas — Anonymous In-Line Functions</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// Syntax: [captures](parameters) -> return_type { body }</span>
+
+<span class="ty">int</span> <span class="va">threshold</span> = <span class="nm">50</span>;
+
+<span class="cm">// Capture by value [=] or [threshold]</span>
+<span class="kw">auto</span> <span class="va">isHigh</span> = [<span class="va">threshold</span>](<span class="ty">int</span> <span class="va">val</span>) -&gt; <span class="kw">bool</span> {
+    <span class="kw">return</span> <span class="va">val</span> &gt; <span class="va">threshold</span>;
+};
+
+<span class="cm">// Capture by reference [&] (can modify outer variables)</span>
+<span class="ty">int</span> <span class="va">counter</span> = <span class="nm">0</span>;
+<span class="kw">auto</span> <span class="va">tick</span> = [&amp;<span class="va">counter</span>]() { <span class="va">counter</span>++; };
+
+<span class="cm">// Generic Lambda with auto parameters (C++14+)</span>
+<span class="kw">auto</span> <span class="va">printPair</span> = [](<span class="kw">const</span> <span class="kw">auto</span>&amp; <span class="va">a</span>, <span class="kw">const</span> <span class="kw">auto</span>&amp; <span class="va">b</span>) {
+    <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="va">a</span> &lt;&lt; <span class="st">": "</span> &lt;&lt; <span class="va">b</span> &lt;&lt; <span class="st">"\n"</span>;
+};</pre>
+    </div>
+  </div>
+
+  <!-- Algorithms & Ranges -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Algorithms & C++20 Ranges</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;algorithm&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;ranges&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;vector&gt;</span>
+
+<span class="ty">std</span>::<span class="ty">vector</span>&lt;<span class="ty">int</span>&gt; <span class="va">v</span> = {<span class="nm">5</span>, <span class="nm">2</span>, <span class="nm">8</span>, <span class="nm">1</span>, <span class="nm">9</span>, <span class="nm">4</span>};
+
+<span class="cm">// Modern C++20 std::ranges::sort (no need for v.begin(), v.end()!)</span>
+<span class="ty">std</span>::<span class="ty">ranges</span>::<span class="fn">sort</span>(<span class="va">v</span>);
+
+<span class="cm">// Binary search / finding</span>
+<span class="kw">bool</span> <span class="va">found</span> = <span class="ty">std</span>::<span class="ty">ranges</span>::<span class="fn">binary_search</span>(<span class="va">v</span>, <span class="nm">8</span>);
+
+<span class="cm">// Range Views pipeline (lazy evaluation! Zero allocations!)</span>
+<span class="kw">auto</span> <span class="va">evenSquares</span> = <span class="va">v</span>
+    | <span class="ty">std</span>::<span class="ty">views</span>::<span class="fn">filter</span>([](<span class="ty">int</span> <span class="va">n</span>) { <span class="kw">return</span> <span class="va">n</span> % <span class="nm">2</span> == <span class="nm">0</span>; })
+    | <span class="ty">std</span>::<span class="ty">views</span>::<span class="fn">transform</span>([](<span class="ty">int</span> <span class="va">n</span>) { <span class="kw">return</span> <span class="va">n</span> * <span class="va">n</span>; });
+
+<span class="kw">for</span> (<span class="kw">int</span> <span class="va">n</span> : <span class="va">evenSquares</span>) {
+    <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="va">n</span> &lt;&lt; <span class="st">" "</span>; <span class="cm">// 4 16 64</span>
+}</pre>
+    </div>
+  </div>
+
+  <!-- std::optional & variant -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">std::optional & std::variant (Type-Safe Unions)</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;optional&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;variant&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;string&gt;</span>
+
+<span class="cm">// 1. std::optional: Replaces nullable pointers and magic error numbers (-1)</span>
+<span class="ty">std</span>::<span class="ty">optional</span>&lt;<span class="ty">int</span>&gt; <span class="fn">findSensor</span>(<span class="ty">int</span> <span class="va">id</span>) {
+    <span class="kw">if</span> (<span class="va">id</span> == <span class="nm">42</span>) <span class="kw">return</span> <span class="nm">100</span>;
+    <span class="kw">return</span> <span class="ty">std</span>::<span class="va">nullopt</span>; <span class="cm">// empty result</span>
+}
+<span class="kw">auto</span> <span class="va">res</span> = <span class="fn">findSensor</span>(<span class="nm">42</span>);
+<span class="ty">int</span> <span class="va">val</span> = <span class="va">res</span>.<span class="fn">value_or</span>(<span class="nm">0</span>); <span class="cm">// 100 if present, else fallback to 0</span>
+
+<span class="cm">// 2. std::variant: Type-safe, memory-efficient tagged union</span>
+<span class="ty">std</span>::<span class="ty">variant</span>&lt;<span class="ty">int</span>, <span class="ty">double</span>, <span class="ty">std</span>::<span class="ty">string</span>&gt; <span class="va">packet</span>;
+<span class="va">packet</span> = <span class="st">"Telemetry OK"</span>;
+<span class="kw">if</span> (<span class="ty">std</span>::<span class="fn">holds_alternative</span>&lt;<span class="ty">std</span>::<span class="ty">string</span>&gt;(<span class="va">packet</span>)) {
+    <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="ty">std</span>::<span class="fn">get</span>&lt;<span class="ty">std</span>::<span class="ty">string</span>&gt;(<span class="va">packet</span>) &lt;&lt; <span class="st">"\n"</span>;
+}</pre>
+    </div>
+  </div>
+
+  <!-- string_view & span -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">std::string_view & std::span — Zero-Copy Views</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;string_view&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;span&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;iostream&gt;</span>
+
+<span class="cm">// string_view is just a pointer + length. ZERO memory allocation!</span>
+<span class="kw">void</span> <span class="fn">parseHeader</span>(<span class="ty">std</span>::<span class="ty">string_view</span> <span class="va">sv</span>) {
+    <span class="kw">if</span> (<span class="va">sv</span>.<span class="fn">starts_with</span>(<span class="st">"NASA"</span>)) { <span class="cm">// C++20</span>
+        <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="st">"Valid NASA packet: "</span> &lt;&lt; <span class="va">sv</span>.<span class="fn">substr</span>(<span class="nm">5</span>) &lt;&lt; <span class="st">"\n"</span>;
+    }
+}
+
+<span class="cm">// std::span (C++20) represents any contiguous array view without copying</span>
+<span class="kw">void</span> <span class="fn">printBytes</span>(<span class="ty">std</span>::<span class="ty">span</span>&lt;<span class="kw">const</span> <span class="ty">uint8_t</span>&gt; <span class="va">buffer</span>) {
+    <span class="kw">for</span> (<span class="kw">auto</span> <span class="va">b</span> : <span class="va">buffer</span>) <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="kw">static_cast</span>&lt;<span class="ty">int</span>&gt;(<span class="va">b</span>) &lt;&lt; <span class="st">" "</span>;
+}</pre>
+      <div class="callout tip">Use <code>std::string_view</code> for read-only function arguments instead of <code>const std::string&</code> whenever you might pass string literals or sub-slices!</div>
+    </div>
+  </div>
+
+</div><!-- /grid s4 -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 5 — TEMPLATES & METAPROGRAMMING
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s5" id="s5">
+  <div class="section-num">5</div>
+  <div>
+    <div class="section-title" id="sec5Title">Templates & Metaprogramming</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec5Desc">Templates, fold expressions, C++20 concepts, and compile-time evaluation.</div>
+  </div>
+  <div class="section-label" id="sec5Label">Expert</div>
+</div>
+
+<div class="grid">
+
+  <!-- Function and Class Templates -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Templates — Generic Types and Functions</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// 1. Function Template: Compiler generates concrete functions for each type used!</span>
+<span class="kw">template</span> &lt;<span class="kw">typename</span> <span class="ty">T</span>&gt;
+<span class="ty">T</span> <span class="fn">clampVal</span>(<span class="ty">T</span> <span class="va">val</span>, <span class="ty">T</span> <span class="va">minVal</span>, <span class="ty">T</span> <span class="va">maxVal</span>) {
+    <span class="kw">if</span> (<span class="va">val</span> &lt; <span class="va">minVal</span>) <span class="kw">return</span> <span class="va">minVal</span>;
+    <span class="kw">if</span> (<span class="va">val</span> &gt; <span class="va">maxVal</span>) <span class="kw">return</span> <span class="va">maxVal</span>;
+    <span class="kw">return</span> <span class="va">val</span>;
+}
+
+<span class="cm">// 2. Class Template with Non-Type Template Parameter (e.g. fixed buffer size N)</span>
+<span class="kw">template</span> &lt;<span class="kw">typename</span> <span class="ty">T</span>, <span class="ty">size_t</span> <span class="va">N</span>&gt;
+<span class="kw">class</span> <span class="ty">RingBuffer</span> {
+<span class="kw">private</span>:
+    <span class="ty">T</span> <span class="va">buffer</span>[<span class="va">N</span>];
+    <span class="ty">size_t</span> <span class="va">head</span>{<span class="nm">0</span>};
+<span class="kw">public</span>:
+    <span class="kw">void</span> <span class="fn">push</span>(<span class="kw">const</span> <span class="ty">T</span>&amp; <span class="va">item</span>) { <span class="va">buffer</span>[<span class="va">head</span>++ % <span class="va">N</span>] = <span class="va">item</span>; }
+};
+
+<span class="ty">RingBuffer</span>&lt;<span class="ty">float</span>, <span class="nm">128</span>&gt; <span class="va">gyroBuffer</span>;</pre>
+    </div>
+  </div>
+
+  <!-- Variadic Templates & Fold Expressions -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Variadic Templates & C++17 Fold Expressions</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;iostream&gt;</span>
+
+<span class="cm">// 'Args... args' is a parameter pack containing ANY number of arguments</span>
+<span class="kw">template</span> &lt;<span class="kw">typename</span>... <span class="ty">Args</span>&gt;
+<span class="kw">void</span> <span class="fn">printAll</span>(<span class="kw">const</span> <span class="ty">Args</span>&amp;... <span class="va">args</span>) {
+    <span class="cm">// C++17 Fold Expression: expands ((std::cout << arg1), (std::cout << arg2)...)</span>
+    ((<span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="va">args</span> &lt;&lt; <span class="st">" "</span>), ...);
+    <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="st">"\n"</span>;
+}
+
+<span class="cm">// Summing multiple arguments at compile-time</span>
+<span class="kw">template</span> &lt;<span class="kw">typename</span>... <span class="ty">Numbers</span>&gt;
+<span class="kw">auto</span> <span class="fn">sumAll</span>(<span class="ty">Numbers</span>... <span class="va">nums</span>) {
+    <span class="kw">return</span> (... + <span class="va">nums</span>); <span class="cm">// fold over binary operator +</span>
+}
+
+<span class="fn">printAll</span>(<span class="st">"Orbit"</span>, <span class="nm">42</span>, <span class="nm">3.14</span>, <span class="st">'A'</span>); <span class="cm">// Orbit 42 3.14 A</span>
+<span class="kw">auto</span> <span class="va">total</span> = <span class="fn">sumAll</span>(<span class="nm">10</span>, <span class="nm">20</span>, <span class="nm">30</span>, <span class="nm">40</span>);    <span class="cm">// 100</span></pre>
+    </div>
+  </div>
+
+  <!-- C++20 Concepts -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">C++20 Concepts & Constraints</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;concepts&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;iostream&gt;</span>
+
+<span class="cm">// Define custom concept: must support + and be copyable</span>
+<span class="kw">template</span> &lt;<span class="kw">typename</span> <span class="ty">T</span>&gt;
+<span class="kw">concept</span> <span class="ty">Numeric</span> = <span class="ty">std</span>::<span class="ty">integral</span>&lt;<span class="ty">T</span>&gt; || <span class="ty">std</span>::<span class="ty">floating_point</span>&lt;<span class="ty">T</span>&gt;;
+
+<span class="cm">// Use concept directly in template parameter</span>
+<span class="kw">template</span> &lt;<span class="ty">Numeric</span> <span class="ty">T</span>&gt;
+<span class="ty">T</span> <span class="fn">calcAcceleration</span>(<span class="ty">T</span> <span class="va">force</span>, <span class="ty">T</span> <span class="va">mass</span>) {
+    <span class="kw">return</span> <span class="va">force</span> / <span class="va">mass</span>;
+}
+
+<span class="cm">// Or with the ultra-concise 'auto' concept syntax</span>
+<span class="kw">void</span> <span class="fn">printNumber</span>(<span class="ty">Numeric</span> <span class="kw">auto</span> <span class="va">n</span>) {
+    <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="st">"Value: "</span> &lt;&lt; <span class="va">n</span> &lt;&lt; <span class="st">"\n"</span>;
+}
+
+<span class="cm">// Passing std::string will trigger a clear, readable compiler error!</span></pre>
+      <div class="callout tip">Concepts turn 500-line template error vomits into a clean single line error: <i>"candidate template ignored: constraints not satisfied"</i>.</div>
+    </div>
+  </div>
+
+  <!-- if constexpr -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">if constexpr — Compile-Time Branching</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;type_traits&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;iostream&gt;</span>
+
+<span class="kw">template</span> &lt;<span class="kw">typename</span> <span class="ty">T</span>&gt;
+<span class="kw">void</span> <span class="fn">serialize</span>(<span class="kw">const</span> <span class="ty">T</span>&amp; <span class="va">value</span>) {
+    <span class="cm">// Discarded branch is NOT compiled for types that don't match!</span>
+    <span class="kw">if</span> <span class="kw">constexpr</span> (<span class="ty">std</span>::<span class="ty">is_pointer_v</span>&lt;<span class="ty">T</span>&gt;) {
+        <span class="kw">if</span> (<span class="va">value</span>) <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; *<span class="va">value</span> &lt;&lt; <span class="st">"\n"</span>;
+    } <span class="kw">else</span> <span class="kw">if</span> <span class="kw">constexpr</span> (<span class="ty">std</span>::<span class="ty">is_integral_v</span>&lt;<span class="ty">T</span>&gt;) {
+        <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="st">"Int: "</span> &lt;&lt; <span class="va">value</span> &lt;&lt; <span class="st">"\n"</span>;
+    } <span class="kw">else</span> {
+        <span class="ty">std</span>::<span class="ty">cout</span> &lt;&lt; <span class="st">"Generic: "</span> &lt;&lt; <span class="va">value</span> &lt;&lt; <span class="st">"\n"</span>;
+    }
+}</pre>
+    </div>
+  </div>
+
+</div><!-- /grid s5 -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 6 — NASA & GAME-ENGINE RULES
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s6" id="s6">
+  <div class="section-num">6</div>
+  <div>
+    <div class="section-title" id="sec6Title">NASA Rules & Game-Engine Grade C++</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec6Desc">Lock-free atomics, jthreads, cache-line alignment, and JPL safety standards.</div>
+  </div>
+  <div class="section-label" id="sec6Label">NASA Level</div>
+</div>
+
+<div class="grid">
+
+  <!-- NASA JPL C++ Rules -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">NASA JPL & MISRA Safety-Critical C++ Rules</span></div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Rule</th><th>Rationale</th></tr>
+          <tr><td>No Dynamic Memory after Init</td><td class="desc">Allocate all heap during boot. Zero malloc/new during mission execution to prevent heap fragmentation crash.</td></tr>
+          <tr><td>Fixed Upper Loop Bounds</td><td class="desc">Every while/for loop MUST have a statically provable upper trip limit to guarantee termination.</td></tr>
+          <tr><td>No Unchecked Exceptions</td><td class="desc">Exceptions introduce unpredictable control flow and non-deterministic latency. Use <code>std::expected</code> or return codes.</td></tr>
+          <tr><td>Zero Undefined Behavior</td><td class="desc">Compile with <code>-Wall -Wextra -Wpedantic -Wconversion -Werror</code> and sanitize with UBSan / ASan.</td></tr>
+          <tr><td>No Multiple Inheritance with State</td><td class="desc">Avoid diamond inheritance complexity. Prefer composition or interfaces with pure virtual methods only.</td></tr>
+        </table>
+      </div>
+      <div class="callout tip">Spacecraft software runs millions of miles away without a restart button. Determinism & safety always beat convenience.</div>
+    </div>
+  </div>
+
+  <!-- Modern Concurrency: jthread & Mutex -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">std::jthread, std::mutex & std::scoped_lock</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;thread&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;mutex&gt;</span>
+<span class="pp">#include</span> <span class="st">&lt;iostream&gt;</span>
+
+<span class="ty">std</span>::<span class="ty">mutex</span> <span class="va">telemetryMutex</span>;
+<span class="ty">int</span> <span class="va">globalPacketCount</span> = <span class="nm">0</span>;
+
+<span class="kw">void</span> <span class="fn">worker</span>(<span class="ty">std</span>::<span class="ty">stop_token</span> <span class="va">st</span>) {
+    <span class="kw">while</span> (!<span class="va">st</span>.<span class="fn">stop_requested</span>()) {
+        {
+            <span class="cm">// RAII lock: locks on construction, unlocks automatically on exit!</span>
+            <span class="ty">std</span>::<span class="ty">scoped_lock</span> <span class="va">lock</span>(<span class="va">telemetryMutex</span>);
+            <span class="va">globalPacketCount</span>++;
+        }
+        <span class="ty">std</span>::<span class="ty">this_thread</span>::<span class="fn">sleep_for</span>(<span class="ty">std</span>::<span class="ty">chrono</span>::<span class="fn">milliseconds</span>(<span class="nm">10</span>));
+    }
+}
+
+<span class="cm">// C++20 std::jthread automatically requests stop and joins on destruction!</span>
+<span class="kw">void</span> <span class="fn">launch</span>() {
+    <span class="ty">std</span>::<span class="ty">jthread</span> <span class="va">t1</span>(<span class="va">worker</span>);
+    <span class="ty">std</span>::<span class="ty">this_thread</span>::<span class="fn">sleep_for</span>(<span class="ty">std</span>::<span class="ty">chrono</span>::<span class="fn">milliseconds</span>(<span class="nm">100</span>));
+} <span class="cm">// t1 automatically stops & joins cleanly right here!</span></pre>
+    </div>
+  </div>
+
+  <!-- Atomic Operations -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">std::atomic — Lock-Free High-Performance Concurrency</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;atomic&gt;</span>
+
+<span class="cm">// std::atomic executes hardware-level atomic CPU instructions (LOCK XADD etc.)</span>
+<span class="cm">// Zero OS kernel context-switches, zero mutex overhead!</span>
+<span class="ty">std</span>::<span class="ty">atomic</span>&lt;<span class="ty">uint64_t</span>&gt; <span class="va">txPackets</span>{<span class="nm">0</span>};
+
+<span class="kw">void</span> <span class="fn">onPacketReceived</span>() {
+    <span class="cm">// Atomic fetch-and-add</span>
+    <span class="va">txPackets</span>.<span class="fn">fetch_add</span>(<span class="nm">1</span>, <span class="ty">std</span>::<span class="ty">memory_order_relaxed</span>);
+}
+
+<span class="cm">// Compare-And-Swap (CAS) loop: backbone of lock-free data structures</span>
+<span class="ty">std</span>::<span class="ty">atomic</span>&lt;<span class="ty">int</span>&gt; <span class="va">head</span>{<span class="nm">0</span>};
+<span class="kw">void</span> <span class="fn">updateMax</span>(<span class="ty">int</span> <span class="va">newVal</span>) {
+    <span class="ty">int</span> <span class="va">curr</span> = <span class="va">head</span>.<span class="fn">load</span>();
+    <span class="kw">while</span> (<span class="va">newVal</span> &gt; <span class="va">curr</span> &amp;&amp; !<span class="va">head</span>.<span class="fn">compare_exchange_weak</span>(<span class="va">curr</span>, <span class="va">newVal</span>)) {
+        <span class="cm">// loops until successfully swapped without data race</span>
+    }
+}</pre>
+    </div>
+  </div>
+
+  <!-- Cache Alignment -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Cache Alignment & Hardware Cache Lines (alignas)</span></div>
+    <div class="card-body">
+      <pre><span class="pp">#include</span> <span class="st">&lt;new&gt;</span>
+
+<span class="cm">// Modern CPUs load memory in 64-byte Cache Lines.</span>
+<span class="cm">// False Sharing: Two threads updating different variables on the SAME cache line</span>
+<span class="cm">// will destroy multi-core performance!</span>
+
+<span class="kw">struct</span> <span class="kw">alignas</span>(<span class="nm">64</span>) <span class="ty">ThreadCounter</span> {
+    <span class="ty">std</span>::<span class="ty">atomic</span>&lt;<span class="ty">uint64_t</span>&gt; <span class="va">counter</span>{<span class="nm">0</span>};
+    <span class="ty">uint8_t</span> <span class="va">pad</span>[<span class="nm">56</span>]; <span class="cm">// pad out the remaining 64 bytes</span>
+};
+
+<span class="cm">// Guaranteed each counter lives on its own dedicated cache line!</span>
+<span class="ty">ThreadCounter</span> <span class="va">coreCounters</span>[<span class="nm">16</span>];</pre>
+      <div class="callout tip">Preventing false sharing with <code>alignas(64)</code> in high-frequency trading or game engines can yield a 10x throughput boost.</div>
+    </div>
+  </div>
+
+</div><!-- /grid s6 -->
+
+<!-- BONUS: C++ Quick Reference -->
+<div class="section-header" style="border-color: var(--border2); margin-top: 56px;">
+  <div class="section-num" style="background: rgba(0,212,255,.15); color: var(--accent1);">+</div>
+  <div>
+    <div class="section-title">C++ Standards Quick Reference & Headers</div>
+    <div style="color:var(--muted);font-size:.85rem;">Key language evolution timeline & essential headers</div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">C++ Standard Evolution Timeline</span></div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Standard</th><th>Game-Changing Features</th></tr>
+          <tr><td>C++11</td><td class="desc">auto, smart pointers, lambdas, move semantics (rvalues), range-for, nullptr, constexpr, threads.</td></tr>
+          <tr><td>C++14</td><td class="desc">Generic lambdas, std::make_unique, relaxed constexpr, binary literals.</td></tr>
+          <tr><td>C++17</td><td class="desc">std::string_view, std::optional, std::variant, structured bindings, if constexpr, fold expressions.</td></tr>
+          <tr><td>C++20</td><td class="desc">Concepts, Ranges, std::jthread, Coroutines, Modules, consteval, std::format, Spaceship <=>.</td></tr>
+          <tr><td>C++23</td><td class="desc">std::print / std::println, std::expected, deducing this, multidimensional subscript [x, y].</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Essential Modern C++ Standard Headers</span></div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Header</th><th>What it gives you</th></tr>
+          <tr><td>&lt;iostream&gt;</td><td class="desc">std::cout, std::cin, std::cerr</td></tr>
+          <tr><td>&lt;vector&gt;</td><td class="desc">std::vector dynamic array</td></tr>
+          <tr><td>&lt;memory&gt;</td><td class="desc">std::unique_ptr, std::shared_ptr, std::make_unique</td></tr>
+          <tr><td>&lt;algorithm&gt;</td><td class="desc">std::sort, std::find, std::ranges</td></tr>
+          <tr><td>&lt;string_view&gt;</td><td class="desc">std::string_view zero-copy strings</td></tr>
+          <tr><td>&lt;optional&gt;</td><td class="desc">std::optional nullable value container</td></tr>
+          <tr><td>&lt;thread&gt;</td><td class="desc">std::jthread, std::this_thread</td></tr>
+          <tr><td>&lt;mutex&gt;</td><td class="desc">std::mutex, std::scoped_lock</td></tr>
+          <tr><td>&lt;atomic&gt;</td><td class="desc">std::atomic lock-free primitives</td></tr>
+          <tr><td>&lt;concepts&gt;</td><td class="desc">std::integral, std::floating_point (C++20)</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<footer>
+  <p>C++ Cheat Sheet — Baby to NASA &nbsp;|&nbsp; Modern C++11 to C++23 &nbsp;|&nbsp; Compile with <code style="color: var(--accent1); background: var(--bg3); padding: 2px 6px; border-radius: 4px;">-std=c++20 -Wall -Wextra -Werror</code></p>
+</footer>
+
+<script>
+  document.getElementById("heroBadge").textContent    = CONFIG.heroBadge;
+  document.getElementById("heroTitle").textContent    = CONFIG.heroTitle;
+  document.getElementById("heroSubtitle").textContent = CONFIG.heroSubtitle;
+
+  CONFIG.pills.forEach(function (text, i) {
+    const el = document.getElementById("pill" + (i + 1));
+    if (el) el.textContent = text;
+  });
+
+  CONFIG.sections.forEach(function (sec, i) {
+    const n = i + 1;
+    const titleEl = document.getElementById("sec" + n + "Title");
+    const descEl  = document.getElementById("sec" + n + "Desc");
+    const labelEl = document.getElementById("sec" + n + "Label");
+    if (titleEl) titleEl.textContent = sec.title;
+    if (descEl)  descEl.textContent  = sec.desc;
+    if (labelEl) labelEl.textContent = sec.tag;
+  });
+</script>
+<script src="site.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C# Cheat Sheet — Baby to Enterprise / NASA Level</title>
+  <meta name="description" content="A comprehensive Modern C# & .NET reference cheat sheet covering everything from beginner syntax to LINQ, async/await, memory internals, and high-frequency architecture." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-cs">
+
+<!-- ════════════════════════════════ SITE NAVIGATION ════════════════════════════════ -->
+<nav class="site-nav">
+  <a class="nav-brand" href="index.html">
+    <span class="brand-badge">REF</span>
+    <span class="brand-text">C-FAMILY REF</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-item tab-c" href="index.html">C</a>
+    <a class="nav-item tab-cpp" href="cpp.html">C++</a>
+    <a class="nav-item tab-cs active" href="csharp.html">C#</a>
+    <a class="nav-item tab-compare" href="compare.html">Rosetta Stone</a>
+    <span class="nav-divider"></span>
+    <a class="nav-item tab-aplus" href="aplus.html">A+</a>
+    <a class="nav-item tab-security" href="security.html">Security+</a>
+    <a class="nav-item tab-network" href="network.html">Network+</a>
+  </div>
+  <div class="nav-search-container">
+    <input type="text" id="globalSearchInput" class="nav-search-input" placeholder="Search C# LINQ, async, records, Span... (Press /)" aria-label="Search cheatsheet" autocomplete="off" />
+    <span class="search-shortcut-hint">/</span>
+  </div>
+</nav>
+
+<script>
+  const CONFIG = {
+    heroBadge:    "Modern .NET Reference",
+    heroTitle:    "C# Programming Cheat Sheet",
+    heroSubtitle: "From \"what is Console.WriteLine\" to \"I architect zero-allocation cloud backends and FinTech trading engines.\" Modern C# (C# 9 through C# 13) explained like you're human.",
+    pills: [
+      "Baby Basics",
+      "Getting Somewhere",
+      "Actually Cooking",
+      "Deep Shit",
+      "Black Magic",
+      "Enterprise & FinTech Grade"
+    ],
+    sections: [
+      { title: "Modern C# & .NET Basics",            desc: "Top-level statements, string interpolation, nullables, and switch expressions.", tag: "Beginner" },
+      { title: "OOP, Records & Modern Types",        desc: "Primary constructors, records, readonly structs, and interface defaults.",       tag: "Intermediate" },
+      { title: "Collections, LINQ & Memory",         desc: "List, Dictionary, LINQ mastery, yield return, and zero-alloc Span<T>.",         tag: "Intermediate+" },
+      { title: "Delegates, Events & Async/Await",     desc: "Tasks, ValueTasks, CancellationTokens, Channels, and async streams.",            tag: "Advanced" },
+      { title: "CLR Internals & Advanced C#",        desc: "GC generations, IDisposable, Reflection, stackalloc, and Source Generators.",   tag: "Expert" },
+      { title: "Production & FinTech-Grade .NET",    desc: "Dependency Injection, lock-free Interlocked, SIMD, and zero-alloc rules.",       tag: "NASA Level" }
+    ]
+  };
+</script>
+
+<!-- ════════════════════════════════ HERO ════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-badge" id="heroBadge">Modern .NET Reference</div>
+  <h1 id="heroTitle">C# Programming Cheat Sheet</h1>
+  <p id="heroSubtitle">From "what is Console.WriteLine" to "I architect zero-allocation cloud backends and FinTech trading engines." Modern C# explained like you're human.</p>
+  <div class="level-pills">
+    <a class="pill pill-1" href="#s1" id="pill1">Baby Basics</a>
+    <a class="pill pill-2" href="#s2" id="pill2">Getting Somewhere</a>
+    <a class="pill pill-3" href="#s3" id="pill3">Actually Cooking</a>
+    <a class="pill pill-4" href="#s4" id="pill4">Deep Shit</a>
+    <a class="pill pill-5" href="#s5" id="pill5">Black Magic</a>
+    <a class="pill pill-6" href="#s6" id="pill6">NASA Rules</a>
+  </div>
+</header>
+
+<div class="wrapper">
+
+  <div class="search-results-bar" id="searchResultsBar">
+    <span id="searchResultsCount">Found 0 matching cards</span>
+    <button type="button" class="search-clear-btn" id="searchClearBtn">Clear Search</button>
+  </div>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 1 — MODERN C# & .NET BASICS
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s1" id="s1">
+  <div class="section-num">1</div>
+  <div>
+    <div class="section-title" id="sec1Title">Modern C# & .NET Basics</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec1Desc">Top-level statements, string interpolation, nullables, and switch expressions.</div>
+  </div>
+  <div class="section-label" id="sec1Label">Beginner</div>
+</div>
+
+<div class="grid">
+
+  <!-- Top-Level Statements & Console I/O -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Hello C# — Top-Level Statements & String Interpolation</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// In modern C#, no boilerplate class Program or static void Main needed!</span>
+<span class="cm">// This entire Program.cs is just 4 lines:</span>
+
+<span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">"Welcome to Modern C# & .NET!"</span>);
+
+<span class="ty">string</span> <span class="va">user</span> = <span class="st">"Kv"</span>;
+<span class="ty">int</span> <span class="va">level</span> = <span class="nm">99</span>;
+
+<span class="cm">// String interpolation with $ is clean, readable, and type-safe</span>
+<span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">$"Pilot: {<span class="va">user</span>}, Flight Level: {<span class="va">level</span>:D3}"</span>);
+
+<span class="cm">// Raw String Literals (C# 11+): Triple quotes allow multi-line strings & unescaped quotes!</span>
+<span class="ty">string</span> <span class="va">json</span> = <span class="st">"""
+    {
+      "status": "nominal",
+      "velocity": 28000
+    }
+    """</span>;</pre>
+      <div class="callout tip">Run in terminal: <code>dotnet new console -n MyApp</code> then <code>dotnet run</code>. That's literally the whole setup.</div>
+    </div>
+  </div>
+
+  <!-- Value Types vs Reference Types -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Value Types (Stack) vs Reference Types (Heap)</span></div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Category</th><th>Types</th><th>Where stored / Behavior</th></tr>
+          <tr><td>Value Types</td><td class="desc"><code>int, double, bool, char, decimal, struct, enum</code></td><td class="desc">Stored directly on the <strong>Stack</strong> (or inlined). Copied by value. Cannot be null unless marked <code>T?</code>.</td></tr>
+          <tr><td>Reference Types</td><td class="desc"><code>string, object, class, record, interface, delegate, array</code></td><td class="desc">Object data lives on the <strong>Heap</strong>. Variable holds a reference (pointer). Managed by Garbage Collector.</td></tr>
+        </table>
+      </div>
+      <pre><span class="ty">int</span> <span class="va">a</span> = <span class="nm">10</span>;
+<span class="ty">int</span> <span class="va">b</span> = <span class="va">a</span>; <span class="cm">// b gets a copy of 10. Modifying b does NOT touch a!</span>
+
+<span class="ty">int</span>[] <span class="va">arr1</span> = [<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>]; <span class="cm">// C# 12 collection expression</span>
+<span class="ty">int</span>[] <span class="va">arr2</span> = <span class="va">arr1</span>;     <span class="cm">// arr2 points to the SAME array in heap!</span>
+<span class="va">arr2</span>[<span class="nm">0</span>] = <span class="nm">999</span>;         <span class="cm">// arr1[0] is now 999!</span></pre>
+    </div>
+  </div>
+
+  <!-- Nullable Reference Types & Safe Navigation -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Null Safety: Nullable Ref Types, ??, and ?.</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// Non-nullable string: compiler yells if you assign null!</span>
+<span class="ty">string</span> <span class="va">definitelyText</span> = <span class="st">"Falcon 9"</span>;
+
+<span class="cm">// Nullable string (string?): can be null explicitly</span>
+<span class="ty">string</span>? <span class="va">maybeText</span> = <span class="kw">null</span>;
+
+<span class="cm">// 1. Null-conditional operator (?.)</span>
+<span class="ty">int</span>? <span class="va">length</span> = <span class="va">maybeText</span>?.<span class="prop">Length</span>; <span class="cm">// null, no NullReferenceException!</span>
+
+<span class="cm">// 2. Null-coalescing operator (??) provides fallback</span>
+<span class="ty">string</span> <span class="va">name</span> = <span class="va">maybeText</span> ?? <span class="st">"Unknown Pilot"</span>;
+
+<span class="cm">// 3. Null-coalescing assignment (??=)</span>
+<span class="va">maybeText</span> ??= <span class="st">"Default Value"</span>; <span class="cm">// assigns only if currently null</span>
+
+<span class="cm">// 4. Null-forgiving operator (!) tells compiler "trust me, it's not null"</span>
+<span class="ty">int</span> <span class="va">len</span> = <span class="va">maybeText</span>!.<span class="prop">Length</span>;</pre>
+      <div class="callout tip">Nullable reference types eliminate 90% of all <code>NullReferenceException</code> bugs at compile-time!</div>
+    </div>
+  </div>
+
+  <!-- Pattern Matching & Switch Expressions -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Pattern Matching & Switch Expressions</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// Modern switch expression: clean, functional syntax with return values</span>
+<span class="ty">int</span> <span class="va">altitude</span> = <span class="nm">85000</span>;
+
+<span class="ty">string</span> <span class="va">layer</span> = <span class="va">altitude</span> <span class="kw">switch</span> {
+    &lt; <span class="nm">12000</span>                 =&gt; <span class="st">"Troposphere"</span>,
+    &gt;= <span class="nm">12000</span> <span class="kw">and</span> &lt; <span class="nm">50000</span>   =&gt; <span class="st">"Stratosphere"</span>,
+    &gt;= <span class="nm">50000</span> <span class="kw">and</span> &lt; <span class="nm">85000</span>   =&gt; <span class="st">"Mesosphere"</span>,
+    &gt;= <span class="nm">85000</span>                 =&gt; <span class="st">"Thermosphere / Space"</span>,
+    _                        =&gt; <span class="st">"Unknown"</span> <span class="cm">// default fallback</span>
+};
+
+<span class="cm">// Property pattern matching on objects</span>
+<span class="kw">public record</span> <span class="ty">RocketState</span>(<span class="ty">bool</span> <span class="va">IsStaged</span>, <span class="ty">double</span> <span class="va">FuelPercent</span>);
+
+<span class="ty">string</span> <span class="fn">GetStatus</span>(<span class="ty">RocketState</span> <span class="va">state</span>) =&gt; <span class="va">state</span> <span class="kw">switch</span> {
+    { <span class="va">FuelPercent</span>: &lt;= <span class="nm">0</span> }        =&gt; <span class="st">"Main Engine Cutoff (MECO)"</span>,
+    { <span class="va">IsStaged</span>: <span class="kw">true</span> }           =&gt; <span class="st">"Stage 2 Burn Active"</span>,
+    _                            =&gt; <span class="st">"Stage 1 Boost"</span>
+};</pre>
+    </div>
+  </div>
+
+  <!-- var & Target-Typed new() -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Target-Typed new() & Collection Expressions</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// Target-typed new() avoids repeating long type names</span>
+<span class="ty">Dictionary</span>&lt;<span class="ty">string</span>, <span class="ty">List</span>&lt;<span class="ty">int</span>&gt;&gt; <span class="va">telemetry</span> = <span class="kw">new</span>();
+
+<span class="cm">// C# 12 Collection Expressions: unified syntax for arrays, lists, spans!</span>
+<span class="ty">int</span>[] <span class="va">numbers</span> = [<span class="nm">1</span>, <span class="nm">2</span>, <span class="nm">3</span>, <span class="nm">4</span>, <span class="nm">5</span>];
+<span class="ty">List</span>&lt;<span class="ty">string</span>&gt; <span class="va">crew</span> = [<span class="st">"Neil"</span>, <span class="st">"Buzz"</span>, <span class="st">"Michael"</span>];
+
+<span class="cm">// Spread operator (..) flattens arrays inside collection expressions</span>
+<span class="ty">int</span>[] <span class="va">extra</span> = [<span class="nm">6</span>, <span class="nm">7</span>];
+<span class="ty">int</span>[] <span class="va">combined</span> = [..<span class="va">numbers</span>, ..<span class="va">extra</span>, <span class="nm">8</span>, <span class="nm">9</span>]; <span class="cm">// [1, 2, 3, 4, 5, 6, 7, 8, 9]</span></pre>
+    </div>
+  </div>
+
+  <!-- Control Flow & Exception Handling -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Exception Handling & Filter Clauses</span></div>
+    <div class="card-body">
+      <pre><span class="kw">try</span> {
+    <span class="ty">File</span>.<span class="fn">ReadAllText</span>(<span class="st">"flight_plan.json"</span>);
+}
+<span class="kw">catch</span> (<span class="ty">FileNotFoundException</span> <span class="va">ex</span>) {
+    <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">$"Missing config: {<span class="va">ex</span>.<span class="prop">FileName</span>}"</span>);
+}
+<span class="cm">// Exception filters with 'when': only catches if condition is true!</span>
+<span class="kw">catch</span> (<span class="ty">HttpRequestException</span> <span class="va">ex</span>) <span class="kw">when</span> (<span class="va">ex</span>.<span class="prop">StatusCode</span> == <span class="ty">HttpStatusCode</span>.<span class="prop">GatewayTimeout</span>) {
+    <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">"Satellite link timed out. Retrying..."</span>);
+}
+<span class="kw">finally</span> {
+    <span class="cm">// ALWAYS runs whether an exception occurred or not</span>
+    <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">"Cleanup finished."</span>);
+}</pre>
+    </div>
+  </div>
+
+</div><!-- /grid s1 -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 2 — OOP, RECORDS & MODERN TYPES
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s2" id="s2">
+  <div class="section-num">2</div>
+  <div>
+    <div class="section-title" id="sec2Title">OOP, Records & Modern Types</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec2Desc">Primary constructors, records, readonly structs, and interface defaults.</div>
+  </div>
+  <div class="section-label" id="sec2Label">Intermediate</div>
+</div>
+
+<div class="grid">
+
+  <!-- Primary Constructors & Classes -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Classes & Primary Constructors (C# 12)</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// C# 12 Primary Constructor directly on the class declaration!</span>
+<span class="kw">public class</span> <span class="ty">SpaceProbe</span>(<span class="ty">string</span> <span class="va">name</span>, <span class="ty">double</span> <span class="va">distanceAu</span>) {
+    <span class="cm">// name and distanceAu are in scope across the entire class!</span>
+    <span class="kw">public string</span> <span class="prop">Callsign</span> { <span class="kw">get</span>; } = <span class="va">name</span>;
+    <span class="kw">public double</span> <span class="prop">Distance</span> { <span class="kw">get</span>; <span class="kw">set</span>; } = <span class="va">distanceAu</span>;
+
+    <span class="cm">// Expression-bodied method</span>
+    <span class="kw">public void</span> <span class="fn">PingEarth</span>() =&gt;
+        <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">$"[{<span class="va">name</span>}] Telemetry ping from {<span class="prop">Distance</span>} AU"</span>);
+}
+
+<span class="kw">var</span> <span class="va">voyager</span> = <span class="kw">new</span> <span class="ty">SpaceProbe</span>(<span class="st">"Voyager 1"</span>, <span class="nm">163.5</span>);
+<span class="va">voyager</span>.<span class="fn">PingEarth</span>();</pre>
+    </div>
+  </div>
+
+  <!-- Records & Immutability -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Records & Non-Destructive Mutation (with)</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// 'record' provides built-in value-based equality, ToString, & deconstruction!</span>
+<span class="kw">public record</span> <span class="ty">TelemetryPacket</span>(<span class="ty">Guid</span> <span class="va">Id</span>, <span class="ty">string</span> <span class="va">Sensor</span>, <span class="ty">double</span> <span class="va">Value</span>);
+
+<span class="kw">var</span> <span class="va">p1</span> = <span class="kw">new</span> <span class="ty">TelemetryPacket</span>(<span class="ty">Guid</span>.<span class="fn">NewGuid</span>(), <span class="st">"Pressure"</span>, <span class="nm">101.3</span>);
+<span class="kw">var</span> <span class="va">p2</span> = <span class="kw">new</span> <span class="ty">TelemetryPacket</span>(<span class="va">p1</span>.<span class="prop">Id</span>, <span class="st">"Pressure"</span>, <span class="nm">101.3</span>);
+
+<span class="cm">// 1. Value equality: true because all properties match! (classes would be false)</span>
+<span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="va">p1</span> == <span class="va">p2</span>); <span class="cm">// True!</span>
+
+<span class="cm">// 2. Non-destructive mutation with 'with' expression</span>
+<span class="kw">var</span> <span class="va">p3</span> = <span class="va">p1</span> <span class="kw">with</span> { <span class="va">Value</span> = <span class="nm">104.8</span> }; <span class="cm">// creates clone with modified Value!</span>
+
+<span class="cm">// 3. Deconstruction</span>
+<span class="kw">var</span> (<span class="va">id</span>, <span class="va">sensor</span>, <span class="va">val</span>) = <span class="va">p3</span>;</pre>
+      <div class="callout tip">Use <code>record class</code> or <code>record struct</code> for DTOs, API models, events, and message queues!</div>
+    </div>
+  </div>
+
+  <!-- Structs vs Readonly Structs -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Structs vs readonly struct vs ref struct</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// 1. readonly struct: Guarantees immutability. Lets CLR skip defensive copying!</span>
+<span class="kw">public readonly struct</span> <span class="ty">Vector3D</span> {
+    <span class="kw">public double</span> <span class="prop">X</span> { <span class="kw">get</span>; }
+    <span class="kw">public double</span> <span class="prop">Y</span> { <span class="kw">get</span>; }
+    <span class="kw">public double</span> <span class="prop">Z</span> { <span class="kw">get</span>; }
+
+    <span class="kw">public</span> <span class="ty">Vector3D</span>(<span class="ty">double</span> <span class="va">x</span>, <span class="ty">double</span> <span class="va">y</span>, <span class="ty">double</span> <span class="va">z</span>) =&gt; (<span class="prop">X</span>, <span class="prop">Y</span>, <span class="prop">Z</span>) = (<span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span>);
+}
+
+<span class="cm">// 2. ref struct (STACK ONLY): CANNOT be boxed, cannot be stored in heap class.</span>
+<span class="cm">// Zero garbage collector overhead! (Used for Span<T>)</span>
+<span class="kw">public ref struct</span> <span class="ty">StackOnlyBuffer</span> {
+    <span class="kw">public</span> <span class="ty">Span</span>&lt;<span class="ty">byte</span>&gt; <span class="prop">Memory</span>;
+}</pre>
+    </div>
+  </div>
+
+  <!-- Properties & init-only -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Properties: get, set, and init;</span></div>
+    <div class="card-body">
+      <pre><span class="kw">public class</span> <span class="ty">LaunchConfig</span> {
+    <span class="cm">// 'init' allows setting value ONLY during object initialization (immutable after!)</span>
+    <span class="kw">public string</span> <span class="prop">MissionCode</span> { <span class="kw">get</span>; <span class="kw">init</span>; } = <span class="st">"ARTEMIS-II"</span>;
+
+    <span class="cm">// Auto-property with default initializer</span>
+    <span class="kw">public int</span> <span class="prop">RetryCount</span> { <span class="kw">get</span>; <span class="kw">set</span>; } = <span class="nm">3</span>;
+
+    <span class="cm">// Required modifier (C# 11): caller MUST supply this during new { ... }</span>
+    <span class="kw">public required string</span> <span class="prop">TargetOrbit</span> { <span class="kw">get</span>; <span class="kw">init</span>; }
+}
+
+<span class="kw">var</span> <span class="va">config</span> = <span class="kw">new</span> <span class="ty">LaunchConfig</span> {
+    <span class="prop">TargetOrbit</span> = <span class="st">"Lunar Transfer"</span>,
+    <span class="prop">RetryCount</span> = <span class="nm">5</span>
+};
+<span class="cm">// config.TargetOrbit = "LEO"; // ERROR: init-only property!</span></pre>
+    </div>
+  </div>
+
+  <!-- Interfaces & Default Methods -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Interfaces & Default Implementations</span></div>
+    <div class="card-body">
+      <pre><span class="kw">public interface</span> <span class="ty">IEngine</span> {
+    <span class="kw">void</span> <span class="fn">Ignite</span>();
+    <span class="kw">double</span> <span class="prop">ThrustKn</span> { <span class="kw">get</span>; }
+
+    <span class="cm">// Default Interface Implementation: can provide fallback logic!</span>
+    <span class="kw">void</span> <span class="fn">EmergencyShutdown</span>() {
+        <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">"EMERGENCY: Cutting fuel valves immediately!"</span>);
+    }
+}
+
+<span class="kw">public class</span> <span class="ty">IonThruster</span> : <span class="ty">IEngine</span> {
+    <span class="kw">public double</span> <span class="prop">ThrustKn</span> =&gt; <span class="nm">0.25</span>;
+    <span class="kw">public void</span> <span class="fn">Ignite</span>() =&gt; <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">"Xenon plasma activated."</span>);
+    <span class="cm">// Inherits default EmergencyShutdown() without needing to re-implement it</span>
+}</pre>
+    </div>
+  </div>
+
+  <!-- Polymorphism & Sealed -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Polymorphism: virtual, override, sealed</span></div>
+    <div class="card-body">
+      <pre><span class="kw">public abstract class</span> <span class="ty">Satellite</span> {
+    <span class="kw">public abstract void</span> <span class="fn">BroadcastTelemetry</span>();
+    <span class="kw">public virtual void</span> <span class="fn">CalibrateSensors</span>() =&gt; <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">"Default calibration"</span>);
+}
+
+<span class="kw">public class</span> <span class="ty">GpsSatellite</span> : <span class="ty">Satellite</span> {
+    <span class="kw">public override void</span> <span class="fn">BroadcastTelemetry</span>() =&gt; <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">"Atomic clock: 10:00:00.000"</span>);
+
+    <span class="cm">// 'sealed override' prevents any derived class from overriding this method again</span>
+    <span class="kw">public sealed override void</span> <span class="fn">CalibrateSensors</span>() =&gt; <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">"Atomic clock locked."</span>);
+}
+
+<span class="cm">// 'sealed' on class prevents any other class from inheriting from it</span>
+<span class="kw">public sealed class</span> <span class="ty">SecureTransponder</span> {}</pre>
+    </div>
+  </div>
+
+</div><!-- /grid s2 -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 3 — COLLECTIONS, LINQ & MEMORY
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s3" id="s3">
+  <div class="section-num">3</div>
+  <div>
+    <div class="section-title" id="sec3Title">Collections, LINQ & Memory</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec3Desc">List, Dictionary, LINQ mastery, yield return, and zero-alloc Span&lt;T&gt;.</div>
+  </div>
+  <div class="section-label" id="sec3Label">Intermediate+</div>
+</div>
+
+<div class="grid">
+
+  <!-- Core Collections -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Core Generic Collections (System.Collections.Generic)</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// 1. List<T> — Dynamic resizing array</span>
+<span class="ty">List</span>&lt;<span class="ty">int</span>&gt; <span class="va">scores</span> = [<span class="nm">85</span>, <span class="nm">92</span>, <span class="nm">78</span>];
+<span class="va">scores</span>.<span class="fn">Add</span>(<span class="nm">99</span>);
+<span class="va">scores</span>.<span class="fn">RemoveAt</span>(<span class="nm">0</span>);
+
+<span class="cm">// 2. Dictionary<TKey, TValue> — Fast O(1) Hash Map</span>
+<span class="ty">Dictionary</span>&lt;<span class="ty">string</span>, <span class="ty">int</span>&gt; <span class="va">frequencies</span> = <span class="kw">new</span>() {
+    [<span class="st">"S-Band"</span>] = <span class="nm">2200</span>,
+    [<span class="st">"X-Band"</span>] = <span class="nm">8400</span>
+};
+<span class="kw">if</span> (<span class="va">frequencies</span>.<span class="fn">TryGetValue</span>(<span class="st">"X-Band"</span>, <span class="kw">out int</span> <span class="va">mhz</span>)) {
+    <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">$"Freq: {<span class="va">mhz</span>} MHz"</span>);
+}
+
+<span class="cm">// 3. HashSet<T> — O(1) Unique element set</span>
+<span class="ty">HashSet</span>&lt;<span class="ty">string</span>&gt; <span class="va">activeNodes</span> = [<span class="st">"NodeA"</span>, <span class="st">"NodeB"</span>];
+<span class="kw">bool</span> <span class="va">added</span> = <span class="va">activeNodes</span>.<span class="fn">Add</span>(<span class="st">"NodeA"</span>); <span class="cm">// false, already exists</span></pre>
+    </div>
+  </div>
+
+  <!-- LINQ Mastery -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">LINQ Mastery — Language Integrated Query</span></div>
+    <div class="card-body">
+      <pre><span class="kw">public record</span> <span class="ty">Planet</span>(<span class="ty">string</span> <span class="va">Name</span>, <span class="ty">double</span> <span class="va">MassEarths</span>, <span class="ty">bool</span> <span class="va">HasRings</span>);
+
+<span class="ty">List</span>&lt;<span class="ty">Planet</span>&gt; <span class="va">solarSystem</span> = [
+    <span class="kw">new</span>(<span class="st">"Mercury"</span>, <span class="nm">0.055</span>, <span class="kw">false</span>),
+    <span class="kw">new</span>(<span class="st">"Earth"</span>, <span class="nm">1.0</span>, <span class="kw">false</span>),
+    <span class="kw">new</span>(<span class="st">"Saturn"</span>, <span class="nm">95.2</span>, <span class="kw">true</span>),
+    <span class="kw">new</span>(<span class="st">"Jupiter"</span>, <span class="nm">317.8</span>, <span class="kw">true</span>)
+];
+
+<span class="cm">// Fluent LINQ Pipeline (Lazily evaluated!)</span>
+<span class="kw">var</span> <span class="va">giantRingPlanets</span> = <span class="va">solarSystem</span>
+    .<span class="fn">Where</span>(<span class="va">p</span> =&gt; <span class="va">p</span>.<span class="prop">HasRings</span> &amp;&amp; <span class="va">p</span>.<span class="prop">MassEarths</span> &gt; <span class="nm">10.0</span>)
+    .<span class="fn">OrderByDescending</span>(<span class="va">p</span> =&gt; <span class="va">p</span>.<span class="prop">MassEarths</span>)
+    .<span class="fn">Select</span>(<span class="va">p</span> =&gt; <span class="st">$"Planet: {<span class="va">p</span>.<span class="prop">Name</span>} ({<span class="va">p</span>.<span class="prop">MassEarths</span>}x Earth)"</span>)
+    .<span class="fn">ToList</span>(); <span class="cm">// executes query here</span>
+
+<span class="cm">// Aggregate helpers</span>
+<span class="ty">double</span> <span class="va">totalMass</span> = <span class="va">solarSystem</span>.<span class="fn">Sum</span>(<span class="va">p</span> =&gt; <span class="va">p</span>.<span class="prop">MassEarths</span>);
+<span class="kw">bool</span> <span class="va">hasGiant</span> = <span class="va">solarSystem</span>.<span class="fn">Any</span>(<span class="va">p</span> =&gt; <span class="va">p</span>.<span class="prop">MassEarths</span> &gt; <span class="nm">300</span>); <span class="cm">// true</span></pre>
+    </div>
+  </div>
+
+  <!-- yield return -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">yield return — Lazy Generators & Memory Savings</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// yield return generates elements ONE AT A TIME on demand!</span>
+<span class="cm">// Never allocates a giant 1,000,000 element array in RAM!</span>
+
+<span class="kw">public static</span> <span class="ty">IEnumerable</span>&lt;<span class="ty">int</span>&gt; <span class="fn">GeneratePrimes</span>(<span class="ty">int</span> <span class="va">max</span>) {
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="nm">2</span>; <span class="va">i</span> &lt;= <span class="va">max</span>; <span class="va">i</span>++) {
+        <span class="kw">if</span> (<span class="fn">IsPrime</span>(<span class="va">i</span>)) {
+            <span class="kw">yield return</span> <span class="va">i</span>; <span class="cm">// pauses execution & yields value to caller!</span>
+        }
+    }
+}
+
+<span class="cm">// Consumes elements without preloading everything</span>
+<span class="kw">foreach</span> (<span class="kw">var</span> <span class="va">prime</span> <span class="kw">in</span> <span class="fn">GeneratePrimes</span>(<span class="nm">100</span>).<span class="fn">Take</span>(<span class="nm">5</span>)) {
+    <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="va">prime</span>); <span class="cm">// 2, 3, 5, 7, 11</span>
+}</pre>
+    </div>
+  </div>
+
+  <!-- Span<T> and ReadOnlySpan<T> -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Span<T> & ReadOnlySpan<T> — Zero Allocation Slicing</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// Standard string.Substring() ALWAYS allocates a NEW string on the heap.</span>
+<span class="cm">// ReadOnlySpan<char> slices memory directly with ZERO GC allocations!</span>
+
+<span class="ty">string</span> <span class="va">telemetryHeader</span> = <span class="st">"MISSION-APOLLO-19690720-PASS"</span>;
+
+<span class="cm">// AsSpan() creates a window over existing string in memory</span>
+<span class="ty">ReadOnlySpan</span>&lt;<span class="ty">char</span>&gt; <span class="va">span</span> = <span class="va">telemetryHeader</span>.<span class="fn">AsSpan</span>();
+
+<span class="ty">ReadOnlySpan</span>&lt;<span class="ty">char</span>&gt; <span class="va">mission</span> = <span class="va">span</span>.<span class="fn">Slice</span>(<span class="nm">8</span>, <span class="nm">6</span>); <span class="cm">// "APOLLO" (0 bytes allocated!)</span>
+<span class="ty">ReadOnlySpan</span>&lt;<span class="ty">char</span>&gt; <span class="va">date</span>    = <span class="va">span</span>.<span class="fn">Slice</span>(<span class="nm">15</span>, <span class="nm">8</span>); <span class="cm">// "19690720"</span>
+
+<span class="cm">// Fast parsing without allocating strings</span>
+<span class="ty">int</span> <span class="va">year</span> = <span class="ty">int</span>.<span class="fn">Parse</span>(<span class="va">date</span>.<span class="fn">Slice</span>(<span class="nm">0</span>, <span class="nm">4</span>)); <span class="cm">// 1969</span></pre>
+      <div class="callout tip">High-performance ASP.NET Core web servers use <code>Span&lt;T&gt;</code> to parse millions of HTTP requests per second with near-zero garbage collection pauses!</div>
+    </div>
+  </div>
+
+</div><!-- /grid s3 -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 4 — DELEGATES, EVENTS & ASYNC/AWAIT
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s4" id="s4">
+  <div class="section-num">4</div>
+  <div>
+    <div class="section-title" id="sec4Title">Delegates, Events & Async/Await</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec4Desc">Tasks, ValueTasks, CancellationTokens, Channels, and async streams.</div>
+  </div>
+  <div class="section-label" id="sec4Label">Advanced</div>
+</div>
+
+<div class="grid">
+
+  <!-- Delegates and Lambdas -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Action, Func & Lambda Expressions</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// 1. Action: Delegate pointing to a function returning VOID</span>
+<span class="ty">Action</span>&lt;<span class="ty">string</span>&gt; <span class="va">log</span> = (<span class="va">msg</span>) =&gt; <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">$"[LOG] {<span class="va">msg</span>}"</span>);
+<span class="va">log</span>(<span class="st">"Engines started"</span>);
+
+<span class="cm">// 2. Func<T, ..., TResult>: Delegate returning a VALUE (last generic param is return type)</span>
+<span class="ty">Func</span>&lt;<span class="ty">double</span>, <span class="ty">double</span>, <span class="ty">double</span>&gt; <span class="va">calcKineticEnergy</span> = (<span class="va">mass</span>, <span class="va">velocity</span>) =&gt;
+    <span class="nm">0.5</span> * <span class="va">mass</span> * <span class="va">velocity</span> * <span class="va">velocity</span>;
+
+<span class="ty">double</span> <span class="va">joules</span> = <span class="va">calcKineticEnergy</span>(<span class="nm">5000</span>, <span class="nm">7800</span>); <span class="cm">// orbital speed energy</span>
+
+<span class="cm">// 3. Predicate<T>: Returns bool (equivalent to Func<T, bool>)</span>
+<span class="ty">Predicate</span>&lt;<span class="ty">int</span>&gt; <span class="va">isSafeTemp</span> = <span class="va">t</span> =&gt; <span class="va">t</span> &gt; -<span class="nm">50</span> &amp;&amp; <span class="va">t</span> &lt; <span class="nm">120</span>;</pre>
+    </div>
+  </div>
+
+  <!-- async / await -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">async / await — Non-Blocking Asynchronous Code</span></div>
+    <div class="card-body">
+      <pre><span class="kw">using</span> <span class="ty">System.Net.Http.Json</span>;
+
+<span class="kw">public async</span> <span class="ty">Task</span>&lt;<span class="ty">TelemetryReport</span>&gt; <span class="fn">FetchTelemetryAsync</span>(<span class="ty">string</span> <span class="va">satelliteUrl</span>) {
+    <span class="kw">using</span> <span class="kw">var</span> <span class="va">http</span> = <span class="kw">new</span> <span class="ty">HttpClient</span>();
+
+    <span class="cm">// Await yields the thread back to the thread pool while waiting for network I/O!</span>
+    <span class="cm">// Zero threads blocked during download.</span>
+    <span class="kw">var</span> <span class="va">data</span> = <span class="kw">await</span> <span class="va">http</span>.<span class="fn">GetFromJsonAsync</span>&lt;<span class="ty">TelemetryReport</span>&gt;(<span class="va">satelliteUrl</span>);
+
+    <span class="kw">return</span> <span class="va">data</span> ?? <span class="kw">throw new</span> <span class="ty">InvalidOperationException</span>(<span class="st">"No data received"</span>);
+}
+
+<span class="cm">// ValueTask<T>: Avoids heap allocating a Task object when result is already cached!</span>
+<span class="kw">public</span> <span class="ty">ValueTask</span>&lt;<span class="ty">int</span>&gt; <span class="fn">GetCachedPingAsync</span>() {
+    <span class="kw">if</span> (<span class="va">_isCached</span>) <span class="kw">return new</span> <span class="ty">ValueTask</span>&lt;<span class="ty">int</span>&gt;(<span class="va">_cachedPing</span>);
+    <span class="kw">return new</span> <span class="ty">ValueTask</span>&lt;<span class="ty">int</span>&gt;(<span class="fn">FetchPingFromNetworkAsync</span>());
+}</pre>
+    </div>
+  </div>
+
+  <!-- CancellationTokens & Parallel Tasks -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">CancellationToken & Task.WhenAll</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// 1. CancellationTokenSource enables graceful timeout / abort</span>
+<span class="kw">using var</span> <span class="va">cts</span> = <span class="kw">new</span> <span class="ty">CancellationTokenSource</span>(<span class="ty">TimeSpan</span>.<span class="fn">FromSeconds</span>(<span class="nm">5</span>));
+
+<span class="kw">try</span> {
+    <span class="kw">await</span> <span class="ty">Task</span>.<span class="fn">Delay</span>(<span class="nm">10000</span>, <span class="va">cts</span>.<span class="prop">Token</span>);
+} <span class="kw">catch</span> (<span class="ty">OperationCanceledException</span>) {
+    <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">"Operation aborted within 5s deadline!"</span>);
+}
+
+<span class="cm">// 2. Running multiple async operations in parallel</span>
+<span class="ty">Task</span>&lt;<span class="ty">string</span>&gt; <span class="va">t1</span> = <span class="fn">GetSensorAAsync</span>();
+<span class="ty">Task</span>&lt;<span class="ty">string</span>&gt; <span class="va">t2</span> = <span class="fn">GetSensorBAsync</span>();
+
+<span class="cm">// Waits for ALL tasks to finish concurrently</span>
+<span class="ty">string</span>[] <span class="va">results</span> = <span class="kw">await</span> <span class="ty">Task</span>.<span class="fn">WhenAll</span>(<span class="va">t1</span>, <span class="va">t2</span>);</pre>
+    </div>
+  </div>
+
+  <!-- IAsyncEnumerable -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">IAsyncEnumerable<T> — Asynchronous Streaming</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// Streams data asynchronously as it arrives over network/websocket</span>
+<span class="kw">public static async</span> <span class="ty">IAsyncEnumerable</span>&lt;<span class="ty">double</span>&gt; <span class="fn">StreamSensorReadingsAsync</span>() {
+    <span class="kw">for</span> (<span class="ty">int</span> <span class="va">i</span> = <span class="nm">0</span>; <span class="va">i</span> &lt; <span class="nm">10</span>; <span class="va">i</span>++) {
+        <span class="kw">await</span> <span class="ty">Task</span>.<span class="fn">Delay</span>(<span class="nm">100</span>); <span class="cm">// simulate live telemetry arrival</span>
+        <span class="kw">yield return</span> <span class="ty">Random</span>.<span class="prop">Shared</span>.<span class="fn">NextDouble</span>() * <span class="nm">100.0</span>;
+    }
+}
+
+<span class="cm">// Consume with 'await foreach'</span>
+<span class="kw">await foreach</span> (<span class="kw">var</span> <span class="va">val</span> <span class="kw">in</span> <span class="fn">StreamSensorReadingsAsync</span>()) {
+    <span class="ty">Console</span>.<span class="fn">WriteLine</span>(<span class="st">$"Live reading: {<span class="va">val</span>:F2}"</span>);
+}</pre>
+    </div>
+  </div>
+
+</div><!-- /grid s4 -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 5 — CLR INTERNALS & ADVANCED C#
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s5" id="s5">
+  <div class="section-num">5</div>
+  <div>
+    <div class="section-title" id="sec5Title">CLR Internals & Advanced C#</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec5Desc">GC generations, IDisposable, Reflection, stackalloc, and Source Generators.</div>
+  </div>
+  <div class="section-label" id="sec5Label">Expert</div>
+</div>
+
+<div class="grid">
+
+  <!-- GC & IDisposable -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Garbage Collection (Gen 0/1/2, LOH) & IDisposable</span></div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Generation</th><th>Purpose</th><th>Collection Speed</th></tr>
+          <tr><td>Gen 0</td><td class="desc">Brand new short-lived objects (buffers, temp strings).</td><td class="desc">Sub-millisecond (ultra fast)</td></tr>
+          <tr><td>Gen 1</td><td class="desc">Buffer zone between short-lived and long-lived.</td><td class="desc">Very fast</td></tr>
+          <tr><td>Gen 2</td><td class="desc">Long-lived objects (caches, singletons, app state).</td><td class="desc">Full GC (costlier)</td></tr>
+          <tr><td>LOH</td><td class="desc">Large Object Heap (&gt;= 85,000 bytes). Avoid frequent allocs!</td><td class="desc">Collected with Gen 2</td></tr>
+        </table>
+      </div>
+      <pre><span class="cm">// IDisposable pattern with modern 'using var' statement</span>
+<span class="kw">public class</span> <span class="ty">HardwarePort</span> : <span class="ty">IDisposable</span> {
+    <span class="kw">public void</span> <span class="fn">Dispose</span>() {
+        <span class="cm">// Free unmanaged handles / socket / file descriptors</span>
+        <span class="ty">GC</span>.<span class="fn">SuppressFinalize</span>(<span class="kw">this</span>);
+    }
+}
+
+<span class="kw">void</span> <span class="fn">Execute</span>() {
+    <span class="kw">using var</span> <span class="va">port</span> = <span class="kw">new</span> <span class="ty">HardwarePort</span>();
+    <span class="cm">// Disposed AUTOMATICALLY when Execute() exits!</span>
+}</pre>
+    </div>
+  </div>
+
+  <!-- Unsafe Code & stackalloc -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Unsafe Code, Pointers & stackalloc</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// 1. stackalloc allocates bytes directly on the STACK (zero GC pressure!)</span>
+<span class="ty">Span</span>&lt;<span class="ty">byte</span>&gt; <span class="va">buffer</span> = <span class="kw">stackalloc byte</span>[<span class="nm">256</span>];
+<span class="va">buffer</span>[<span class="nm">0</span>] = <span class="nm">0xFF</span>;
+
+<span class="cm">// 2. Raw C-style pointers with unsafe keyword</span>
+<span class="kw">unsafe</span> {
+    <span class="ty">int</span> <span class="va">val</span> = <span class="nm">42</span>;
+    <span class="ty">int</span>* <span class="va">p</span> = &amp;<span class="va">val</span>;
+    *<span class="va">p</span> = <span class="nm">100</span>; <span class="cm">// directly writes to memory address</span>
+
+    <span class="cm">// 'fixed' pins a managed heap object so GC won't move it during pointer access</span>
+    <span class="ty">byte</span>[] <span class="va">arr</span> = [<span class="nm">10</span>, <span class="nm">20</span>, <span class="nm">30</span>];
+    <span class="kw">fixed</span> (<span class="ty">byte</span>* <span class="va">pArr</span> = <span class="va">arr</span>) {
+        *(<span class="va">pArr</span> + <span class="nm">1</span>) = <span class="nm">99</span>; <span class="cm">// arr[1] is now 99</span>
+    }
+}</pre>
+    </div>
+  </div>
+
+  <!-- Generics Constraints -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Advanced Generics Constraints</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// Multiple constraints define exact type requirements</span>
+<span class="kw">public class</span> <span class="ty">TelemetryRepository</span>&lt;<span class="ty">T</span>&gt;
+    <span class="kw">where</span> <span class="ty">T</span> : <span class="kw">class</span>, <span class="ty">IComparable</span>&lt;<span class="ty">T</span>&gt;, <span class="kw">new</span>() {
+
+    <span class="kw">public</span> <span class="ty">T</span> <span class="fn">CreateAndValidate</span>() {
+        <span class="ty">T</span> <span class="va">item</span> = <span class="kw">new</span> <span class="ty">T</span>(); <span class="cm">// legal because of new() constraint</span>
+        <span class="kw">return</span> <span class="va">item</span>;
+    }
+}
+
+<span class="cm">// 'unmanaged' constraint: types that contain NO reference types (can be memcopied!)</span>
+<span class="kw">public static void</span> <span class="fn">ZeroMemory</span>&lt;<span class="ty">T</span>&gt;(<span class="kw">ref</span> <span class="ty">T</span> <span class="va">val</span>) <span class="kw">where</span> <span class="ty">T</span> : <span class="kw">unmanaged</span> {
+    <span class="kw">unsafe</span> {
+        <span class="kw">fixed</span> (<span class="ty">T</span>* <span class="va">ptr</span> = &amp;<span class="va">val</span>) {
+            <span class="ty">Unsafe</span>.<span class="fn">InitBlock</span>(<span class="va">ptr</span>, <span class="nm">0</span>, (<span class="ty">uint</span>)<span class="ty">sizeof</span>(<span class="ty">T</span>));
+        }
+    }
+}</pre>
+    </div>
+  </div>
+
+  <!-- Source Generators & Reflection -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Source Generators & System.Text.Json AOT</span></div>
+    <div class="card-body">
+      <pre><span class="cm">// Modern C# replaces slow runtime reflection with COMPILE-TIME Source Generators!</span>
+
+<span class="kw">public record</span> <span class="ty">FlightPlan</span>(<span class="ty">string</span> <span class="va">Mission</span>, <span class="ty">int</span> <span class="va">TargetAltitudeKm</span>);
+
+<span class="cm">// Compile-time JSON Serializer Context (Zero reflection, blazing fast, Native AOT safe!)</span>
+[<span class="ty">JsonSerializable</span>(<span class="kw">typeof</span>(<span class="ty">FlightPlan</span>))]
+<span class="kw">public partial class</span> <span class="ty">AppJsonContext</span> : <span class="ty">JsonSerializerContext</span> {}
+
+<span class="cm">// Usage with source-generated serializer</span>
+<span class="kw">var</span> <span class="va">plan</span> = <span class="kw">new</span> <span class="ty">FlightPlan</span>(<span class="st">"Europa Clipper"</span>, <span class="nm">628300000</span>);
+<span class="ty">string</span> <span class="va">json</span> = <span class="ty">JsonSerializer</span>.<span class="fn">Serialize</span>(<span class="va">plan</span>, <span class="ty">AppJsonContext</span>.<span class="prop">Default</span>.<span class="prop">FlightPlan</span>);</pre>
+    </div>
+  </div>
+
+</div><!-- /grid s5 -->
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SECTION 6 — PRODUCTION & FINTECH-GRADE .NET
+═══════════════════════════════════════════════════════════════════════ -->
+<div class="section-header s6" id="s6">
+  <div class="section-num">6</div>
+  <div>
+    <div class="section-title" id="sec6Title">Production & FinTech-Grade .NET</div>
+    <div style="color:var(--muted);font-size:.85rem;" id="sec6Desc">Dependency Injection, lock-free Interlocked, SIMD, and zero-alloc rules.</div>
+  </div>
+  <div class="section-label" id="sec6Label">NASA Level</div>
+</div>
+
+<div class="grid">
+
+  <!-- Dependency Injection -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Dependency Injection (Microsoft.Extensions.DependencyInjection)</span></div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Lifetime</th><th>Method</th><th>When to use</th></tr>
+          <tr><td>Transient</td><td><code>AddTransient&lt;I, T&gt;()</code></td><td class="desc">New instance created every time requested (lightweight stateless services).</td></tr>
+          <tr><td>Scoped</td><td><code>AddScoped&lt;I, T&gt;()</code></td><td class="desc">One instance per HTTP Request / processing unit (DbContext, unit of work).</td></tr>
+          <tr><td>Singleton</td><td><code>AddSingleton&lt;I, T&gt;()</code></td><td class="desc">Single instance shared for entire app lifetime (in-memory caches, channels).</td></tr>
+        </table>
+      </div>
+      <pre><span class="kw">var</span> <span class="va">builder</span> = <span class="ty">WebApplication</span>.<span class="fn">CreateBuilder</span>();
+<span class="va">builder</span>.<span class="prop">Services</span>.<span class="fn">AddSingleton</span>&lt;<span class="ty">ITelemetryChannel</span>, <span class="ty">TelemetryChannel</span>&gt;();
+<span class="kw">var</span> <span class="va">app</span> = <span class="va">builder</span>.<span class="fn">Build</span>();
+
+<span class="cm">// Minimal API endpoint with injected service</span>
+<span class="va">app</span>.<span class="fn">MapGet</span>(<span class="st">"/health"</span>, (<span class="ty">ITelemetryChannel</span> <span class="va">ch</span>) =&gt; <span class="va">ch</span>.<span class="fn">GetStatus</span>());
+<span class="va">app</span>.<span class="fn">Run</span>();</pre>
+    </div>
+  </div>
+
+  <!-- System.Threading.Channels -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">System.Threading.Channels — Lock-Free High-Throughput Pipelines</span></div>
+    <div class="card-body">
+      <pre><span class="kw">using</span> <span class="ty">System.Threading.Channels</span>;
+
+<span class="cm">// Bounded channel prevents producer from overwhelming RAM (Backpressure!)</span>
+<span class="kw">var</span> <span class="va">channel</span> = <span class="ty">Channel</span>.<span class="fn">CreateBounded</span>&lt;<span class="ty">TelemetryPacket</span>&gt;(<span class="kw">new</span> <span class="ty">BoundedChannelOptions</span>(<span class="nm">50000</span>) {
+    <span class="prop">FullMode</span> = <span class="ty">BoundedChannelFullMode</span>.<span class="prop">Wait</span>,
+    <span class="prop">SingleReader</span> = <span class="kw">true</span>,
+    <span class="prop">SingleWriter</span> = <span class="kw">false</span>
+});
+
+<span class="cm">// Producer: Writes packets asynchronously</span>
+<span class="kw">await</span> <span class="va">channel</span>.<span class="prop">Writer</span>.<span class="fn">WriteAsync</span>(<span class="kw">new</span> <span class="ty">TelemetryPacket</span>(<span class="ty">Guid</span>.<span class="fn">NewGuid</span>(), <span class="st">"Gyro"</span>, <span class="nm">0.05</span>));
+
+<span class="cm">// Consumer: Reads stream with zero locks</span>
+<span class="kw">await foreach</span> (<span class="kw">var</span> <span class="va">packet</span> <span class="kw">in</span> <span class="va">channel</span>.<span class="prop">Reader</span>.<span class="fn">ReadAllAsync</span>()) {
+    <span class="fn">ProcessPacket</span>(<span class="va">packet</span>);
+}</pre>
+    </div>
+  </div>
+
+  <!-- Atomic Thread Safety with Interlocked -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Lock-Free Thread Safety with Interlocked</span></div>
+    <div class="card-body">
+      <pre><span class="kw">using</span> <span class="ty">System.Threading</span>;
+
+<span class="kw">public class</span> <span class="ty">HighFrequencyMetrics</span> {
+    <span class="kw">private long</span> <span class="va">_processedOrders</span> = <span class="nm">0</span>;
+    <span class="kw">private double</span> <span class="va">_maxLatencyMs</span> = <span class="nm">0.0</span>;
+
+    <span class="kw">public void</span> <span class="fn">RecordOrder</span>() {
+        <span class="cm">// Atomic hardware increment — 100x faster than lock(_syncObj)!</span>
+        <span class="ty">Interlocked</span>.<span class="fn">Increment</span>(<span class="kw">ref</span> <span class="va">_processedOrders</span>);
+    }
+
+    <span class="cm">// Compare-And-Swap (CAS) pattern in C#</span>
+    <span class="kw">public void</span> <span class="fn">UpdateMaxLatency</span>(<span class="ty">double</span> <span class="va">latency</span>) {
+        <span class="ty">double</span> <span class="va">current</span>;
+        <span class="kw">do</span> {
+            <span class="va">current</span> = <span class="va">_maxLatencyMs</span>;
+            <span class="kw">if</span> (<span class="va">latency</span> &lt;= <span class="va">current</span>) <span class="kw">return</span>;
+        } <span class="kw">while</span> (<span class="ty">Interlocked</span>.<span class="fn">CompareExchange</span>(<span class="kw">ref</span> <span class="va">_maxLatencyMs</span>, <span class="va">latency</span>, <span class="va">current</span>) != <span class="va">current</span>);
+    }
+}</pre>
+    </div>
+  </div>
+
+  <!-- ArrayPool & UTF8 String Literals -->
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Zero-Allocation .NET: ArrayPool & u8 Literals</span></div>
+    <div class="card-body">
+      <pre><span class="kw">using</span> <span class="ty">System.Buffers</span>;
+
+<span class="cm">// 1. ArrayPool rents buffers from shared bucket and returns them (0 heap allocations!)</span>
+<span class="ty">byte</span>[] <span class="va">rentedArray</span> = <span class="ty">ArrayPool</span>&lt;<span class="ty">byte</span>&gt;.<span class="prop">Shared</span>.<span class="fn">Rent</span>(<span class="nm">4096</span>);
+<span class="kw">try</span> {
+    <span class="fn">ProcessBuffer</span>(<span class="va">rentedArray</span>);
+} <span class="kw">finally</span> {
+    <span class="ty">ArrayPool</span>&lt;<span class="ty">byte</span>&gt;.<span class="prop">Shared</span>.<span class="fn">Return</span>(<span class="va">rentedArray</span>);
+}
+
+<span class="cm">// 2. UTF-8 String Literals (u8): Compiled directly as ReadOnlySpan<byte> without encoding!</span>
+<span class="ty">ReadOnlySpan</span>&lt;<span class="ty">byte</span>&gt; <span class="va">authHeader</span> = <span class="st">"Authorization: Bearer Token"u8</span>;
+<span class="ty">ReadOnlySpan</span>&lt;<span class="ty">byte</span>&gt; <span class="va">okStatus</span>   = <span class="st">"HTTP/1.1 200 OK\r\n"u8</span>;</pre>
+    </div>
+  </div>
+
+</div><!-- /grid s6 -->
+
+<!-- BONUS: C# Quick Reference -->
+<div class="section-header" style="border-color: var(--border2); margin-top: 56px;">
+  <div class="section-num" style="background: rgba(179,136,255,.15); color: var(--accent1);">+</div>
+  <div>
+    <div class="section-title">C# & .NET Quick Reference & CLI</div>
+    <div style="color:var(--muted);font-size:.85rem;">Essential dotnet commands & core namespace index</div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Essential dotnet CLI Commands</span></div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Command</th><th>What it does</th></tr>
+          <tr><td><code>dotnet new console</code></td><td class="desc">Create new console application project</td></tr>
+          <tr><td><code>dotnet new webapi -minimal</code></td><td class="desc">Create high-performance Minimal Web API project</td></tr>
+          <tr><td><code>dotnet run</code></td><td class="desc">Build and execute the current project</td></tr>
+          <tr><td><code>dotnet watch</code></td><td class="desc">Hot-reloads app upon any file save (blazing fast dev cycle)</td></tr>
+          <tr><td><code>dotnet add package <span style="color:var(--accent1);">Name</span></code></td><td class="desc">Install a NuGet package dependency</td></tr>
+          <tr><td><code>dotnet publish -c Release -r win-x64 --self-contained</code></td><td class="desc">Create standalone single-file binary with zero runtime prerequisites</td></tr>
+          <tr><td><code>dotnet test</code></td><td class="desc">Run xUnit / NUnit unit tests</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="card-icon"></span><span class="card-title">Core Base Class Library (BCL) Namespaces</span></div>
+    <div class="card-body">
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Namespace</th><th>What it provides</th></tr>
+          <tr><td><code>System</code></td><td class="desc">Object, String, Console, Math, Exception, Guid, DateTime</td></tr>
+          <tr><td><code>System.Collections.Generic</code></td><td class="desc">List&lt;T&gt;, Dictionary&lt;K,V&gt;, HashSet&lt;T&gt;, Queue&lt;T&gt;</td></tr>
+          <tr><td><code>System.Linq</code></td><td class="desc">Enumerable extension methods (Where, Select, OrderBy)</td></tr>
+          <tr><td><code>System.Threading.Tasks</code></td><td class="desc">Task, Task&lt;T&gt;, ValueTask, Parallel</td></tr>
+          <tr><td><code>System.Threading.Channels</code></td><td class="desc">Lock-free high-throughput pub-sub queues</td></tr>
+          <tr><td><code>System.Text.Json</code></td><td class="desc">High-performance UTF8 JSON serializer & AOT generators</td></tr>
+          <tr><td><code>System.Buffers</code></td><td class="desc">ArrayPool&lt;T&gt;, MemoryPool&lt;T&gt;, ReadOnlySequence&lt;T&gt;</td></tr>
+          <tr><td><code>System.IO</code></td><td class="desc">File, Directory, Path, Stream, FileStream</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<footer>
+  <p>C# Cheat Sheet — Baby to Enterprise / NASA &nbsp;|&nbsp; Modern .NET 8 / 9 &nbsp;|&nbsp; Run with <code style="color: var(--accent1); background: var(--bg3); padding: 2px 6px; border-radius: 4px;">dotnet run -c Release</code></p>
+</footer>
+
+<script>
+  document.getElementById("heroBadge").textContent    = CONFIG.heroBadge;
+  document.getElementById("heroTitle").textContent    = CONFIG.heroTitle;
+  document.getElementById("heroSubtitle").textContent = CONFIG.heroSubtitle;
+
+  CONFIG.pills.forEach(function (text, i) {
+    const el = document.getElementById("pill" + (i + 1));
+    if (el) el.textContent = text;
+  });
+
+  CONFIG.sections.forEach(function (sec, i) {
+    const n = i + 1;
+    const titleEl = document.getElementById("sec" + n + "Title");
+    const descEl  = document.getElementById("sec" + n + "Desc");
+    const labelEl = document.getElementById("sec" + n + "Label");
+    if (titleEl) titleEl.textContent = sec.title;
+    if (descEl)  descEl.textContent  = sec.desc;
+    if (labelEl) labelEl.textContent = sec.tag;
+  });
+</script>
+<script src="site.js"></script>
+
+</body>
+</html>
