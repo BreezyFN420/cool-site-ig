@@ -8,6 +8,14 @@ const CERT_DATA = {
       {
         "id": "core1",
         "label": "Core 1 (220-1101)",
+        "objectives": [
+          { "title": "Mobile devices", "weight": "13%", "summary": "Installing mobile hardware, configuring accessories and connectivity, and troubleshooting mobile devices." },
+          { "title": "Networking", "weight": "23%", "summary": "Understanding protocols, ports, wireless technologies, SOHO networks, IP addressing, VPNs, and networking tools." },
+          { "title": "Hardware", "weight": "25%", "summary": "Installing RAM, CPUs, storage, cables, connectors, motherboards, power supplies, cooling, and peripheral devices." },
+          { "title": "Virtualization and cloud computing", "weight": "11%", "summary": "Understanding virtual machines, hypervisors, desktop virtualization, and IaaS, PaaS, and SaaS cloud models." },
+          { "title": "Hardware and network troubleshooting", "weight": "28%", "summary": "Diagnosing hardware, network, and connectivity problems with tools such as multimeters, cable testers, and loopback plugs." }
+        ],
+        "objectivesUrl": "https://www.comptia.org/en-us/certifications/a/core-1-v15/",
         "exams": [
           {
             "title": "Practice Exam 1",
@@ -254,6 +262,13 @@ const CERT_DATA = {
       {
         "id": "core2",
         "label": "Core 2 (220-1102)",
+        "objectives": [
+          { "title": "Operating systems", "weight": "28%", "summary": "Installing, configuring, and supporting Windows, macOS, Linux, and mobile operating systems." },
+          { "title": "Security", "weight": "28%", "summary": "Applying security controls, account management, malware prevention, workstation security, and wireless security practices." },
+          { "title": "Software troubleshooting", "weight": "23%", "summary": "Troubleshooting operating system, application, malware, and support issues using a structured process." },
+          { "title": "Operational procedures", "weight": "21%", "summary": "Following change management, backup, safety, professionalism, documentation, and environmental procedures." }
+        ],
+        "objectivesUrl": "https://www.comptia.org/en-us/certifications/a/core-2-v15/",
         "exams": [
           {
             "title": "Practice Exam 5",
@@ -507,6 +522,14 @@ const CERT_DATA = {
       {
         "id": "main",
         "label": "SY0-701",
+        "objectives": [
+          { "title": "General security concepts", "weight": "12%", "summary": "Explaining security controls, fundamental concepts, change management, and cryptographic solutions." },
+          { "title": "Threats, vulnerabilities, and mitigations", "weight": "22%", "summary": "Analyzing threat actors, attack types, vulnerabilities, indicators, and mitigation techniques." },
+          { "title": "Security architecture", "weight": "18%", "summary": "Designing secure enterprise, cloud, application, data, and resilient infrastructure architectures." },
+          { "title": "Security operations", "weight": "28%", "summary": "Implementing identity, access, monitoring, incident response, vulnerability management, and automation practices." },
+          { "title": "Security program management and oversight", "weight": "20%", "summary": "Managing governance, risk, compliance, third-party risk, audits, and security awareness programs." }
+        ],
+        "objectivesUrl": "https://www.comptia.org/en-us/certifications/security/",
         "exams": [
           {
             "title": "Practice Exam 1",
@@ -980,6 +1003,14 @@ const CERT_DATA = {
       {
         "id": "main",
         "label": "N10-009",
+        "objectives": [
+          { "title": "Networking concepts", "weight": "23%", "summary": "Explaining networking models, protocols, addressing, traffic types, and modern network technologies." },
+          { "title": "Network implementation", "weight": "20%", "summary": "Implementing wired and wireless infrastructure, network devices, virtualization, and switching technologies." },
+          { "title": "Network operations", "weight": "19%", "summary": "Managing documentation, monitoring, high availability, disaster recovery, and network lifecycle operations." },
+          { "title": "Network security", "weight": "14%", "summary": "Applying network security concepts, attacks, segmentation, access controls, and secure infrastructure practices." },
+          { "title": "Network troubleshooting", "weight": "24%", "summary": "Using a systematic methodology and appropriate tools to diagnose wired, wireless, and performance issues." }
+        ],
+        "objectivesUrl": "https://www.comptia.org/en-us/certifications/network/",
         "exams": [
           {
             "title": "Practice Exam 1",

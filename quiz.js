@@ -75,6 +75,21 @@
       cert.groups.forEach(function (group) {
         html += '<div class="quiz-group">';
         html += '<div class="quiz-group-label">' + escapeHtml(group.label) + '</div>';
+        if (group.objectives && group.objectives.length) {
+          html += '<section class="quiz-objectives" aria-labelledby="objectives-' + escapeHtml(group.id) + '">';
+          html += '<div class="quiz-objectives-heading">';
+          html += '<h3 id="objectives-' + escapeHtml(group.id) + '">Exam objectives</h3>';
+          html += '<a href="' + escapeHtml(group.objectivesUrl) + '" target="_blank" rel="noopener">View official CompTIA objectives</a>';
+          html += '</div>';
+          html += '<div class="quiz-objectives-grid">';
+          group.objectives.forEach(function (objective) {
+            html += '<article class="quiz-objective">';
+            html += '<div class="quiz-objective-top"><h4>' + escapeHtml(objective.title) + '</h4><span>' + escapeHtml(objective.weight) + '</span></div>';
+            html += '<p>' + escapeHtml(objective.summary) + '</p>';
+            html += '</article>';
+          });
+          html += '</div></section>';
+        }
         html += '<div class="quiz-exam-grid">';
         getExamOptions(group).forEach(function (exam, idx) {
           const best = getBest(group.id, idx);
