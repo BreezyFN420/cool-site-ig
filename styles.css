@@ -687,6 +687,87 @@ body.theme-network {
   margin: 0 auto;
 }
 
+.study-resources {
+  max-width: 900px;
+  margin: 8px auto 42px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border2);
+}
+.study-resources-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+.section-kicker {
+  color: var(--accent1);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.study-resources h2 {
+  font-size: 1.35rem;
+  margin: 5px 0;
+}
+.study-resources-heading p {
+  color: var(--muted);
+  font-size: .84rem;
+  line-height: 1.5;
+  margin: 0;
+}
+.study-resources-note {
+  border: 1px solid var(--border2);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: .7rem;
+  padding: 6px 10px;
+  white-space: nowrap;
+}
+.study-resource-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.study-resource-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 18px;
+  text-decoration: none;
+  transition: border-color .2s, transform .2s;
+}
+.study-resource-card:hover {
+  border-color: var(--accent1);
+  transform: translateY(-2px);
+}
+.study-resource-type {
+  color: var(--muted);
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.study-resource-title {
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 800;
+}
+.study-resource-description {
+  color: var(--text-dim);
+  font-size: .78rem;
+  line-height: 1.5;
+}
+.study-resource-link {
+  color: var(--accent1);
+  font-size: .78rem;
+  font-weight: 800;
+  margin-top: auto;
+}
+
 .quiz-hub-intro {
   text-align: center;
   margin-bottom: 36px;
@@ -985,6 +1066,8 @@ body.theme-network {
 
 @media (max-width: 600px) {
   .quiz-results-score { font-size: 2rem; }
+  .study-resources-heading { flex-direction: column; }
+  .study-resource-grid { grid-template-columns: 1fr; }
   .quiz-objectives-heading { align-items: flex-start; flex-direction: column; gap: 6px; }
   .quiz-exam-grid { grid-template-columns: 1fr; }
 }
