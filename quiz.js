@@ -69,14 +69,14 @@
       let html = '';
       html += '<div class="quiz-hub-intro">';
       html += '<h2>' + escapeHtml(cert.name) + ' Practice Exams</h2>';
-      html += '<p>' + escapeHtml(cert.description) + '</p>';
+      html += '<p>' + escapeHtml(cert.description) + ' Each option below combines every question in that exam domain into one full-length practice run.</p>';
       html += '</div>';
 
       cert.groups.forEach(function (group) {
         html += '<div class="quiz-group">';
         html += '<div class="quiz-group-label">' + escapeHtml(group.label) + '</div>';
         html += '<div class="quiz-exam-grid">';
-        group.exams.forEach(function (exam, idx) {
+        getExamOptions(group).forEach(function (exam, idx) {
           const best = getBest(group.id, idx);
           const bestLine = best ? '<div class="quiz-best">Best score: ' + best.best + '%</div>' : '<div class="quiz-best quiz-best-empty">Not attempted yet</div>';
           html += '<div class="quiz-exam-card">';
@@ -84,6 +84,7 @@
           html += '<div class="quiz-exam-title">' + escapeHtml(exam.title) + '</div>';
           html += '<div class="quiz-exam-count">' + exam.questions.length + ' questions</div>';
           html += '</div>';
+          html += '<div class="quiz-exam-description">' + escapeHtml(exam.description) + '</div>';
           html += bestLine;
           html += '<div class="quiz-exam-actions">';
           html += '<button type="button" class="quiz-btn quiz-btn-primary" data-action="start" data-group="' + group.id + '" data-exam="' + idx + '">Start Exam</button>';
@@ -108,10 +109,31 @@
       });
     }
 
+    function getExamOptions(group) {
+      return [{
+        title: group.label + ' Full Practice Exam',
+        description: 'All available questions combined for a longer, realistic practice session.',
+        questions: group.exams.reduce(function (allQuestions, exam) {
+          return allQuestions.concat(exam.questions);
+        }, [])
+      }];
+    }
+
     function findExam(groupId, examIndex) {
       const group = cert.groups.filter(function (g) { return g.id === groupId; })[0];
       if (!group) return null;
-      return group.exams[examIndex] || null;
+      return getExamOptions(group)[examIndex] || null;
+    }
+
+    function shuffleQuestions(questions) {
+      const shuffled = questions.slice();
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temporary = shuffled[i];
+        shuffled[i] = shuffled[j];
+        shuffled[j] = temporary;
+      }
+      return shuffled;
     }
 
     function startExam(groupId, examIndex) {
@@ -119,8 +141,8 @@
       if (!exam) return;
       state.groupId = groupId;
       state.examIndex = examIndex;
-      state.exam = exam;
-      state.answers = new Array(exam.questions.length).fill(-1);
+      state.exam = Object.assign({}, exam, { questions: shuffleQuestions(exam.questions) });
+      state.answers = new Array(state.exam.questions.length).fill(-1);
       state.current = 0;
       state.view = 'exam';
       render();
