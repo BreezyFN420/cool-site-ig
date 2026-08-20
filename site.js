@@ -74,7 +74,7 @@ function initSearch() {
   const resultsBar = document.getElementById('searchResultsBar');
   const resultsCount = document.getElementById('searchResultsCount');
   const clearBtn = document.getElementById('searchClearBtn');
-  const cards = Array.from(document.querySelectorAll('.grid .card, .compare-card'));
+  const cards = Array.from(document.querySelectorAll('.grid .card'));
   const sectionHeaders = Array.from(document.querySelectorAll('.section-header'));
 
   // Ensure no-results card exists
